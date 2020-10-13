@@ -1,0 +1,20 @@
+{
+    "name": "springdevs/simple-booking",
+    "description": "WooCommerce Simple Booking Features",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [{
+        "name": "SpringDevs",
+        "email": "contact@springdevs.com"
+    }],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SpringDevs\\WcBooking\\": "includes/"
+        },
+        "files": [
+            "includes/functions.php"
+        ]
+    }
+}

@@ -1,0 +1,46 @@
+.faq-label-card {
+    min-width: 100%;
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.custompft-form-items {
+    background: #8080802e;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+.custompft-form {
+    display: grid;
+    line-height: 35px;
+    margin-bottom: 10px;
+}
+
+.custompft-form>textarea {
+    height: 100px;
+}
+
+.custompft-close {
+    margin-bottom: 10px;
+}
+
+.custompft-close>span {
+    float: right;
+    background: red;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter,
+.fade-leave-to
+
+/* .fade-leave-active below version 2.1.8 */
+    {
+    opacity: 0;
+}

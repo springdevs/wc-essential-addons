@@ -1,0 +1,20 @@
+{
+    "name": "springdevs/product-faq-tab",
+    "description": "Woocommerce Product Custom Faq",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [{
+        "name": "springdevs",
+        "email": "contact@springdevs.com"
+    }],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "springdevs\\custompft\\": "includes/"
+        },
+        "files": [
+            "includes/functions.php"
+        ]
+    }
+}

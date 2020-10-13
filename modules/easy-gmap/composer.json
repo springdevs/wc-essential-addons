@@ -1,0 +1,20 @@
+{
+    "name": "springdevs/easy-gmap",
+    "description": "Easy Google Map Intregations",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [{
+        "name": "springdevs",
+        "email": "contact@springdevs.com"
+    }],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "springdevs\\EasyGmap\\": "includes/"
+        },
+        "files": [
+            "includes/functions.php"
+        ]
+    }
+}

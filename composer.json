@@ -1,0 +1,20 @@
+{
+    "name": "springdevs/wc-essential-addons",
+    "description": "Essential Addons for WooCommerce",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [{
+        "name": "SpringDevs",
+        "email": "contact@spingdevs.net"
+    }],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SpringDevs\\WcEssentialAddons\\": "includes/"
+        },
+        "files": [
+            "includes/functions.php"
+        ]
+    }
+}

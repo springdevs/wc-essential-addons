@@ -1,0 +1,20 @@
+{
+  "name": "springdevs/woo-advance-coupon",
+  "description": "WooCommerce Coupon Features",
+  "type": "wordpress-plugin",
+  "license": "GPLv2",
+  "authors": [{
+    "name": "SpringDevs",
+    "email": "contact@springdevs.com"
+  }],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "springdevs\\WooAdvanceCoupon\\": "includes/"
+    },
+    "files": [
+      "includes/functions.php"
+    ]
+  }
+}

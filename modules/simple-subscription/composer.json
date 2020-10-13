@@ -1,0 +1,20 @@
+{
+    "name": "springdevs/simple-subscription",
+    "description": "woocommerce simple subscription",
+    "type": "wordpress-plugin",
+    "license": "GPLv2",
+    "authors": [{
+        "name": "https://springdevs.com/",
+        "email": "contact@springdevs.com"
+    }],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "SpringDevs\\WcSubscription\\": "includes/"
+        },
+        "files": [
+            "includes/functions.php"
+        ]
+    }
+}
