@@ -94,8 +94,8 @@ class Products
 
     public function filter_add_to_cart_validation($passed, $product_id, $quantity, $variation_id = 0)
     {
-        $passed = $this->cartProductCheck($product_id);
         $book_meta = get_post_meta($product_id, "bookable_product_meta", true);
+        $passed = $this->cartProductCheck($book_meta);
         if (!(!empty($book_meta) && $book_meta["enable_booking"]))
             return $passed;
 
@@ -109,21 +109,22 @@ class Products
         return $passed;
     }
 
-    public function cartProductCheck($product_id)
+    public function cartProductCheck($current_product_meta)
     {
         $cartProductStatus = true;
         $cartProducts = WC()->cart->get_cart();
         foreach ($cartProducts as $key => $values) {
             $_product = $values['data'];
             $post_meta = get_post_meta($_product->get_id(), "bookable_product_meta", true);
-            if (!empty($post_meta) && $post_meta["enable_booking"]) :
-                $curren_post_meta = get_post_meta($_product->get_id(), "bookable_product_meta", true);
-                if ($post_meta["bookable_require_conf"] && !empty($curren_post_meta) && $curren_post_meta["enable_booking"]) :
-                    if (!$curren_post_meta["bookable_require_conf"]) :
-                        $cartProductStatus = false;
+            if (!empty($post_meta) && $post_meta["enable_booking"] && $post_meta["bookable_require_conf"]) :
+                $cartProductStatus = false;
+                if (!empty($current_product_meta) && $current_product_meta["enable_booking"]) :
+                    if ($current_product_meta["bookable_require_conf"]) :
+                        $cartProductStatus = true;
                     endif;
                 endif;
-                if (!(!empty($curren_post_meta) && $curren_post_meta["enable_booking"]) && $post_meta["bookable_require_conf"]) :
+            else :
+                if (!empty($current_product_meta) && $current_product_meta["enable_booking"] && $current_product_meta["bookable_require_conf"]) :
                     $cartProductStatus = false;
                 endif;
             endif;
