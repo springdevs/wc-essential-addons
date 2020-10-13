@@ -37,7 +37,7 @@ class Order
         $order = new \WC_Order($order_id);
         $post_status = "active";
 
-        switch ($order->status) {
+        switch ($order->get_status()) {
             case "pending";
                 $post_status = "pending";
                 break;
@@ -67,8 +67,8 @@ class Order
                 break;
         }
         $order_meta = get_post_meta($order_id, "_order_subscrpt_data", true);
-        if (empty($order_meta) && is_array($order_meta) && !$order_meta['status']) return;
-
+        if (empty($order_meta) || !is_array($order_meta)) return;
+        if (!$order_meta['status']) return;
         foreach ($order_meta['posts'] as $post) {
             if (get_the_title($post) != "") {
                 wp_update_post([

@@ -44,15 +44,12 @@ class Product
     public function subscription_forms()
     {
         $timing_types = [
-            ["label" => __("days", "sdevs_wea"), "value" => "days"],
-            ["label" => __("weeks", "sdevs_wea"), "value" => "weeks"],
-            ["label" => __("months", "sdevs_wea"), "value" => "months"],
-            ["label" => __("years", "sdevs_wea"), "value" => "years"],
+            "days" => "Daily",
+            "weeks" => "Weekly",
+            "months" => "Monthly",
+            "years" => "Yealy"
         ];
-        $subscrpt_time = 1;
         $subscrpt_timing = null;
-        $subscrpt_trial_time = null;
-        $subscrpt_trial_timing = null;
         $subscrpt_cart_txt = "subscribe";
         $subscrpt_user_cancell = "yes";
 
@@ -60,10 +57,7 @@ class Product
         if ($screen->parent_base == "edit") {
             $post_meta = get_post_meta(get_the_ID(), 'subscrpt_general', true);
             if (!empty($post_meta) && is_array($post_meta)) {
-                $subscrpt_time = $post_meta['time'];
                 $subscrpt_timing = $post_meta["type"];
-                $subscrpt_trial_time = $post_meta["trial_time"];
-                $subscrpt_trial_timing = $post_meta["trial_type"];
                 $subscrpt_cart_txt = $post_meta["cart_txt"];
                 $subscrpt_user_cancell = $post_meta['user_cancell'];
             }
@@ -71,27 +65,17 @@ class Product
 ?>
         <div class="option_group show_if_subscription" style="padding: 10px;">
             <strong style="margin: 10px;"><?php _e("Subscription Settings", "sdevs_wea"); ?></strong>
-            <p class="form-field subscrpt_time_field">
-                <label for="subscrpt_time"><?php _e("Users will pay every", "sdevs_wea"); ?></label>
-                <input type="number" class="short" style="width: 48%;margin-right: 5px;" name="subscrpt_time" id="subscrpt_time" value="<?php echo $subscrpt_time; ?>" min="1" />
-                <select style="width: 48%;" name="subscrpt_timing" id="subscrpt_timing">
-                    <?php foreach ($timing_types as $timing_type) : ?>
-                        <option value="<?php echo $timing_type["value"]; ?>" <?php if ($subscrpt_timing == $timing_type["value"]) echo "selected"; ?>><?php echo $timing_type["label"]; ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <small class="description"><?php _e('Set the length of each recurring subscription period to daily, weekly, monthly or annually.', 'sdevs_wea'); ?></small>
-            </p>
-            <p class="form-field subscrpt_trial_field">
-                <label for="subscrpt_trial_time"><?php _e("Offer a free trial of", "sdevs_wea"); ?></label>
-                <input type="number" class="short" style="width: 48%;margin-right: 5px;" name="subscrpt_trial_time" id="subscrpt_trial_time" value="<?php echo $subscrpt_trial_time; ?>" />
-                <select style="width: 48%;" name="subscrpt_trial_timing" id="subscrpt_trial_timing">
-                    <?php foreach ($timing_types as $timing_type) : ?>
-                        <option value="<?php echo $timing_type["value"]; ?>" <?php if ($subscrpt_trial_timing == $timing_type["value"]) echo "selected"; ?>><?php echo $timing_type["label"]; ?></option>
-                    <?php endforeach; ?>
-                </select>
-                <small class="description"><?php _e('You can offer a free trial of this subscription. In this way the user can purchase the subscription and will pay when the trial period expires.', 'sdevs_wea'); ?></small>
-            </p>
             <?php
+
+            woocommerce_wp_select([
+                "id" => "subscrpt_timing",
+                "label" => __('Users will pay', 'sdevs_wea'),
+                "value" => $subscrpt_timing,
+                "options" => $timing_types,
+                "description" => __('Set the length of each recurring subscription period to daily, weekly, monthly or annually.', 'sdevs_wea'),
+                "desc_tip" => true
+            ]);
+
             woocommerce_wp_text_input([
                 "id" => "subscrpt_cart_txt",
                 "label" => __('Add to Cart Text', 'sdevs_wea'),
@@ -121,10 +105,10 @@ class Product
     {
         if (!isset($_POST['subscrpt_time'])) return;
         $subscrpt_enable = $_POST["subscrpt_enable"] ? true : false;
-        $subscrpt_time = sanitize_text_field($_POST["subscrpt_time"]);
+        $subscrpt_time = 1;
         $subscrpt_timing = sanitize_text_field($_POST["subscrpt_timing"]);
-        $subscrpt_trial_time = sanitize_text_field($_POST["subscrpt_trial_time"]);
-        $subscrpt_trial_timing = sanitize_text_field($_POST["subscrpt_trial_timing"]);
+        $subscrpt_trial_time = null;
+        $subscrpt_trial_timing = null;
         $subscrpt_cart_txt = sanitize_text_field($_POST["subscrpt_cart_txt"]);
         $subscrpt_user_cancell = sanitize_text_field($_POST["subscrpt_user_cancell"]);
         $data = [
