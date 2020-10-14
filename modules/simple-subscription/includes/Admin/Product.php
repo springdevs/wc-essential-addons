@@ -103,7 +103,7 @@ class Product
 
     public function save_subscrpt_data($post_id)
     {
-        if (!isset($_POST['subscrpt_time'])) return;
+        if (!isset($_POST['subscrpt_enable'])) return;
         $subscrpt_enable = $_POST["subscrpt_enable"] ? true : false;
         $subscrpt_time = 1;
         $subscrpt_timing = sanitize_text_field($_POST["subscrpt_timing"]);
