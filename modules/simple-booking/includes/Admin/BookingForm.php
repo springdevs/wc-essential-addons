@@ -10,60 +10,22 @@ class BookingForm
 {
     public function __construct()
     {
-        add_action('add_meta_boxes', array($this, "add_meta_boxes"));
-        add_action('admin_footer', array($this, 'enable_js_on_wc_product'));
+        add_filter('woocommerce_product_data_tabs', array($this, 'custom_data_tabs'));
+        add_filter('woocommerce_product_data_panels', array($this, 'custom_tab_data'));
         add_action('save_post_product', array($this, 'save_bookable_settings'));
     }
 
-    public function add_meta_boxes()
+    public function custom_data_tabs($tabs)
     {
-        add_meta_box(
-            'product_bookable_meta',
-            'Booking Options',
-            [$this, 'product_bookable_meta'],
-            'product',
-            'normal',
-            'default'
+        $tabs['sdevs_booking'] = array(
+            'label'     => __('Booking', 'sdevs_wea'),
+            'class' => 'show_if_simple',
+            'target'     => 'sdevs_booking_data'
         );
+        return $tabs;
     }
 
-    public function enable_js_on_wc_product()
-    {
-        global $post;
-        if ($post == null || "product" != $post->post_type) return;
-        $pro_version = get_option("sdevs_booking_pro");
-        if (!$pro_version) :
-?>
-            <script type="text/javascript">
-                jQuery(document).ready(function() {
-                    let selector = jQuery("#product-type");
-                    selector.change(function() {
-                        if (selector.val() !== "simple") {
-                            jQuery("#product_bookable_meta").hide();
-                        } else {
-                            jQuery("#product_bookable_meta").show();
-                        }
-                    });
-                    if (selector.val() !== "simple") {
-                        jQuery("#product_bookable_meta").hide();
-                    } else {
-                        jQuery("#product_bookable_meta").show();
-                    }
-                });
-            </script>
-        <?php
-        else :
-        ?>
-            <script type="text/javascript">
-                jQuery(document).ready(function() {
-                    jQuery("#product_bookable_meta").show();
-                });
-            </script>
-        <?php
-        endif;
-    }
-
-    public function product_bookable_meta()
+    public function custom_tab_data()
     {
         $screen = get_current_screen();
         if ($screen->parent_base == "edit") :
@@ -75,11 +37,11 @@ class BookingForm
                 $display_end_time = "";
                 $bookable_require_conf = false;
             else :
-                $enable_booking = $post_meta["enable_booking"];
+                $enable_booking = $post_meta["enable_booking"] ? "yes" : false;
                 $display_next_days = $post_meta["display_next_days"];
                 $display_start_time = $post_meta["display_start_time"];
                 $display_end_time = $post_meta["display_end_time"];
-                $bookable_require_conf = $post_meta["bookable_require_conf"];
+                $bookable_require_conf = $post_meta["bookable_require_conf"] ? "yes" : false;
             endif;
         else :
             $enable_booking = false;
@@ -88,31 +50,46 @@ class BookingForm
             $display_end_time = "";
             $bookable_require_conf = false;
         endif;
-        ?>
-        <table class="form-table">
-            <tbody>
-                <tr>
-                    <th scope="row"><label for="enable_booking">Enable Booking</label></th>
-                    <td><input type="checkbox" name="enable_booking" id="enable_booking" value="yes" <?php if ($enable_booking) echo "checked"; ?> /></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="display_next_days">Display Next Days</label></th>
-                    <td><input type="number" name="display_next_days" id="display_next_days" placeholder="Enter Number" value="<?php echo $display_next_days; ?>" /></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="display_start_time">Display Start Time</label></th>
-                    <td><input type="time" name="display_start_time" id="display_start_time" value="<?php echo $display_start_time; ?>" /></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="display_end_time">Display End Time</label></th>
-                    <td><input type="time" name="display_end_time" id="display_end_time" value="<?php echo $display_end_time; ?>" /></td>
-                </tr>
-                <tr>
-                    <th scope="row"><label for="bookable_require_conf">Require Confirmations</label></th>
-                    <td><input type="checkbox" name="bookable_require_conf" value="yes" id="bookable_require_conf" <?php if ($bookable_require_conf) echo "checked"; ?> /></td>
-                </tr>
-            </tbody>
-        </table>
+?>
+        <div id="sdevs_booking_data" class="panel show_if_simple woocommerce_options_panel">
+            <?php
+            woocommerce_wp_checkbox([
+                "id" => "enable_booking",
+                "label" => __("Enable Booking", "sdevs_wea"),
+                "value" => "yes",
+                "cbvalue" => $enable_booking
+            ]);
+
+            woocommerce_wp_text_input([
+                "id" => "display_next_days",
+                "label" => __('Display Next Days', 'sdevs_wea'),
+                "type" => "number",
+                "value" => $display_next_days
+            ]);
+
+            woocommerce_wp_text_input([
+                "id" => "display_start_time",
+                "label" => __('Display Start Time', 'sdevs_wea'),
+                "type" => "time",
+                "value" => $display_start_time
+            ]);
+
+            woocommerce_wp_text_input([
+                "id" => "display_end_time",
+                "label" => __('Display End Time', 'sdevs_wea'),
+                "type" => "time",
+                "value" => $display_end_time
+            ]);
+
+            woocommerce_wp_checkbox([
+                "id" => "bookable_require_conf",
+                "label" => __("Require Confirmations", "sdevs_wea"),
+                "value" => "yes",
+                "cbvalue" => $bookable_require_conf
+            ]);
+
+            ?>
+        </div>
 <?php
     }
 
