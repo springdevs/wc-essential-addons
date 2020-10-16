@@ -176,31 +176,10 @@ class Subscriptions
 
     public function subscrpt_order_activities()
     {
-        global $wpdb;
-        $post_id = get_the_ID();
-        $comments = $wpdb->get_results(
-            "SELECT * FROM {$wpdb->comments} WHERE comment_post_ID = {$post_id} ORDER BY comment_ID DESC",
-            ARRAY_A
-        );
     ?>
-        <table class="widefat striped">
-            <thead>
-                <tr>
-                    <th><?php _e('Activity', 'sdevs_wea'); ?></th>
-                    <th><?php _e('Description', 'sdevs_wea'); ?></th>
-                    <th><?php _e('Date', 'sdevs_wea'); ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($comments as $comment) : ?>
-                    <tr>
-                        <td><?php echo get_comment_meta($comment['comment_ID'], 'subscrpt_activity', true); ?></td>
-                        <td><?php echo $comment['comment_content']; ?></td>
-                        <td><?php echo get_comment_date('h:i a - F d, Y', $comment['comment_ID']); ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <a href="https://springdevs.com" target="_blank">
+            <img style="width: 100%;" src="<?php echo WCSUBSCRIPTION_ASSETS_ASSETS . '/images/subscrpt-ads.png'; ?>" />
+        </a>
     <?php
     }
 
