@@ -3,7 +3,7 @@
 Plugin Name: Missing Addons for WooCommerce
 Plugin URI: https://springdevs.com/wc-essential-addons
 Description: Supercharge your WooCommerce powered store!
-Version: 1.0.1
+Version: 1.0.2
 Author: SpringDevs
 Author URI: https://springdevs.com/
 License: GPLv2
@@ -58,7 +58,7 @@ final class sdevs_wea_Main
      *
      * @var string
      */
-    const version = '1.0.1';
+    const version = '1.0.2';
 
     /**
      * Holds various class instances
@@ -76,13 +76,10 @@ final class sdevs_wea_Main
     private function __construct()
     {
         $this->define_constants();
-
         register_activation_hook(__FILE__, [$this, 'activate']);
         register_deactivation_hook(__FILE__, [$this, 'deactivate']);
-
+        $this->run_first();
         add_action('plugins_loaded', [$this, 'init_plugin']);
-        $this->setModules();
-        $this->getModules();
     }
 
     /**
@@ -154,9 +151,18 @@ final class sdevs_wea_Main
      */
     public function init_plugin()
     {
+        $this->checkPlugin();
         $this->includes();
         $this->init_hooks();
-        $this->checkPlugin();
+    }
+
+    /**
+     * run these code always first
+     */
+    public function run_first()
+    {
+        new \SpringDevs\WcEssentialAddons\Update();
+        $this->getModules();
     }
 
     /**
@@ -235,6 +241,16 @@ final class sdevs_wea_Main
 
         // Localize our plugin
         add_action('init', [$this, 'localization_setup']);
+
+        add_action('init', [$this, 'modules_setup']);
+    }
+
+    /**
+     * Modules setup
+     **/
+    public function modules_setup()
+    {
+        $this->setModules();
     }
 
     /**
@@ -243,21 +259,44 @@ final class sdevs_wea_Main
     public function setModules()
     {
         $modules = [
-            "Woo-Advanced-Coupon" => ["woo-advance-coupon.php", "Woo Advanced Coupon", "Enhance your coupon options - create gift certificates, store credit, coupons based on purchases and more.", "sdwac_coupon_main"],
-            "simple-booking" => ["simple-booking.php", "Woo Simple Booking", "Save time and effort by letting customers book at their convenience", "Sdevs_Wc_Booking"],
-            "simple-subscription" => ["simple-subscription.php", "Woo Simple Subscription", "create and manage products with recurring payments", "Sdevs_Wc_Subscription"],
-            "easy-gmap" => ["easy-gmap.php", "Easy Gmap", "The easiest to use Google maps plugin! Add a customized Google map to your WordPress posts and/or pages", "Sdevs_Easy_Gmap"],
-            "product-faq-tab" => ["product-faq-tab.php", "Product Faq Tab", "Extends WooCommerce allow you to display Frequently Asked Questions (FAQ) about the product.", "Sdevs_Custompft_Main"],
+            "Woo-Advanced-Coupon" => [
+                "file" => "woo-advance-coupon.php",
+                "name" => "Woo Advanced Coupon",
+                "desc" => __("Enhance your coupon options - create gift certificates, store credit, coupons based on purchases and more.", "sdevs_wea"),
+                "class" => "sdwac_coupon_main",
+                "file_path" =>  __DIR__ . '/modules/Woo-Advanced-Coupon/woo-advance-coupon.php'
+            ],
+            "simple-booking" => [
+                "file" => "simple-booking.php",
+                "name" => "Woo Simple Booking",
+                "desc" => __("Save time and effort by letting customers book at their convenience", "sdevs_wea"),
+                "class" => "Sdevs_Wc_Booking",
+                "file_path" => __DIR__ . '/modules/simple-booking/simple-booking.php'
+            ],
+            "simple-subscription" => [
+                "file" => "simple-subscription.php",
+                "name" => "Woo Simple Subscription",
+                "desc" => __("create and manage products with recurring payments", "sdevs_wea"),
+                "class" => "Sdevs_Wc_Subscription",
+                "file_path" => __DIR__ . '/modules/simple-subscription/simple-subscription.php'
+            ],
+            "easy-gmap" => [
+                "file" => "easy-gmap.php",
+                "name" => "Easy Gmap",
+                "desc" => __("The easiest to use Google maps plugin! Add a customized Google map to your WordPress posts and/or pages", "sdevs_wea"),
+                "class" => "Sdevs_Easy_Gmap",
+                "file_path" => __DIR__ . '/modules/easy-gmap/easy-gmap.php'
+            ],
+            "product-faq-tab" => [
+                "file" => "product-faq-tab.php",
+                "name" => "Product Faq Tab",
+                "desc" => __("Extends WooCommerce allow you to display Frequently Asked Questions (FAQ) about the product.", "sdevs_wea"),
+                "class" => "Sdevs_Custompft_Main",
+                "file_path" => __DIR__ . '/modules/product-faq-tab/product-faq-tab.php'
+            ],
         ];
-        foreach ($modules as $key => $value) {
-            $file_path = __DIR__ . '/modules/' . $key . '/' . $value[0];
-            if (!file_exists($file_path) || class_exists($value[3])) {
-                unset($modules[$key]);
-            }
-        }
-        do_action("register_sdevs_wea_modules", $modules);
-        update_option("sdevs_wea_modules", $modules);
-        return;
+        $filter_modules = apply_filters("sdevs_wma_modules", $modules);
+        update_option("sdevs_wea_modules", $filter_modules);
     }
 
     /**
@@ -265,15 +304,12 @@ final class sdevs_wea_Main
      **/
     public function getModules()
     {
-        $active_modules = get_option("sdevs_wea_activated_modules");
-        if (!$active_modules) {
-            add_option("sdevs_wea_activated_modules", []);
-            $active_modules = get_option("sdevs_wea_activated_modules");
-        }
+        $active_modules = get_option("sdevs_wea_activated_modules", []);
         foreach ($active_modules as $key => $value) {
-            require_once __DIR__ . '/modules/' . $key . '/' . $value[0];
+            if (file_exists($value['file_path'])) {
+                include_once $value['file_path'];
+            }
         }
-        return;
     }
 
     /**

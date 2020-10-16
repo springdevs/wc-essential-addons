@@ -73,8 +73,8 @@ class Menu
      */
     public function plugin_page()
     {
-        $modules = get_option("sdevs_wea_modules");
-        $active_modules = get_option("sdevs_wea_activated_modules");
+        $modules = get_option("sdevs_wea_modules", []);
+        $active_modules = get_option("sdevs_wea_activated_modules", []);
 ?>
         <div class="wrap">
             <div class="card" style="max-width: 100%;">
@@ -83,15 +83,17 @@ class Menu
                 <div class="sdwac_addon_lists">
                     <?php
                     foreach ($modules as $key => $value) :
+                        $module_path = SDEVS_WEA_ASSETS_URL . "/modules/" . $key;
+                        $filter_module_path = apply_filters('sdevs_wma_module_asset_path', $module_path, $key, $value);
                     ?>
                         <div class="card sdwac_addon_item">
-                            <img src="<?php echo SDEVS_WEA_ASSETS_URL . "/modules/" . $key . "/icon.png"; ?>" alt="">
-                            <h3><?php echo $value[1]; ?></h3>
-                            <p><?php _e($value[2], "sdevs_wea") ?></p>
+                            <img src="<?php echo $filter_module_path . "/icon.png"; ?>" alt="">
+                            <h3><?php echo $value['name']; ?></h3>
+                            <p><?php echo $value['desc']; ?></p>
                             <?php if (array_key_exists($key, $active_modules)) : ?>
-                                <a href="admin.php?page=springdevs-modules&modules_deactivate=<?php echo $key; ?>" class="button-secondary">Deactivate</a>
+                                <a href="admin.php?page=springdevs-modules&modules_deactivate=<?php echo $key; ?>" class="button-secondary"><?php _e('Deactivate', 'sdevs_wea'); ?></a>
                             <?php else : ?>
-                                <a href="admin.php?page=springdevs-modules&modules_activate=<?php echo $key; ?>" class="button-primary">Activate</a>
+                                <a href="admin.php?page=springdevs-modules&modules_activate=<?php echo $key; ?>" class="button-primary"><?php _e('Activate', 'sdevs_wea'); ?></a>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
@@ -107,8 +109,12 @@ class Menu
         $active_modules = get_option("sdevs_wea_activated_modules");
         foreach ($modules as $key => $value) {
             if ($key == $req_addon) {
-                require_once SDEVS_WEA_ASSETS_PATH . "/modules/" . $key . "/requirements.php";
-                $active_modules[$key] = $value;
+                $module_path = SDEVS_WEA_ASSETS_PATH . "/modules/" . $key;
+                $filter_module_path = apply_filters('sdevs_wma_module_path', $module_path, $key, $value);
+                if (file_exists($filter_module_path)) {
+                    require_once $filter_module_path . "/requirements.php";
+                    $active_modules[$key] = $value;
+                }
             }
         }
         update_option("sdevs_wea_activated_modules", $active_modules);
@@ -121,7 +127,9 @@ class Menu
         $active_modules = get_option("sdevs_wea_activated_modules");
         foreach ($modules as $key => $value) {
             if ($key == $req_addon) {
-                $uninstall_file = SDEVS_WEA_ASSETS_PATH . "/modules/" . $key . "/uninstall.php";
+                $module_path = SDEVS_WEA_ASSETS_PATH . "/modules/" . $key;
+                $filter_module_path = apply_filters('sdevs_wma_module_path', $module_path, $key, $value);
+                $uninstall_file = $filter_module_path . "/uninstall.php";
                 if (file_exists($uninstall_file)) require_once $uninstall_file;
                 unset($active_modules[$key]);
             }

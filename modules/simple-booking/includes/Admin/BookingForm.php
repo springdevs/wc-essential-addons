@@ -17,9 +17,10 @@ class BookingForm
 
     public function custom_data_tabs($tabs)
     {
+        $class = apply_filters('sdevs_booking_product_data_class', 'show_if_simple');
         $tabs['sdevs_booking'] = array(
             'label'     => __('Booking', 'sdevs_wea'),
-            'class' => 'show_if_simple',
+            'class' => $class,
             'target'     => 'sdevs_booking_data'
         );
         return $tabs;
@@ -50,8 +51,9 @@ class BookingForm
             $display_end_time = "";
             $bookable_require_conf = false;
         endif;
+        $class = apply_filters('sdevs_booking_product_data_class', 'show_if_simple');
 ?>
-        <div id="sdevs_booking_data" class="panel show_if_simple woocommerce_options_panel">
+        <div id="sdevs_booking_data" class="panel woocommerce_options_panel <?php echo $class; ?>">
             <?php
             woocommerce_wp_checkbox([
                 "id" => "enable_booking",
