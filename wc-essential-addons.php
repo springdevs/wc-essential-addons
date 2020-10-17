@@ -260,35 +260,30 @@ final class sdevs_wea_Main
     {
         $modules = [
             "Woo-Advanced-Coupon" => [
-                "file" => "woo-advance-coupon.php",
                 "name" => "Woo Advanced Coupon",
                 "desc" => __("Enhance your coupon options - create gift certificates, store credit, coupons based on purchases and more.", "sdevs_wea"),
                 "class" => "sdwac_coupon_main",
                 "file_path" =>  __DIR__ . '/modules/Woo-Advanced-Coupon/woo-advance-coupon.php'
             ],
             "simple-booking" => [
-                "file" => "simple-booking.php",
                 "name" => "Woo Simple Booking",
                 "desc" => __("Save time and effort by letting customers book at their convenience", "sdevs_wea"),
                 "class" => "Sdevs_Wc_Booking",
                 "file_path" => __DIR__ . '/modules/simple-booking/simple-booking.php'
             ],
             "simple-subscription" => [
-                "file" => "simple-subscription.php",
                 "name" => "Woo Simple Subscription",
                 "desc" => __("create and manage products with recurring payments", "sdevs_wea"),
                 "class" => "Sdevs_Wc_Subscription",
                 "file_path" => __DIR__ . '/modules/simple-subscription/simple-subscription.php'
             ],
             "easy-gmap" => [
-                "file" => "easy-gmap.php",
                 "name" => "Easy Gmap",
                 "desc" => __("The easiest to use Google maps plugin! Add a customized Google map to your WordPress posts and/or pages", "sdevs_wea"),
                 "class" => "Sdevs_Easy_Gmap",
                 "file_path" => __DIR__ . '/modules/easy-gmap/easy-gmap.php'
             ],
             "product-faq-tab" => [
-                "file" => "product-faq-tab.php",
                 "name" => "Product Faq Tab",
                 "desc" => __("Extends WooCommerce allow you to display Frequently Asked Questions (FAQ) about the product.", "sdevs_wea"),
                 "class" => "Sdevs_Custompft_Main",
