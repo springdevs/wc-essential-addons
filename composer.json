@@ -1,6 +1,6 @@
 {
     "name": "springdevs/wc-essential-addons",
-    "description": "Essential Addons for WooCommerce",
+    "description": "Missing Addons for WooCommerce",
     "type": "wordpress-plugin",
     "license": "GPLv2",
     "authors": [{

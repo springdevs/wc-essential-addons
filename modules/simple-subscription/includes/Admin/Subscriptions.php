@@ -171,16 +171,22 @@ class Subscriptions
                 <?php endforeach; ?>
             </tbody>
         </table>
-    <?php
+        <?php
     }
 
     public function subscrpt_order_activities()
     {
-    ?>
-        <a href="https://springdevs.com" target="_blank">
-            <img style="width: 100%;" src="<?php echo WCSUBSCRIPTION_ASSETS_ASSETS . '/images/subscrpt-ads.png'; ?>" />
-        </a>
-    <?php
+        if (function_exists('sdevs_is_pro_module_activate')) :
+            if (sdevs_is_pro_module_activate('subscription-pro')) :
+                do_action('subscrpt_order_activities', get_the_ID());
+            else :
+        ?>
+                <a href="https://springdevs.com" target="_blank">
+                    <img style="width: 100%;" src="<?php echo WCSUBSCRIPTION_ASSETS_ASSETS . '/images/subscrpt-ads.png'; ?>" />
+                </a>
+        <?php
+            endif;
+        endif;
     }
 
     public function subscrpt_order_save_post()
@@ -192,7 +198,7 @@ class Subscriptions
             ["label" => __('Cancel Subscription', 'sdevs_wea'), "value" => 'cancelled'],
         ];
         $status = get_post_status(get_the_ID());
-    ?>
+        ?>
         <p class="subscrpt_sub_box">
             <select id="subscrpt_order_type" name="subscrpt_order_action">
                 <option value=""><?php _e('choose action', 'sdevs_wea'); ?></option>

@@ -1,4 +1,4 @@
-=== Essential Addons for WooCommerce ===
+=== Missing Addons for WooCommerce ===
 Contributors: naminbd, istiaqnirab
 Donate link: 
 Tags: Discount, Coupon, FAQ Tab, Location, Google Map, Store Location, Bundle Discount, Cart Discount. 
@@ -56,14 +56,14 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
     = Installation from within WordPress =
 
         1. Visit **Plugins > Add New**.
-        2. Search for **Essential Addons for WooCommerce**.
-        3. Install and activate the `Essential Addons for WooCommerce` plugin.
+        2. Search for **Missing Addons for WooCommerce**.
+        3. Install and activate the `Missing Addons for WooCommerce` plugin.
 
     = Manual installation =
 
-        1. Upload the entire `Essential Addons for WooCommerce` folder to the `/wp-content/plugins/` directory.
+        1. Upload the entire `Missing Addons for WooCommerce` folder to the `/wp-content/plugins/` directory.
         2. Visit **Plugins**.
-        3. Activate the `Essential Addons for WooCommerce` plugin.
+        3. Activate the `Missing Addons for WooCommerce` plugin.
 	
 
 == Screenshots ==

@@ -182,7 +182,7 @@ final class sdevs_wea_Main
     public function deactivation_notice()
     {
         echo '<div class="notice notice-error is-dismissible">
-             <p><small><code>Essential Addons for WooCommerce </code></small> plugin is <b>Deactivated !!</b> It\'s require <small><code>WooCommerce</code></small> plugin</p>
+             <p><small><code>Missing Addons for WooCommerce </code></small> plugin is <b>Deactivated !!</b> It\'s require <small><code>WooCommerce</code></small> plugin</p>
          </div>';
     }
 

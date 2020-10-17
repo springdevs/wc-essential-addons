@@ -1,7 +1,7 @@
 {
   "name": "wc-essential-addons",
   "version": "1.0.0",
-  "description": "woocommerce essential addons",
+  "description": "woocommerce missing addons",
   "main": "index.js",
   "scripts": {
     "dev": "npm run development",

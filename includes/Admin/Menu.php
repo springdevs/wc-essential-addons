@@ -40,7 +40,7 @@ class Menu
     {
         $parent_slug = 'springdevs-modules';
         $capability = 'manage_options';
-        $hook = add_menu_page(__('Essential Addons', 'sdevs_wea'), __('Essential Addons', 'sdevs_wea'), $capability, $parent_slug, [$this, 'plugin_page'], 'dashicons-image-filter', 40);
+        $hook = add_menu_page(__('Missing Addons', 'sdevs_wea'), __('Missing Addons', 'sdevs_wea'), $capability, $parent_slug, [$this, 'plugin_page'], 'dashicons-image-filter', 40);
         add_submenu_page($parent_slug, "", __("All Modules", "sdevs_wea"), $capability, $parent_slug, [$this, 'plugin_page']);
         add_action('load-' . $hook, [$this, 'init_hooks']);
     }
