@@ -63,7 +63,7 @@ class Product
             }
         }
 ?>
-        <div class="option_group show_if_subscription" style="padding: 10px;">
+        <div class="option_group show_if_subscription hide" style="padding: 10px;">
             <strong style="margin: 10px;"><?php _e("Subscription Settings", "sdevs_wea"); ?></strong>
             <?php
 
