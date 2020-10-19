@@ -15,7 +15,7 @@ class Product
     {
         add_filter('woocommerce_product_single_add_to_cart_text', array($this, 'change_single_add_to_cart_text'));
         add_filter('woocommerce_product_add_to_cart_text', array($this, 'change_single_add_to_cart_text'));
-        add_filter('woocommerce_get_price_html', array($this, 'change_price_html'), 100, 2);
+        add_filter('woocommerce_get_price_html', array($this, 'change_price_html'), 10, 2);
         add_filter('woocommerce_cart_item_price', array($this, 'change_price_cart_html'), 10, 3);
         add_filter('woocommerce_cart_item_subtotal', array($this, 'change_price_cart_html'), 10, 3);
         add_action('woocommerce_cart_totals_after_order_total', array($this, 'add_rows_order_total'));
@@ -102,7 +102,7 @@ class Product
 
     public function change_price_html($price, $product)
     {
-        global $product;
+        if (!$product->is_type('simple')) return $price;
         $post_meta = get_post_meta($product->get_id(), 'subscrpt_general', true);
         if (is_array($post_meta) && $post_meta['enable']) :
             $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
