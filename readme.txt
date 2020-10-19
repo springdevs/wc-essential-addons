@@ -14,12 +14,18 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
 
   Missing Addons for WooCommerce is the single plugin you will ever need to operate your WooCommerce powered website. It was all the powerful features such as [advanced coupon management](https://springdevs.com/features/woocommerce-advanced-coupon/), [product subscriptions](https://springdevs.com/features/woocommerce-subscription/), [product and service booking](https://springdevs.com/features/woocommerce-booking/), [Google map](https://springdevs.com/features/woocommerce-google-map/), [Product FAQ](https://springdevs.com/features/woocommerce-product-faq/), and many more modules coming by the end of this year!
+
 = 🚀 Optimized for Speed and Performance =
 All of the features are developed following PHP, WordPress, and WooCommerce standards to ensure the best performance and give you the best experience.
+
 = 🕵🏽‍♂️ Dedicated Research and Development Team =
+
 Our dedicated research and development team is always studying to develop the best WooCommerce addon package and design something as simple as possible. We are confident that we would offer you a faster workflow inside the WooCommerce ecosystem by the end of this year!
+
 = 📦 Fits all kinds of business plan =
+
 Whether you're selling digital or physical products through WooCommerce or you're using the portal as a service booking system; our WooCommerce add-on package can help you accomplish everything without needing any additional tool! Can't find what you're looking for? 💌 [Send us an email](https://springdevs.com/contact/) and we will make it happen 😃
+
 **Currently available modules**
 1. [WooCommerce Product and Service Booking](https://springdevs.com/features/woocommerce-booking/)
 2. [WooCommerce Product and Service Subscription](https://springdevs.com/features/woocommerce-subscription/)
@@ -30,7 +36,6 @@ Whether you're selling digital or physical products through WooCommerce or you'r
 You can have a look at the existing feature requests and plans in [our Trello board](https://trello.com/invite/b/dMZfJo7u/51c0fd916cb5afa81e6ff365afadc3db/roadmap-missing-addons-for-woocommerce). You can react to the existing plans and requests or create a new one.
 
 == Installation ==
-
 
     = Installation from within WordPress =
 
@@ -56,6 +61,7 @@ You can have a look at the existing feature requests and plans in [our Trello bo
     7. Product FAQ Tab for admin entry
     8. Product Tab frontend. 
     9. Woo Simple Booking input fields in product
+
 
 == Frequently Asked Questions ==
 = Where can I find documentation for this product?=
