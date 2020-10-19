@@ -1,12 +1,12 @@
 .sdwac_addon_lists {
     display: flex;
-    align-items: center;
+    min-height: 400px;
     flex-wrap: wrap;
 }
 
 .card.sdwac_addon_item {
-    width: 31%;
-    text-align: center;
+    width: 45%;
+    text-align: left;
     padding-top: 25px;
     margin: 10px;
 }

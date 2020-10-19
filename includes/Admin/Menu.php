@@ -87,7 +87,6 @@ class Menu
                         $filter_module_path = apply_filters('sdevs_wma_module_asset_path', $module_path, $key, $value);
                     ?>
                         <div class="card sdwac_addon_item">
-                            <img src="<?php echo $filter_module_path . "/icon.png"; ?>" alt="">
                             <h3><?php echo $value['name']; ?></h3>
                             <p><?php echo $value['desc']; ?></p>
                             <?php if (array_key_exists($key, $active_modules)) : ?>
