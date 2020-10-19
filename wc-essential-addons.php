@@ -259,33 +259,33 @@ final class sdevs_wea_Main
     public function setModules()
     {
         $modules = [
-            "Woo-Advanced-Coupon" => [
-                "name" => "Woo Advanced Coupon",
-                "desc" => __("Enhance your coupon options - create gift certificates, store credit, coupons based on purchases and more.", "sdevs_wea"),
-                "class" => "sdwac_coupon_main",
-                "file_path" =>  __DIR__ . '/modules/Woo-Advanced-Coupon/woo-advance-coupon.php'
-            ],
-            "simple-booking" => [
-                "name" => "Woo Simple Booking",
-                "desc" => __("Save time and effort by letting customers book at their convenience", "sdevs_wea"),
-                "class" => "Sdevs_Wc_Booking",
-                "file_path" => __DIR__ . '/modules/simple-booking/simple-booking.php'
-            ],
             "simple-subscription" => [
-                "name" => "Woo Simple Subscription",
-                "desc" => __("create and manage products with recurring payments", "sdevs_wea"),
+                "name" => "Subscription",
+                "desc" => __("Allow your customers to order once and get their products and services every month/week.", "sdevs_wea"),
                 "class" => "Sdevs_Wc_Subscription",
                 "file_path" => __DIR__ . '/modules/simple-subscription/simple-subscription.php'
             ],
+            "simple-booking" => [
+                "name" => "Booking",
+                "desc" => __("Show available dates, time in a simple dropdown, take booking for products and services.", "sdevs_wea"),
+                "class" => "Sdevs_Wc_Booking",
+                "file_path" => __DIR__ . '/modules/simple-booking/simple-booking.php'
+            ],
+            "Woo-Advanced-Coupon" => [
+                "name" => "Coupons",
+                "desc" => __(" Create gift vouchers, store credits, special discounts based on the amount spent, etc.", "sdevs_wea"),
+                "class" => "sdwac_coupon_main",
+                "file_path" =>  __DIR__ . '/modules/Woo-Advanced-Coupon/woo-advance-coupon.php'
+            ],
             "easy-gmap" => [
-                "name" => "Easy Gmap",
-                "desc" => __("The easiest to use Google maps plugin! Add a customized Google map to your WordPress posts and/or pages", "sdevs_wea"),
+                "name" => "Google Map",
+                "desc" => __("Embed a Google Map on your site to show your store location.", "sdevs_wea"),
                 "class" => "Sdevs_Easy_Gmap",
                 "file_path" => __DIR__ . '/modules/easy-gmap/easy-gmap.php'
             ],
             "product-faq-tab" => [
-                "name" => "Product Faq Tab",
-                "desc" => __("Extends WooCommerce allow you to display Frequently Asked Questions (FAQ) about the product.", "sdevs_wea"),
+                "name" => "FAQ Tabs",
+                "desc" => __("Show frequently asked questions in a nice and organized fashion.", "sdevs_wea"),
                 "class" => "Sdevs_Custompft_Main",
                 "file_path" => __DIR__ . '/modules/product-faq-tab/product-faq-tab.php'
             ],
