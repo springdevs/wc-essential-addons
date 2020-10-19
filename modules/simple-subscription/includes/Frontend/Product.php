@@ -121,6 +121,8 @@ class Product
 
     public function change_price_cart_html($price, $cart_item, $cart_item_key)
     {
+        $product = wc_get_product($cart_item['product_id']);
+        if (!$product->is_type('simple')) return $price;
         $post_meta = get_post_meta($cart_item['product_id'], 'subscrpt_general', true);
         if (is_array($post_meta) && $post_meta['enable']) :
             $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
@@ -143,7 +145,8 @@ class Product
         $recurrs = [];
         foreach ($cart_items as $cart_item) {
             $post_meta = get_post_meta($cart_item['product_id'], 'subscrpt_general', true);
-            if (is_array($post_meta) && $post_meta['enable']) :
+            $product = wc_get_product($cart_item['product_id']);
+            if ($product->is_type('simple') && is_array($post_meta) && $post_meta['enable']) :
                 $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
                 $type = Helper::get_typos($post_meta['time'], $post_meta["type"]);
                 $price_html = get_woocommerce_currency_symbol() . $cart_item['line_subtotal'] . " / " . $time . " " . $type;
@@ -167,6 +170,7 @@ class Product
                 ]);
             endif;
         }
+        $recurrs = apply_filters('subscrpt_cart_recurring_items', $recurrs);
         if (count($recurrs) == 0) return;
 ?>
         <tr class="recurring-total">
