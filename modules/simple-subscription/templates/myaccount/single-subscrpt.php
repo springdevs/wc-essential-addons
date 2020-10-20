@@ -74,9 +74,13 @@ $status = get_post_status($id);
         </tr>
     </thead>
     <tbody>
+        <?php
+        $product_name = apply_filters('subscrpt_filter_product_name', $product->get_name(), $post_meta);
+        $product_link = apply_filters('subscrpt_filter_product_permalink', $product->get_permalink(), $post_meta);
+        ?>
         <tr class="order_item">
             <td class="product-name">
-                <a href="<?php echo $product->get_permalink(); ?>"><?php echo $product->get_name(); ?></a>
+                <a href="<?php echo $product_link; ?>"><?php echo $product_name; ?></a>
                 <strong class="product-quantity">× <?php echo $post_meta['qty']; ?></strong> </td>
             <td class="product-total">
                 <span class="woocommerce-Price-amount amount"><?php echo $post_meta['subtotal_price_html']; ?></span>

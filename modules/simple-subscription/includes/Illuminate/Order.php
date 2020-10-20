@@ -16,6 +16,8 @@ class Order
 
     public function format_order_price($subtotal, $item, $order)
     {
+        $product = wc_get_product($item['product_id']);
+        if (!$product->is_type('simple')) return $subtotal;
         $post_meta = get_post_meta($item['product_id'], 'subscrpt_general', true);
         if (is_array($post_meta) && $post_meta['enable']) :
             $time = $post_meta['time'] == 1 ? null : $post_meta['time'];

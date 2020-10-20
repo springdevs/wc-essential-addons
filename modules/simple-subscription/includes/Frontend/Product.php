@@ -69,8 +69,9 @@ class Product
     {
         $cart_items = WC()->cart->cart_contents;
         foreach ($cart_items as $cart_item) {
-            $post_meta = get_post_meta($cart_item['product_id'], 'subscrpt_general', true);
-            $has_trial = Helper::Check_Trial($cart_item['product_id']);
+            $conditional_key = apply_filters('subscrpt_filter_checkout_conditional_key', $cart_item['product_id'], $cart_item);
+            $post_meta = get_post_meta($conditional_key, 'subscrpt_general', true);
+            $has_trial = Helper::Check_Trial($conditional_key);
             if (is_array($post_meta) && $post_meta['enable']) {
                 if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
                     $subtotal = WC()->cart->get_subtotal() - $cart_item["line_subtotal"];

@@ -168,7 +168,7 @@ final class sdevs_wea_Main
                 'slug'                => 'httpswordpressorgpluginswc-essential-addons',
                 'type'                => 'plugin',
                 'public_key'          => 'pk_041cc3b1a6d4418773fc2a50b050a',
-                'is_premium'          => true,
+                'is_premium'          => false,
                 'premium_suffix'      => 'Pro',
                 'has_premium_version' => true,
                 'has_addons'          => false,

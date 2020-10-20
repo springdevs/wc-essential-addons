@@ -4,6 +4,10 @@
 
 # subscrpt_filter_user_meta
 
+# subscrpt_filter_product_name ✔
+
+# subscrpt_filter_product_permalink ✔
+
 -=== CheckOut Hooks ===-
 
 # subscrpt_filter_checkout_data ✔
