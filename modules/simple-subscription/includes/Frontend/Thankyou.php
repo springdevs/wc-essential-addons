@@ -53,7 +53,8 @@ class Thankyou
         }
         $cart_items = $order->get_items();
         foreach ($cart_items as $cart_item) {
-            $post_meta = get_post_meta($cart_item['product_id'], 'subscrpt_general', true);
+            $conditional_key = apply_filters('subscrpt_filter_checkout_conditional_key', $cart_item['product_id']);
+            $post_meta = get_post_meta($conditional_key, 'subscrpt_general', true);
             if (is_array($post_meta) && $post_meta['enable']) :
                 $is_renew = isset($cart_item['_renew_subscrpt']);
                 $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
@@ -87,6 +88,7 @@ class Thankyou
                 ];
                 $post_id = 0;
                 $unexpire_data = ["post" => $post_id, "product" => $cart_item['product_id']];
+                $unexpire_data = apply_filters('subscrpt_filter_checkout_all_ids', $unexpire_data);
 
                 if ($is_renew && $post_status != "cancelled") {
                     $expired_items = get_user_meta(get_current_user_id(), '_subscrpt_expired_items', true);
@@ -115,12 +117,6 @@ class Thankyou
                         "comment_type" => "order_note"
                     ]);
                     update_comment_meta($comment_id, 'subscrpt_activity', __('New Subscription', 'sdevs_wea'));
-                    $cancelled_items = get_user_meta(get_current_user_id(), '_subscrpt_cancelled_items', true);
-                    if (!is_array($cancelled_items)) $cancelled_items = [];
-                    foreach ($cancelled_items as $ckey => $cancelled_item) {
-                        if ($cart_item['product_id'] == $cancelled_item['product']) unset($cancelled_items[$ckey]);
-                    }
-                    update_user_meta(get_current_user_id(), '_subscrpt_cancelled_items', $cancelled_items);
                     $unexpire_data['post'] = $post_id;
                 }
                 $post_id = $unexpire_data['post'];
@@ -128,6 +124,7 @@ class Thankyou
                 $args["ID"] = $unexpire_data['post'];
                 $_subscrpt_order_general['post_id'] = $post_id;
                 if ($is_renew) $_subscrpt_order_general['stats'] = 'Renew Order';
+                $_subscrpt_order_general = apply_filters('subscrpt_filter_checkout_data', $_subscrpt_order_general);
                 update_post_meta($unexpire_data['post'], "_subscrpt_order_general", $_subscrpt_order_general);
                 $order_history = get_post_meta($unexpire_data['post'], '_subscrpt_order_history', true);
                 if (!is_array($order_history)) $order_history = [];
