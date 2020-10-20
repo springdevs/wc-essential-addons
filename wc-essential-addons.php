@@ -169,7 +169,7 @@ final class sdevs_wea_Main
                 'type'                => 'plugin',
                 'public_key'          => 'pk_041cc3b1a6d4418773fc2a50b050a',
                 'is_premium'          => true,
-                'premium_suffix'      => 'Single Site',
+                'premium_suffix'      => 'Pro',
                 'has_premium_version' => true,
                 'has_addons'          => false,
                 'has_paid_plans'      => true,
