@@ -75,6 +75,10 @@ Yes, all the plugin features are based on the backend. So, there is no chance of
 
 == Changelog ==
 
+    = 1.0.3 =
+        * [m] Update Module list style 
+        * [m] Added new hooks in modules
+
      = 1.0.2 =
         * [new] Add 'Subscription' Module
 
