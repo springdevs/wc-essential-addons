@@ -78,7 +78,9 @@ class Order
                     "post_status" => $post_status
                 ]);
                 $post_meta = get_post_meta($post, "_subscrpt_order_general", true);
-                Action::status($post_status, $order->get_user_id(), ["post" => $post, "product" => $post_meta['product_id']]);
+                $acdata = ["post" => $post, "product" => $post_meta['product_id']];
+                if (isset($post_meta['variation_id'])) $acdata['variation'] = $post_meta['variation_id'];
+                Action::status($post_status, $order->get_user_id(), $acdata);
             }
         }
     }

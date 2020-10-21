@@ -45,7 +45,11 @@ $status = get_post_status($id);
         </tr>
         <?php
         $subscrpt_nonce = wp_create_nonce('subscrpt_nonce');
-        $product_meta = $product->get_meta('subscrpt_general', true);
+        if (isset($post_meta['variation_id'])) {
+            $product_meta = get_post_meta($post_meta['variation_id'], 'subscrpt_general', true);
+        } else {
+            $product_meta = $product->get_meta('subscrpt_general', true);
+        }
         ?>
         <?php if ($status != "cancelled") : ?>
             <tr>

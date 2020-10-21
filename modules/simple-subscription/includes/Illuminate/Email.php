@@ -29,12 +29,14 @@ class Email
                                 if (!empty($subscrpt_meta) && is_array($subscrpt_meta)) :
                                     $post = $subscrpt_meta['post_id'];
                                     $trial_status = $subscrpt_meta['trial'] == null ? false : true;
+                                    $product_name = apply_filters('subscrpt_filter_product_name', get_the_title($subscrpt_meta['product_id']), $subscrpt_meta);
+                                    $product_link = apply_filters('subscrpt_filter_product_permalink', get_the_permalink($subscrpt_meta['product_id']), $subscrpt_meta);
                             ?>
                                     <tr>
                                         <th class="td" scope="row" colspan="3" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: center;"><?php echo get_the_title($post); ?></th>
                                     </tr>
                                     <tr>
-                                        <th class="td" scope="row" colspan="3" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: left;"><a href="<?php the_permalink($subscrpt_meta['product_id']); ?>"><?php echo get_the_title($subscrpt_meta['product_id']); ?></a>
+                                        <th class="td" scope="row" colspan="3" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px; text-align: left;"><a href="<?php echo $product_link; ?>"><?php echo $product_name; ?></a>
                                             <strong class="product-quantity">×&nbsp;<?php echo $subscrpt_meta['qty']; ?></strong></th>
                                     </tr>
                                     <tr>
