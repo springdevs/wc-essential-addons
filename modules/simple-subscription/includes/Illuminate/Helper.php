@@ -95,6 +95,6 @@ class Helper
             if ($pending_item['product'] == $product_id) $result = false;
         }
 
-        return apply_filters('subscrpt_filter_product_trial', $result, $product_id, $author);
+        return apply_filters('subscrpt_filter_product_trial', $result, $product_id, $active_items, $pending_items, $cancelled_items, $expired_items);
     }
 }
