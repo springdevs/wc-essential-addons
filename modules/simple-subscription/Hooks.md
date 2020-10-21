@@ -8,6 +8,8 @@
 
 # subscrpt_filter_product_permalink ✔
 
+# subscrpt_filter_check_unexpired ✔
+
 -=== CheckOut Hooks ===-
 
 # subscrpt_filter_checkout_data ✔

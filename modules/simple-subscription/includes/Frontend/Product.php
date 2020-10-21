@@ -39,6 +39,7 @@ class Product
     public function text_if_active()
     {
         global $product;
+        if (!$product->is_type('simple')) return;
         $unexpired = Helper::Check_un_expired($product->get_id());
         if ($unexpired)
             echo '<strong>' . __('You Already Purchased These Product!', 'sdevs_wea') . '</strong>';
@@ -53,6 +54,7 @@ class Product
 
     public function check_if_purchasable($is_purchasable, $product)
     {
+        if (!$product->is_type('simple')) return $is_purchasable;
         $unexpired = Helper::Check_un_expired($product->get_id());
         if ($unexpired) return false;
         return $is_purchasable;
