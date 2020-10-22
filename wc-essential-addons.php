@@ -154,34 +154,6 @@ final class sdevs_wea_Main
         $this->checkPlugin();
         $this->includes();
         $this->init_hooks();
-        $this->freemius_setup();
-        do_action('sdevs_maw_loaded');
-    }
-
-    public function freemius_setup()
-    {
-        global $sdevs_maw;
-        if (!isset($sdevs_maw)) {
-            require_once dirname(__FILE__) . '/freemius/start.php';
-            $sdevs_maw = fs_dynamic_init(array(
-                'id'                  => '6934',
-                'slug'                => 'httpswordpressorgpluginswc-essential-addons',
-                'type'                => 'plugin',
-                'public_key'          => 'pk_041cc3b1a6d4418773fc2a50b050a',
-                'is_premium'          => false,
-                'premium_suffix'      => 'Pro',
-                'has_premium_version' => true,
-                'has_addons'          => false,
-                'has_paid_plans'      => true,
-                'menu'                => array(
-                    'slug'           => 'springdevs-modules',
-                    'contact'        => false,
-                    'support'        => false,
-                ),
-                'secret_key'          => 'sk_WnMg=bfmVfSt&aI}^Jwo{e3KEdHpq',
-            ));
-        }
-        return $sdevs_maw;
     }
 
     /**
