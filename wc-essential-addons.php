@@ -170,7 +170,7 @@ final class sdevs_wea_Main
      */
     public function checkPlugin()
     {
-        if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+        if (!class_exists('WooCommerce')) {
             deactivate_plugins(plugin_basename(__FILE__));
             add_action('admin_notices', [$this, 'deactivation_notice']);
         }
@@ -193,7 +193,7 @@ final class sdevs_wea_Main
      */
     public function activate()
     {
-        if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
+        if (!class_exists('WooCommerce')) {
             wp_die("Woocommerce is not activated !!", "Require plugin is not activated");
             exit;
         }
