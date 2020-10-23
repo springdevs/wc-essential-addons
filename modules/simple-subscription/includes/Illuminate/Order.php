@@ -16,6 +16,8 @@ class Order
 
     public function format_order_price($subtotal, $item, $order)
     {
+        $product = wc_get_product($item['product_id']);
+        if (!$product->is_type('simple')) return $subtotal;
         $post_meta = get_post_meta($item['product_id'], 'subscrpt_general', true);
         if (is_array($post_meta) && $post_meta['enable']) :
             $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
@@ -76,7 +78,9 @@ class Order
                     "post_status" => $post_status
                 ]);
                 $post_meta = get_post_meta($post, "_subscrpt_order_general", true);
-                Action::status($post_status, $order->get_user_id(), ["post" => $post, "product" => $post_meta['product_id']]);
+                $acdata = ["post" => $post, "product" => $post_meta['product_id']];
+                if (isset($post_meta['variation_id'])) $acdata['variation'] = $post_meta['variation_id'];
+                Action::status($post_status, $order->get_user_id(), $acdata);
             }
         }
     }

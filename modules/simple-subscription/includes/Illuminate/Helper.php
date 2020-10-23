@@ -67,6 +67,7 @@ class Helper
 
     static public function Check_Trial($product_id)
     {
+        $result = true;
         $author = get_current_user_id();
         $cancelled_items = get_user_meta($author, '_subscrpt_cancelled_items', true);
         $expired_items = get_user_meta($author, '_subscrpt_expired_items', true);
@@ -79,21 +80,21 @@ class Helper
         if (!is_array($pending_items)) $pending_items = [];
 
         foreach ($cancelled_items as $cancelled_item) {
-            if ($cancelled_item['product'] == $product_id) return false;
+            if ($cancelled_item['product'] == $product_id) $result = false;
         }
 
         foreach ($expired_items as $expired_item) {
-            if ($expired_item['product'] == $product_id) return false;
+            if ($expired_item['product'] == $product_id) $result = false;
         }
 
         foreach ($active_items as $active_item) {
-            if ($active_item['product'] == $product_id) return false;
+            if ($active_item['product'] == $product_id) $result = false;
         }
 
         foreach ($pending_items as $pending_item) {
-            if ($pending_item['product'] == $product_id) return false;
+            if ($pending_item['product'] == $product_id) $result = false;
         }
 
-        return true;
+        return apply_filters('subscrpt_filter_product_trial', $result, $product_id, $active_items, $pending_items, $cancelled_items, $expired_items);
     }
 }

@@ -37,11 +37,15 @@ $postslist = new WP_Query($args);
             while ($postslist->have_posts()) : $postslist->the_post();
                 $post_meta = get_post_meta(get_the_ID(), "_subscrpt_order_general", true);
                 $product = wc_get_product($post_meta["product_id"]);
+                $product_name = get_the_title($post_meta['product_id']);
+                $product_name = apply_filters('subscrpt_filter_product_name', $product_name, $post_meta);
+                $product_link = get_the_permalink($post_meta['product_id']);
+                $product_link = apply_filters('subscrpt_filter_product_permalink', $product_link, $post_meta);
         ?>
                 <tr>
                     <td><?php the_ID(); ?></td>
                     <td><?php echo get_post_status(); ?></td>
-                    <td><a href="<?php the_permalink($post_meta['product_id']); ?>" target="_blank"><?php echo get_the_title($post_meta['product_id']); ?></a></td>
+                    <td><a href="<?php echo $product_link; ?>" target="_blank"><?php echo $product_name; ?></a></td>
                     <?php if ($post_meta['trial'] == null) : ?>
                         <td><?php echo date('F d, Y', $post_meta['next_date']); ?></td>
                     <?php else : ?>
@@ -61,4 +65,3 @@ $postslist = new WP_Query($args);
         ?>
     </tbody>
 </table>
-<?php

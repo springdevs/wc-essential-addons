@@ -260,9 +260,13 @@ class Subscriptions
         <table class="form-table">
             <tbody>
                 <tr>
+                    <?php
+                    $product_name = apply_filters('subscrpt_filter_product_name', get_the_title($post_meta['product_id']), $post_meta);
+                    $product_link = apply_filters('subscrpt_filter_product_permalink', get_the_permalink($post_meta['product_id']), $post_meta);
+                    ?>
                     <th scope="row">Product : </th>
                     <td>
-                        <a href="<?php the_permalink($post_meta['product_id']); ?>" target="_blank"><?php echo get_the_title($post_meta['product_id']); ?></a>
+                        <a href="<?php echo $product_link; ?>" target="_blank"><?php echo $product_name; ?></a>
                     </td>
                 </tr>
                 <tr>
@@ -361,6 +365,7 @@ class Subscriptions
 
         $post_meta = get_post_meta($post_id, "_subscrpt_order_general", true);
         $data = ["post" => $post_id, "product" => $post_meta['product_id']];
+        if (isset($post_meta['variation_id'])) $data['variation'] = $post_meta['variation_id'];
         Action::status($action, $_POST['post_author'], $data);
     }
 }

@@ -16,7 +16,8 @@ jQuery(document).ready(() => {
     jQuery(document).on("woocommerce_variations_loaded", () => {
         let total_variations = JSON.parse(jQuery(".woocommerce_variations").attr("data-total"));
         for (let index = 0; index < total_variations; index++) {
-            if (document.getElementById("subscrpt_enable[" + index + "]").checked) {
+            let element = document.getElementById("subscrpt_enable[" + index + "]");
+            if (element && element.checked) {
                 jQuery("div#show_if_subscription_" + index).show();
             } else {
                 jQuery("div#show_if_subscription_" + index).hide();

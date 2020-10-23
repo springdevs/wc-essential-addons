@@ -53,7 +53,8 @@ class Thankyou
         }
         $cart_items = $order->get_items();
         foreach ($cart_items as $cart_item) {
-            $post_meta = get_post_meta($cart_item['product_id'], 'subscrpt_general', true);
+            $conditional_key = apply_filters('subscrpt_filter_checkout_conditional_key', $cart_item['product_id'], $cart_item);
+            $post_meta = get_post_meta($conditional_key, 'subscrpt_general', true);
             if (is_array($post_meta) && $post_meta['enable']) :
                 $is_renew = isset($cart_item['_renew_subscrpt']);
                 $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
@@ -62,7 +63,7 @@ class Thankyou
                 $total_price_html = wc_price($cart_item['total']) . " / " . $time . " " . $type;
                 $start_date = time();
                 $trial = null;
-                $has_trial = Helper::Check_Trial($cart_item['product_id']);
+                $has_trial = Helper::Check_Trial($conditional_key);
                 if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && !$is_renew && $has_trial) {
                     $trial = $post_meta['trial_time'] . " " . Helper::get_typos($post_meta['trial_time'], $post_meta['trial_type']);
                     $start_date = strtotime($trial);
@@ -87,7 +88,7 @@ class Thankyou
                 ];
                 $post_id = 0;
                 $unexpire_data = ["post" => $post_id, "product" => $cart_item['product_id']];
-
+                $unexpire_data = apply_filters('subscrpt_filter_checkout_all_ids', $unexpire_data, $conditional_key);
                 if ($is_renew && $post_status != "cancelled") {
                     $expired_items = get_user_meta(get_current_user_id(), '_subscrpt_expired_items', true);
                     if (!is_array($expired_items)) $expired_items = [];
@@ -115,12 +116,6 @@ class Thankyou
                         "comment_type" => "order_note"
                     ]);
                     update_comment_meta($comment_id, 'subscrpt_activity', __('New Subscription', 'sdevs_wea'));
-                    $cancelled_items = get_user_meta(get_current_user_id(), '_subscrpt_cancelled_items', true);
-                    if (!is_array($cancelled_items)) $cancelled_items = [];
-                    foreach ($cancelled_items as $ckey => $cancelled_item) {
-                        if ($cart_item['product_id'] == $cancelled_item['product']) unset($cancelled_items[$ckey]);
-                    }
-                    update_user_meta(get_current_user_id(), '_subscrpt_cancelled_items', $cancelled_items);
                     $unexpire_data['post'] = $post_id;
                 }
                 $post_id = $unexpire_data['post'];
@@ -128,6 +123,7 @@ class Thankyou
                 $args["ID"] = $unexpire_data['post'];
                 $_subscrpt_order_general['post_id'] = $post_id;
                 if ($is_renew) $_subscrpt_order_general['stats'] = 'Renew Order';
+                $_subscrpt_order_general = apply_filters('subscrpt_filter_checkout_data', $_subscrpt_order_general, $conditional_key, $cart_item);
                 update_post_meta($unexpire_data['post'], "_subscrpt_order_general", $_subscrpt_order_general);
                 $order_history = get_post_meta($unexpire_data['post'], '_subscrpt_order_history', true);
                 if (!is_array($order_history)) $order_history = [];
@@ -156,6 +152,10 @@ class Thankyou
             <?php
             foreach ($post_meta as $subscrpt_meta) :
                 if (!empty($subscrpt_meta) && is_array($subscrpt_meta)) :
+                    $product_name = get_the_title($subscrpt_meta['product_id']);
+                    $product_name = apply_filters('subscrpt_filter_product_name', $product_name, $subscrpt_meta);
+                    $product_link = get_the_permalink($subscrpt_meta['product_id']);
+                    $product_link = apply_filters('subscrpt_filter_product_permalink', $product_link, $subscrpt_meta);
                     $post = $subscrpt_meta['post_id'];
                     $trial_status = $subscrpt_meta['trial'] == null ? false : true;
             ?>
@@ -169,7 +169,7 @@ class Thankyou
                         <tbody>
                             <tr class="woocommerce-table__line-item order_item">
                                 <td class="woocommerce-table__product-name product-name">
-                                    <a href="<?php the_permalink($subscrpt_meta['product_id']); ?>"><?php echo get_the_title($subscrpt_meta['product_id']); ?></a>
+                                    <a href="<?php echo $product_link; ?>"><?php echo $product_name; ?></a>
                                     <strong class="product-quantity">×&nbsp;<?php echo $subscrpt_meta['qty']; ?></strong>
                                 </td>
                                 <td class="woocommerce-table__product-total product-total"></td>

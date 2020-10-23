@@ -35,19 +35,34 @@ class ActionController
                 'ID' => $subscrpt_id,
                 'post_status' => $action
             ]);
-            Action::status($action, get_current_user_id(), ["post" => $subscrpt_id, "product" => $post_meta['product_id']]);
+            $data = ["post" => $subscrpt_id, "product" => $post_meta['product_id']];
+            if (isset($post_meta['variation_id'])) $data['variation'] = $post_meta['variation_id'];
+            Action::status($action, get_current_user_id(), $data);
         }
     }
 
     public function RenewProduct($subscrpt_id)
     {
         $post_meta = get_post_meta($subscrpt_id, "_subscrpt_order_general", true);
+        $variation_id = 0;
+        if (isset($post_meta['variation_id'])) $variation_id = $post_meta['variation_id'];
         WC()->cart->add_to_cart(
             $post_meta['product_id'],
             1,
-            0,
+            $variation_id,
             [],
             ['renew_subscrpt' => true]
         );
+        wc_add_notice(__('Product added to cart', 'sdevs_wea'), 'success');
+        $this->redirect(wc_get_cart_url());
+    }
+
+    public function redirect($url)
+    {
+?>
+        <script>
+            window.location.href = '<?php echo $url; ?>';
+        </script>
+<?php
     }
 }
