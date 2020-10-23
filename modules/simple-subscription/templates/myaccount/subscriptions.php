@@ -65,4 +65,3 @@ $postslist = new WP_Query($args);
         ?>
     </tbody>
 </table>
-<?php
