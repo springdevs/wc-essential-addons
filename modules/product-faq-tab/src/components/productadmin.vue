@@ -36,7 +36,7 @@
                   ></textarea>
                 </div>
               </div>
-              <div class="custompft-close" v-if="faqs.length">
+              <div class="custompft-close" v-if="faqs">
                 <span @click="closeSection(index)" class="dashicons dashicons-no-alt"></span>
               </div>
             </div>
