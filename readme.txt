@@ -74,6 +74,10 @@ Yes, you can just install our plugin and start using the features. But if there 
 Yes, all the plugin features are based on the backend. So, there is no chance of conflict with your theme. If you find anything broken, [please contact us](https://springdevs.com/contact/) immediately and we will be happy to help 🙂
 
 == Changelog ==
+    
+    = 1.0.4 =
+        * [new] Add some hooks and filter for extend plugin  
+        * [m]  Fixed some bugs
 
     = 1.0.3 =
         * [m] Update Module list style 
