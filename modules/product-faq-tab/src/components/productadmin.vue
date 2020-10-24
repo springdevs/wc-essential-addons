@@ -36,7 +36,7 @@
                   ></textarea>
                 </div>
               </div>
-              <div class="custompft-close" v-if="faqs.length > 1">
+              <div class="custompft-close" v-if="faqs">
                 <span @click="closeSection(index)" class="dashicons dashicons-no-alt"></span>
               </div>
             </div>
@@ -58,13 +58,7 @@ export default {
   data() {
     return {
       loading: false,
-      faqs: [
-        {
-          question: "Untitled",
-          answer: null,
-          show: true,
-        },
-      ],
+      faqs: [],
     };
   },
   created() {
