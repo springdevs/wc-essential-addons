@@ -28,99 +28,84 @@ class BookingForm
 
     public function custom_tab_data()
     {
-        $screen = get_current_screen();
-        if ($screen->parent_base == "edit") :
-            $post_meta = get_post_meta(get_the_ID(), "bookable_product_meta", true);
-            if (empty($post_meta)) :
+        if (sdevs_is_pro_module_activate('booking-pro')) {
+            do_action('sdevs_booking_pro_edit_fields_html');
+            return;
+        } else {
+            $screen = get_current_screen();
+            if ($screen->parent_base == "edit") :
+                $post_meta = get_post_meta(get_the_ID(), "bookable_product_meta", true);
+                if (empty($post_meta)) :
+                    $enable_booking = false;
+                    $display_next_days = "";
+                    $display_start_time = "";
+                    $display_end_time = "";
+                    $bookable_require_conf = false;
+                else :
+                    $enable_booking = $post_meta["enable_booking"] ? "yes" : false;
+                    $display_next_days = $post_meta["display_next_days"];
+                    $display_start_time = $post_meta["display_start_time"];
+                    $display_end_time = $post_meta["display_end_time"];
+                    $bookable_require_conf = $post_meta["bookable_require_conf"] ? "yes" : false;
+                endif;
+            else :
                 $enable_booking = false;
                 $display_next_days = "";
                 $display_start_time = "";
                 $display_end_time = "";
                 $bookable_require_conf = false;
-            else :
-                $enable_booking = $post_meta["enable_booking"] ? "yes" : false;
-                $display_next_days = $post_meta["display_next_days"];
-                $display_start_time = $post_meta["display_start_time"];
-                $display_end_time = $post_meta["display_end_time"];
-                $bookable_require_conf = $post_meta["bookable_require_conf"] ? "yes" : false;
             endif;
-        else :
-            $enable_booking = false;
-            $display_next_days = "";
-            $display_start_time = "";
-            $display_end_time = "";
-            $bookable_require_conf = false;
-        endif;
-        $class = apply_filters('sdevs_booking_product_data_class', 'show_if_simple');
-?>
-        <div id="sdevs_booking_data" class="panel woocommerce_options_panel <?php echo $class; ?>">
-            <?php
-            woocommerce_wp_checkbox([
-                "id" => "enable_booking",
-                "label" => __("Enable Booking", "sdevs_wea"),
-                "value" => "yes",
-                "cbvalue" => $enable_booking
-            ]);
+            $class = apply_filters('sdevs_booking_product_data_class', 'show_if_simple'); ?>
+            <div id="sdevs_booking_data" class="panel woocommerce_options_panel <?php echo $class; ?>">
+                <?php
+                woocommerce_wp_checkbox([
+                    "id" => "enable_booking",
+                    "label" => __("Enable Booking", "sdevs_wea"),
+                    "value" => "yes",
+                    "cbvalue" => $enable_booking
+                ]);
 
-            woocommerce_wp_text_input([
-                "id" => "display_next_days",
-                "label" => __('Display Next Days', 'sdevs_wea'),
-                "type" => "number",
-                "value" => $display_next_days
-            ]);
+                woocommerce_wp_text_input([
+                    "id" => "display_next_days",
+                    "label" => __('Display Next Days', 'sdevs_wea'),
+                    "type" => "number",
+                    "value" => $display_next_days
+                ]);
 
-            woocommerce_wp_text_input([
-                "id" => "display_start_time",
-                "label" => __('Display Start Time', 'sdevs_wea'),
-                "type" => "time",
-                "value" => $display_start_time
-            ]);
+                woocommerce_wp_text_input([
+                    "id" => "display_start_time",
+                    "label" => __('Display Start Time', 'sdevs_wea'),
+                    "type" => "time",
+                    "value" => $display_start_time
+                ]);
 
-            woocommerce_wp_text_input([
-                "id" => "display_end_time",
-                "label" => __('Display End Time', 'sdevs_wea'),
-                "type" => "time",
-                "value" => $display_end_time
-            ]);
+                woocommerce_wp_text_input([
+                    "id" => "display_end_time",
+                    "label" => __('Display End Time', 'sdevs_wea'),
+                    "type" => "time",
+                    "value" => $display_end_time
+                ]);
 
-            woocommerce_wp_checkbox([
-                "id" => "bookable_require_conf",
-                "label" => __("Require Confirmations", "sdevs_wea"),
-                "value" => "yes",
-                "cbvalue" => $bookable_require_conf
-            ]);
-
-            ?>
-        </div>
+                woocommerce_wp_checkbox([
+                    "id" => "bookable_require_conf",
+                    "label" => __("Require Confirmations", "sdevs_wea"),
+                    "value" => "yes",
+                    "cbvalue" => $bookable_require_conf
+                ]); ?>
+            </div>
 <?php
+        }
     }
 
     public function save_bookable_settings($post_id)
     {
-        if (!isset($_POST["product-type"])) return;
-        $pro_version = get_option("sdevs_booking_pro");
-        if (!$pro_version) :
-            if ($_POST["product-type"] == "simple") :
-                $display_next_days = isset($_POST['display_next_days']) ? sanitize_text_field($_POST['display_next_days']) : false;
-                $display_start_time = isset($_POST['display_start_time']) ? sanitize_text_field($_POST['display_start_time']) : false;
-                $display_end_time = isset($_POST['display_end_time']) ? sanitize_text_field($_POST['display_end_time']) : false;
-                $bookable_require_conf = isset($_POST['bookable_require_conf']);
-                $enable_booking = isset($_POST['enable_booking']);
-            else :
-                $display_next_days = false;
-                $display_start_time = false;
-                $display_end_time = false;
-                $bookable_require_conf = false;
-                $enable_booking = false;
-            endif;
-        else :
-            $display_next_days = isset($_POST['display_next_days']) ? sanitize_text_field($_POST['display_next_days']) : false;
-            $display_start_time = isset($_POST['display_start_time']) ? sanitize_text_field($_POST['display_start_time']) : false;
-            $display_end_time = isset($_POST['display_end_time']) ? sanitize_text_field($_POST['display_end_time']) : false;
-            $bookable_require_conf = isset($_POST['bookable_require_conf']);
-            $enable_booking = isset($_POST['enable_booking']);
-        endif;
-
+        if (!isset($_POST["product-type"]) || !isset($_POST['display_next_days'])) return;
+        if (sdevs_is_pro_module_activate('booking-pro')) return;
+        $display_next_days = isset($_POST['display_next_days']) ? sanitize_text_field($_POST['display_next_days']) : false;
+        $display_start_time = isset($_POST['display_start_time']) ? sanitize_text_field($_POST['display_start_time']) : false;
+        $display_end_time = isset($_POST['display_end_time']) ? sanitize_text_field($_POST['display_end_time']) : false;
+        $bookable_require_conf = isset($_POST['bookable_require_conf']);
+        $enable_booking = isset($_POST['enable_booking']);
         update_post_meta($post_id, 'bookable_product_meta', [
             "enable_booking" => $enable_booking,
             "display_next_days" => $display_next_days,

@@ -50,46 +50,50 @@ class Products
         // Only on bookable products
         if (!(!empty($post_meta) && $post_meta["enable_booking"])) return;
 
-        $dateFields = [];
+        if (sdevs_is_pro_module_activate('booking-pro')) {
+            do_action('sdevs_booking_pro_single_date_time_html', $product, $post_meta);
+        } else {
+            $dateFields = [];
 
-        for ($i = 0; $i < $post_meta["display_next_days"]; $i++) {
-            $date = strtotime("+{$i} day");
-            array_push($dateFields, date('M d, Y', $date));
-        }
+            for ($i = 0; $i < $post_meta["display_next_days"]; $i++) {
+                $date = strtotime("+{$i} day");
+                array_push($dateFields, date('M d, Y', $date));
+            }
 
-        $required = '&nbsp;<abbr class="required" title="required">*</abbr></label>';
+            $required = '&nbsp;<abbr class="required" title="required">*</abbr></label>';
 
-        echo '<p class="form-row form-row-wide" id="booking-date-field">
+            echo '<p class="form-row form-row-wide" id="booking-date-field">
     <label for="booking-date">' . __('Select Date') . $required . '</label>
     <select class="booking-date" name="booking-date" id="booking-date">
         <option value="">' . __("Choose your Date") . '</option>';
-        foreach ($dateFields as $dateField) {
-            echo '<option value="' . $dateField . '">' . __($dateField, "sdevs_wea") . '</option>';
-        }
-        echo '</select>
+            foreach ($dateFields as $dateField) {
+                echo '<option value="' . $dateField . '">' . __($dateField, "sdevs_wea") . '</option>';
+            }
+            echo '</select>
     </p><br>';
 
-        $timeFields = [];
+            $timeFields = [];
 
-        $start_time = strtotime($post_meta['display_start_time']);
-        $end_time = strtotime($post_meta['display_end_time']);
-        for ($i = 0; $i < 25; $i++) {
-            $curr_time = date('h:i A', strtotime("+{$i} hours", $start_time));
-            if (strtotime($curr_time) >= $end_time) {
-                break;
+            $start_time = strtotime($post_meta['display_start_time']);
+            $end_time = strtotime($post_meta['display_end_time']);
+            for ($i = 0; $i < 25; $i++) {
+                $curr_time = date('h:i A', strtotime("+{$i} hours", $start_time));
+                if (strtotime($curr_time) >= $end_time) {
+                    break;
+                }
+                $timeFields[] = $curr_time;
             }
-            $timeFields[] = $curr_time;
-        }
 
-        echo '<p class="form-row form-row-wide" id="booking-time-field">
+            echo '<p class="form-row form-row-wide" id="booking-time-field">
     <label for="booking-time">' . __('Select Time') . $required . '</label>
     <select class="booking-time" name="booking-time" id="booking-time">
         <option value="">' . __("Choose your Time") . '</option>';
-        foreach ($timeFields as $timeField) {
-            echo '<option value="' . $timeField . '">' . __($timeField, "sdevs_wea") . '</option>';
-        }
-        echo '</select>
+            foreach ($timeFields as $timeField) {
+                echo '<option value="' . $timeField . '">' . __($timeField, "sdevs_wea") . '</option>';
+            }
+            echo '</select>
     </p><br>';
+        }
     }
 
     public function filter_add_to_cart_validation($passed, $product_id, $quantity, $variation_id = 0)
