@@ -10,6 +10,10 @@
 
 # subscrpt_filter_check_unexpired ✔
 
+# subscrpt_cron_expired
+
+# subscrpt_when_product_expired
+
 -=== CheckOut Hooks ===-
 
 # subscrpt_filter_checkout_data ✔

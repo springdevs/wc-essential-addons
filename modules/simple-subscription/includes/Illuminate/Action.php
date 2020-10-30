@@ -78,6 +78,7 @@ class Action
             "comment_type" => "order_note"
         ]);
         update_comment_meta($comment_id, 'subscrpt_activity', __('Subscription Expired', 'sdevs_wea'));
+        do_action('subscrpt_when_product_expired', $data['post'], $data['product'], $data);
     }
 
     static private function active($data)

@@ -11,6 +11,27 @@ class Order
     public function __construct()
     {
         add_filter('woocommerce_order_formatted_line_subtotal', array($this, 'format_order_price'), 10, 3);
+        add_action('woocommerce_admin_order_item_headers', [$this, 'admin_order_item_header']);
+        add_action('woocommerce_admin_order_item_values', [$this, 'admin_order_item_value'], 10, 2);
+        add_action('woocommerce_before_order_itemmeta', [$this, 'add_order_item_data'], 10, 3);
+        // add_filter('woocommerce_order_amount_item_subtotal', function ($subtotal, $order, $item) {
+        //     $product = wc_get_product($item['product_id']);
+        //     if (!$product->is_type('simple')) return $subtotal;
+        //     $post_meta = get_post_meta($item['product_id'], 'subscrpt_general', true);
+        //     if (is_array($post_meta) && $post_meta['enable']) :
+        //         $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
+        //         $type = Helper::get_typos($post_meta['time'], $post_meta["type"]);
+        //         $trial = null;
+        //         $has_trial = Helper::Check_Trial($item['product_id']);
+        //         if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
+        //             $trial = "<br/><small> + Get " . $post_meta['trial_time'] . " " . Helper::get_typos($post_meta['trial_time'], $post_meta['trial_type']) . " free trial!</small>";
+        //         }
+        //         $price_html = $subtotal . " / " . $time . " " . $type . $trial;
+        //         return $price_html;
+        //     else :
+        //         return $subtotal;
+        //     endif;
+        // }, 10, 3);
         add_action('woocommerce_order_status_changed', [$this, "order_status_changed"]);
     }
 
@@ -18,20 +39,60 @@ class Order
     {
         $product = wc_get_product($item['product_id']);
         if (!$product->is_type('simple')) return $subtotal;
-        $post_meta = get_post_meta($item['product_id'], 'subscrpt_general', true);
-        if (is_array($post_meta) && $post_meta['enable']) :
-            $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
-            $type = Helper::get_typos($post_meta['time'], $post_meta["type"]);
-            $trial = null;
-            $has_trial = Helper::Check_Trial($item['product_id']);
-            if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
-                $trial = "<br/><small> + Get " . $post_meta['trial_time'] . " " . Helper::get_typos($post_meta['trial_time'], $post_meta['trial_type']) . " free trial!</small>";
-            }
-            $price_html = $subtotal . " / " . $time . " " . $type . $trial;
-            return $price_html;
-        else :
-            return $subtotal;
-        endif;
+        $order_data = get_post_meta($order->get_id(), '_order_subscrpt_full_data', true);
+        if (!is_array($order_data)) $order_data = [];
+        foreach ($order_data as $post_meta) {
+            if (is_array($post_meta) && isset($post_meta['stats']) && $item['product_id'] == $post_meta['product_id']) :
+                $trial = null;
+                $has_trial = isset($post_meta['trial']) && strlen($post_meta['trial']) > 2 ? true : false;
+                if ($has_trial) {
+                    $trial = "<br/><small> + Get " . $post_meta['trial'] . " " . " free trial!</small>";
+                }
+                $price_html = $post_meta['subtotal_price_html'] . $trial;
+                return $price_html;
+            endif;
+        }
+        return $subtotal;
+    }
+
+    public function admin_order_item_header($order)
+    {
+?>
+        <th class="item_recurring sortable" data-sort="float"><?php esc_html_e('Recurring', 'sdevs_wea'); ?></th>
+    <?php
+    }
+
+    public function admin_order_item_value($product, $item)
+    {
+        $subtotal = "-";
+        $order_data = get_post_meta($item->get_order_id(), '_order_subscrpt_full_data', true);
+        if (!is_array($order_data)) $order_data = [];
+        foreach ($order_data as $post_meta) {
+            if (is_array($post_meta) && isset($post_meta['stats']) && $product->get_id() == $post_meta['product_id']) :
+                $subtotal = $post_meta['subtotal_price_html'];
+            endif;
+        }
+    ?>
+        <td class="item_recurring" width="1%" data-sort-value="<?php echo esc_attr($subtotal); ?>">
+            <div class="view">
+                <?php echo $subtotal; ?>
+            </div>
+        </td>
+<?php
+    }
+
+    public function add_order_item_data($item_id, $item, $product)
+    {
+        $order_data = get_post_meta($item->get_order_id(), '_order_subscrpt_full_data', true);
+        if (!is_array($order_data)) $order_data = [];
+        foreach ($order_data as $post_meta) {
+            if (is_array($post_meta) && isset($post_meta['stats']) && $product->get_id() == $post_meta['product_id']) :
+                $has_trial = isset($post_meta['trial']) && strlen($post_meta['trial']) > 2 ? true : false;
+                if ($has_trial) {
+                    echo "<small> + Get " . $post_meta['trial'] . " " . " free trial!</small>";
+                }
+            endif;
+        }
     }
 
     public function order_status_changed($order_id)

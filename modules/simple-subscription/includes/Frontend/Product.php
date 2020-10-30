@@ -27,6 +27,20 @@ class Product
         add_filter('woocommerce_loop_add_to_cart_link', [$this, "remove_button_active_products"], 10, 2);
         add_action('woocommerce_single_product_summary', [$this, "text_if_active"]);
         add_action('woocommerce_checkout_create_order_line_item', [$this, 'save_order_item_product_meta'], 10, 4);
+        add_filter('woocommerce_cart_get_total', function ($total) {
+            $cart_items = WC()->cart->cart_contents;
+            foreach ($cart_items as $cart_item) {
+                $conditional_key = apply_filters('subscrpt_filter_checkout_conditional_key', $cart_item['product_id'], $cart_item);
+                $post_meta = get_post_meta($conditional_key, 'subscrpt_general', true);
+                $has_trial = Helper::Check_Trial($conditional_key);
+                if (is_array($post_meta) && $post_meta['enable']) {
+                    if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
+                        if (isset($cart_item["line_subtotal"])) $total = $total - $cart_item["line_subtotal"];
+                    }
+                }
+            }
+            return $total;
+        });
     }
 
     public function save_order_item_product_meta($item, $cart_item_key, $cart_item, $order)
@@ -77,9 +91,9 @@ class Product
             if (is_array($post_meta) && $post_meta['enable']) {
                 if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
                     $subtotal = WC()->cart->get_subtotal() - $cart_item["line_subtotal"];
-                    $total = WC()->cart->total - $cart_item["line_subtotal"];
+                    // $total = WC()->cart->total - $cart_item["line_subtotal"];
                     WC()->cart->set_subtotal($subtotal);
-                    WC()->cart->set_total($total);
+                    // WC()->cart->set_total($total);
                 }
             }
         }
