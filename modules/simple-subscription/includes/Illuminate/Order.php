@@ -64,10 +64,12 @@ class Order
             if (is_array($post_meta) && isset($post_meta['stats']) && $item['product_id'] == $post_meta['product_id']) :
                 $trial = null;
                 $has_trial = isset($post_meta['trial']) && strlen($post_meta['trial']) > 2 ? true : false;
+                $signup_fee_html = null;
                 if ($has_trial) {
                     $trial = "<br/><small> + Get " . $post_meta['trial'] . " " . " free trial!</small>";
+                    if (isset($post_meta['signup_fee']) && $post_meta['signup_fee'] > 0) $signup_fee_html = "<br/> + Signup fee of " . wc_price($post_meta['signup_fee']);
                 }
-                $price_html = $post_meta['subtotal_price_html'] . $trial;
+                $price_html = $post_meta['subtotal_price_html'] . $signup_fee_html . $trial;
                 return $price_html;
             endif;
         }
@@ -87,7 +89,7 @@ class Order
         $order_data = get_post_meta($item->get_order_id(), '_order_subscrpt_full_data', true);
         if (!is_array($order_data)) $order_data = [];
         foreach ($order_data as $post_meta) {
-            if (is_array($post_meta) && isset($post_meta['stats']) && $product->get_id() == $post_meta['product_id']) :
+            if (is_array($post_meta) && isset($post_meta['stats']) && !is_null($product) && $product->get_id() == $post_meta['product_id']) :
                 $subtotal = $post_meta['subtotal_price_html'];
             endif;
         }
@@ -108,6 +110,7 @@ class Order
             if (is_array($post_meta) && isset($post_meta['stats']) && $product->get_id() == $post_meta['product_id']) :
                 $has_trial = isset($post_meta['trial']) && strlen($post_meta['trial']) > 2 ? true : false;
                 if ($has_trial) {
+                    if (isset($post_meta['signup_fee']) && $post_meta['signup_fee'] > 0) echo "<small> + Signup fee of " . wc_price($post_meta['signup_fee']) . '</small><br/>';
                     echo "<small> + Get " . $post_meta['trial'] . " " . " free trial!</small>";
                 }
             endif;

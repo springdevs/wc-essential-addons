@@ -22,25 +22,44 @@ class Product
         add_action('woocommerce_review_order_after_order_total', array($this, 'add_rows_order_total'));
         add_action('woocommerce_review_order_before_cart_contents', array($this, 'change_cart_calculates'));
         add_action('woocommerce_before_cart_totals', array($this, 'change_cart_calculates'));
+        add_action('woocommerce_cart_calculate_fees', [$this, 'add_cart_fee']);
         add_filter('woocommerce_add_cart_item_data', [$this, 'add_to_cart_item_data'], 10, 3);
         add_filter('woocommerce_is_purchasable', [$this, "check_if_purchasable"], 10, 2);
         add_filter('woocommerce_loop_add_to_cart_link', [$this, "remove_button_active_products"], 10, 2);
         add_action('woocommerce_single_product_summary', [$this, "text_if_active"]);
         add_action('woocommerce_checkout_create_order_line_item', [$this, 'save_order_item_product_meta'], 10, 4);
-        add_filter('woocommerce_cart_get_total', function ($total) {
-            $cart_items = WC()->cart->cart_contents;
-            foreach ($cart_items as $cart_item) {
-                $conditional_key = apply_filters('subscrpt_filter_checkout_conditional_key', $cart_item['product_id'], $cart_item);
-                $post_meta = get_post_meta($conditional_key, 'subscrpt_general', true);
-                $has_trial = Helper::Check_Trial($conditional_key);
-                if (is_array($post_meta) && $post_meta['enable']) {
-                    if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
-                        if (isset($cart_item["line_subtotal"])) $total = $total - $cart_item["line_subtotal"];
-                    }
+        add_filter('woocommerce_cart_get_total', [$this, 'calculates_cart_total']);
+    }
+
+    public function calculates_cart_total($total)
+    {
+        $cart_items = WC()->cart->cart_contents;
+        foreach ($cart_items as $cart_item) {
+            $conditional_key = apply_filters('subscrpt_filter_checkout_conditional_key', $cart_item['product_id'], $cart_item);
+            $post_meta = get_post_meta($conditional_key, 'subscrpt_general', true);
+            $has_trial = Helper::Check_Trial($conditional_key);
+            if (is_array($post_meta) && $post_meta['enable']) {
+                if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
+                    if (isset($cart_item["line_subtotal"])) $total = $total - $cart_item["line_subtotal"];
                 }
             }
-            return $total;
-        });
+        }
+        return $total;
+    }
+
+    public function add_cart_fee($cart)
+    {
+        $cart_items = WC()->cart->cart_contents;
+        $signup_fee = 0;
+        foreach ($cart_items as $cart_item) {
+            $post_meta = get_post_meta($cart_item['product_id'], 'subscrpt_general', true);
+            $product = wc_get_product($cart_item['product_id']);
+            if ($product->is_type('simple') && is_array($post_meta) && $post_meta['enable']) :
+                $has_trial = Helper::Check_Trial($product->get_id());
+                if ($has_trial) $signup_fee += $post_meta['signup_fee'];
+            endif;
+        }
+        if ($signup_fee > 0) $cart->add_fee("SignUp Fee", $signup_fee);
     }
 
     public function save_order_item_product_meta($item, $cart_item_key, $cart_item, $order)
@@ -126,10 +145,12 @@ class Product
             $type = Helper::get_typos($post_meta['time'], $post_meta["type"]);
             $has_trial = Helper::Check_Trial($product->get_id());
             $trial = null;
+            $signup_fee_html = null;
             if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
                 $trial = "<br/> + Get " . $post_meta['trial_time'] . " " . Helper::get_typos($post_meta['trial_time'], $post_meta['trial_type']) . " free trial!";
+                if (isset($post_meta['signup_fee'])) $signup_fee_html = "<br/> + Signup fee of " . wc_price($post_meta['signup_fee']);
             }
-            $price_html = $price . " / " . $time . " " . $type . $trial;
+            $price_html = $price . " / " . $time . " " . $type . $signup_fee_html . $trial;
             return $price_html;
         else :
             return $price;
@@ -145,11 +166,13 @@ class Product
             $time = $post_meta['time'] == 1 ? null : $post_meta['time'];
             $type = Helper::get_typos($post_meta['time'], $post_meta["type"]);
             $trial = null;
+            $signup_fee_html = null;
             $has_trial = Helper::Check_Trial($cart_item['product_id']);
             if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
                 $trial = "<br/><small> + " . $post_meta['trial_time'] . " " . Helper::get_typos($post_meta['trial_time'], $post_meta['trial_type']) . " free trial!</small>";
+                if (isset($post_meta['signup_fee'])) $signup_fee_html = "<br/><small> + Signup fee of " . wc_price($post_meta['signup_fee']) . "</small>";
             }
-            $price_html = $price . " / " . $time . " " . $type . $trial;
+            $price_html = $price . " / " . $time . " " . $type . $signup_fee_html . $trial;
             return $price_html;
         else :
             return $price;
@@ -172,7 +195,6 @@ class Product
                 $has_trial = Helper::Check_Trial($cart_item['product_id']);
                 if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && $has_trial) {
                     $trial = $post_meta['trial_time'] . " " . Helper::get_typos($post_meta['trial_time'], $post_meta['trial_type']);
-                    $start_date = strtotime($trial);
                 }
                 $trial_status = $trial == null ? false : true;
                 $next_date = Helper::next_date(

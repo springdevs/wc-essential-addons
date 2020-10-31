@@ -64,8 +64,10 @@ class Thankyou
                 $start_date = time();
                 $trial = null;
                 $has_trial = Helper::Check_Trial($conditional_key);
+                $signup_fee = 0;
                 if (!empty($post_meta['trial_time']) && $post_meta['trial_time'] > 0 && !$is_renew && $has_trial) {
                     $trial = $post_meta['trial_time'] . " " . Helper::get_typos($post_meta['trial_time'], $post_meta['trial_type']);
+                    if (isset($post_meta['signup_fee'])) $signup_fee = $post_meta['signup_fee'];
                     $start_date = strtotime($trial);
                 }
                 $_subscrpt_order_general = [
@@ -78,6 +80,7 @@ class Thankyou
                     "subtotal_price_html" => $subtotal_price_html,
                     "total_price_html" => $total_price_html,
                     "trial" => $trial,
+                    "signup_fee" => $signup_fee,
                     "start_date" => $start_date,
                     "next_date" => strtotime($post_meta['time'] . " " . $type, $start_date)
                 ];
