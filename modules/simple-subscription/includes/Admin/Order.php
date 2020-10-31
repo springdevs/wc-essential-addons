@@ -29,7 +29,7 @@ class Order
     {
         $order_id = get_the_ID();
         $order_meta = get_post_meta($order_id, "_order_subscrpt_data", true);
-        if (empty($order_meta) && is_array($order_meta) && !$order_meta['status']) return;
+        if (empty($order_meta) && !is_array($order_meta) && !isset($order_meta['status'])) return;
 ?>
         <table class="widefat striped">
             <thead>

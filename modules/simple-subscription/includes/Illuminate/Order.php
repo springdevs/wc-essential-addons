@@ -33,6 +33,25 @@ class Order
         //     endif;
         // }, 10, 3);
         add_action('woocommerce_order_status_changed', [$this, "order_status_changed"]);
+        // add_action('subscrpt_gateway_stripe_process_response', function ($response, $order) {
+        //     $order_meta = get_post_meta($order->get_id(), '_order_subscrpt_data', true);
+        //     if (empty($order_meta) || !is_array($order_meta) || !$order_meta['status']) return;
+        //     $post_id = $order_meta['posts'][0];
+        //     $post_meta = get_post_meta($post_id, '_subscrpt_order_general', true);
+        //     $product_meta = get_post_meta($post_meta['product_id'], 'subscrpt_general', true);
+        //     $type = Helper::get_typos($product_meta['time'], $product_meta["type"]);
+        //     if ('succeeded' === $response->status) {
+        //         $post_meta['start_date'] = time();
+        //         $post_meta['next_date'] = strtotime($product_meta['time'] . " " . $type);
+        //         update_post_meta($post_id, '_subscrpt_order_general', $post_meta);
+        //         $data = ["post" => $post_id, "product" => $post_meta['product_id']];
+        //         if (isset($post_meta['variation_id'])) $data['variation'] = $post_meta['variation_id'];
+        //         $order_history = get_post_meta($post_id, '_subscrpt_order_history', true);
+        //         if (!is_array($order_history)) $order_history = [];
+        //         array_push($order_history, $post_meta);
+        //         update_post_meta($post_id, '_subscrpt_order_history', $order_history);
+        //     }
+        // }, 10, 2);
     }
 
     public function format_order_price($subtotal, $item, $order)
