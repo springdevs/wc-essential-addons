@@ -52,10 +52,10 @@ class Product
         $cart_items = WC()->cart->cart_contents;
         $signup_fee = 0;
         foreach ($cart_items as $cart_item) {
-            $post_meta = get_post_meta($cart_item['product_id'], 'subscrpt_general', true);
-            $product = wc_get_product($cart_item['product_id']);
-            if ($product->is_type('simple') && is_array($post_meta) && $post_meta['enable']) :
-                $has_trial = Helper::Check_Trial($product->get_id());
+            $conditional_key = apply_filters('subscrpt_filter_checkout_conditional_key', $cart_item['product_id'], $cart_item);
+            $post_meta = get_post_meta($conditional_key, 'subscrpt_general', true);
+            if (is_array($post_meta) && $post_meta['enable']) :
+                $has_trial = Helper::Check_Trial($conditional_key);
                 if ($has_trial) $signup_fee += $post_meta['signup_fee'];
             endif;
         }
