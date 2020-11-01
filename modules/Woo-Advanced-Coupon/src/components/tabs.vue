@@ -8,12 +8,13 @@
         id="sdwac_coupon_feature"
         v-model="sdwac_coupon_feature"
       >
-        <option value>Select Coupon Feature</option>
         <option
           v-for="(coupon, index) in coupons"
-          :key="'coupon-'+index"
+          :key="'coupon-' + index"
           :value="coupon.value"
-        >{{ coupon.label }}</option>
+        >
+          {{ coupon.label }}
+        </option>
       </select>
     </p>
     <p class="form-field">
@@ -39,7 +40,7 @@
 export default {
   data() {
     return {
-      sdwac_coupon_feature: "",
+      sdwac_coupon_feature: null,
       overwrite_discount: null,
       coupons: [],
     };

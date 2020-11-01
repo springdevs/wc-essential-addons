@@ -43,7 +43,7 @@ class sdwac_Panels
     {
 ?>
         <div id="sdwac_coupon_tabs_screen" class="panel woocommerce_options_panel">
-            <div id="post">
+            <div id="wac_post">
                 <supertabs />
             </div>
         </div>

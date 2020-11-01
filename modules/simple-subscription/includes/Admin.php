@@ -5,6 +5,7 @@ namespace SpringDevs\WcSubscription;
 use SpringDevs\WcSubscription\Admin\Menu;
 use SpringDevs\WcSubscription\Admin\Order as AdminOrder;
 use SpringDevs\WcSubscription\Admin\Product;
+use SpringDevs\WcSubscription\Admin\Settings;
 use SpringDevs\WcSubscription\Admin\Subscriptions;
 use SpringDevs\WcSubscription\Illuminate\Comments;
 use SpringDevs\WcSubscription\Illuminate\Cron;
@@ -35,6 +36,7 @@ class Admin
         new AdminOrder;
         new Comments;
         new Email;
+        new Settings;
     }
 
     /**

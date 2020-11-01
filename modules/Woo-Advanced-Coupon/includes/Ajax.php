@@ -16,7 +16,7 @@ class Ajax
 		add_action('wp_ajax_sdwac_coupon_get_main', [$this, 'sdwac_coupon_get_main']);
 		add_action('wp_ajax_sdwac_coupon_get_discounts', [$this, 'sdwac_coupon_get_discounts']);
 		add_action('wp_ajax_sdwac_coupon_get_rules', [$this, 'sdwac_coupon_get_rules']);
-		add_action('wp_ajax_sdwac_coupon_get_woocoupons', [$this, 'sdwac_coupon_get_woocoupons']);
+		add_action('wp_ajax_sdwac_coupon_get_woocoupons', [$this, 'coupon_get_woocoupons']);
 		add_action('wp_ajax_sdwac_coupon_get_sdwac_coupon_panel', [$this, 'sdwac_coupon_get_sdwac_coupon_panel']);
 	}
 
