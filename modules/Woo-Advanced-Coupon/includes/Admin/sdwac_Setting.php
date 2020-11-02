@@ -34,20 +34,20 @@ class sdwac_Setting
 
     public function woocoupon_settings_content()
     {
-        $args = [
-            "post_type" => "woocoupon",
-            'post_status' => 'publish'
-        ];
-        $sdwac_coupon_data = get_posts($args);
+        $args = array(
+            'posts_per_page' => -1,
+            'order'          => 'asc',
+            'post_type'      => 'shop_coupon',
+            'post_status'    => 'publish',
+        );
+        $coupons     = get_posts($args);
         $sdwac_coupon_coupons = ["0" => "Select Discount"];
-        foreach ($sdwac_coupon_data as $data) {
-            $sdwac_coupon_coupons[$data->ID] = $data->post_title;
-        }
+        foreach ($coupons as $data) $sdwac_coupon_coupons[$data->ID] = $data->post_title;
 ?>
         <div class="wrap">
             <?php settings_errors(); ?>
-            <h1>WooCoupon Settings</h1>
-            <p>These settings can effect both coupons</p>
+            <h1><?php _e('WooCoupon Settings', 'sdevs_wea'); ?></h1>
+            <p><?php _e('These settings can effect both coupons', 'sdevs_wea'); ?></p>
             <form method="post" action="options.php">
                 <?php settings_fields('woocoupon_settings'); ?>
                 <?php do_settings_sections('woocoupon_settings'); ?>

@@ -16,17 +16,17 @@ class sdwac_front
     public function __construct()
     {
         // check coupon is valid 
-        add_filter("woocommerce_coupon_is_valid", [$this, "sdwac_coupon_woocommerce_coupon_is_valid"], 10, 2);
+        add_filter("woocommerce_coupon_is_valid", [$this, "woocommerce_coupon_is_valid"], 10, 2);
         // OverWrite Coupon Amount
-        add_action('woocommerce_cart_calculate_fees', [$this, "sdwac_coupon_coupon_amount_overwrite"]);
+        add_action('woocommerce_cart_calculate_fees', [$this, "coupon_amount_overwrite"]);
         // display products price with regular price
-        add_filter('woocommerce_cart_product_price', [$this, "sdwac_coupon_filter_cart_product_pricing"], 10, 2);
+        add_filter('woocommerce_cart_product_price', [$this, "filter_cart_product_pricing"], 10, 2);
         // woocommerce set product price as product adjustment
-        add_filter("woocommerce_product_get_price", [$this, "sdwac_coupon_update_product_price"], 10, 2);
+        add_filter("woocommerce_product_get_price", [$this, "update_product_price"], 10, 2);
         // woocommerce change product coupon html
-        add_filter('woocommerce_cart_totals_coupon_html', [$this, "sdwac_coupon_change_product_coupon_html"], 30, 3);
+        add_filter('woocommerce_cart_totals_coupon_html', [$this, "change_product_coupon_html"], 30, 3);
         // woocommerce discount show or hide
-        add_filter('woocommerce_get_price_html', [$this, "sdwac_coupon_product_price_html"], 100, 2);
+        add_filter('woocommerce_get_price_html', [$this, "product_price_html"], 100, 2);
         // woocommerce grouped products discount
         add_filter('woocommerce_grouped_price_html', [$this, "sdwac_coupon_group_product_discount_html"], 10, 3);
     }
@@ -60,16 +60,14 @@ class sdwac_front
     /**
      * woocommerce discount show or hide
      **/
-    public function sdwac_coupon_product_price_html($price, $product)
+    public function product_price_html($price, $product)
     {
         $sdwac_coupon_woo_setting_show_product_discount = get_option("sdwac_show_product_discount");
         if ($product->is_type('variable')) {
             $min_regular_price = $product->get_variation_price('min');
             $max_regular_price = $product->get_variation_price('max');
             $discount = $product->get_sale_price();
-            if ($discount == "") {
-                return $price;
-            }
+            if ($discount == "") return $price;
 
             if ($discount == 0) {
                 $new_discount = $this->sdwac_coupon_variable_product_discount($product, $min_regular_price, $max_regular_price);
@@ -166,9 +164,8 @@ class sdwac_front
 
     /**
      * WooCommerce display cart price with <del>#...</del>
-     *
      **/
-    public function sdwac_coupon_filter_cart_product_pricing($formatted_price, $product)
+    public function filter_cart_product_pricing($formatted_price, $product)
     {
         $sdwac_coupon_woo_setting_show_product_discount = get_option("sdwac_show_product_discount");
         if ($sdwac_coupon_woo_setting_show_product_discount == "no") {
@@ -186,7 +183,7 @@ class sdwac_front
      * WooCommerce update cart subtotal
      *
      **/
-    public function sdwac_coupon_cart_subtotal($subtotal, $compound, $cart)
+    public function cart_subtotal($subtotal, $compound, $cart)
     {
         $store_credit = $this->discount_amount;
         if ($store_credit > 0) {
@@ -200,29 +197,22 @@ class sdwac_front
      * WooCommerce coupon overwrite
      *
      **/
-    public function sdwac_coupon_coupon_amount_overwrite()
+    public function coupon_amount_overwrite()
     {
         $coupons = WC()->cart->get_applied_coupons();
         $cart = WC()->cart;
-        $cartProducts = $cart->get_cart();
         $store_coupons = [];
         $discount_amount = 0;
         foreach ($coupons as $coupon) {
             $couponData = new WC_Coupon($coupon);
             $post_id = $couponData->get_id();
             $post_meta = get_post_meta($post_id, "sdwac_coupon_panel", true);
-            if (empty($post_meta["list_id"])) {
-                return;
-                exit;
-            }
+            if (empty($post_meta["list_id"])) return;
             $sdwac_coupon_id = $post_meta["list_id"];
             $sdwac_coupon_main = get_post_meta($sdwac_coupon_id, "sdwac_coupon_main", true);
             $sdwac_coupon_discounts = get_post_meta($sdwac_coupon_id, "sdwac_coupon_discounts", true);
             $sdwac_coupon_filters = get_post_meta($post_meta["list_id"], "sdwac_coupon_filters", true);
-            if (!$sdwac_coupon_main || !$sdwac_coupon_discounts || !$sdwac_coupon_filters) {
-                return;
-                exit;
-            }
+            if (!$sdwac_coupon_main || !$sdwac_coupon_discounts || !$sdwac_coupon_filters) return;
             $sdwac_coupon_coupon_type = $sdwac_coupon_main["type"];
             if ($sdwac_coupon_coupon_type == "cart") {
                 switch ($sdwac_coupon_discounts["type"]) {
@@ -281,46 +271,35 @@ class sdwac_front
         }
 
         $store_keys = [];
-        foreach ($store_coupons as $key => $value) {
-            array_push($store_keys, $key);
-        }
+        foreach ($store_coupons as $key => $value) array_push($store_keys, $key);
         $cart->applied_coupons = $store_keys;
         $cart->coupon_discount_totals = $store_coupons;
         $this->discount_amount = $discount_amount;
-        add_filter('woocommerce_cart_subtotal', [$this, "sdwac_coupon_cart_subtotal"], 10, 3);
+        add_filter('woocommerce_cart_subtotal', [$this, "cart_subtotal"], 10, 3);
     }
 
     /**
-     * WooCommerce update product price if sdwac_coupon_coupon is product adjustment
+     * WooCommerce update product price if sdwac_coupon is product adjustment
      *
      **/
-    public function sdwac_coupon_update_product_price($price, $product)
+    public function update_product_price($price, $product)
     {
-        if (is_admin()) {
-            return $price;
-        }
+        if (is_admin()) return $price;
         $coupons = WC()->cart->applied_coupons;
-        if (empty($coupons)) {
-            return $price;
-        }
+        if (empty($coupons)) return $price;
         $cartProducts = WC()->cart->get_cart();
         foreach ($coupons as $coupon) {
             $couponData = new WC_Coupon($coupon);
             $post_id = $couponData->get_id();
             $post_meta = get_post_meta($post_id, "sdwac_coupon_panel", true);
-            if (empty($post_meta["list_id"])) {
-                return $price;
-            }
+            if (empty($post_meta["list_id"])) return $price;
             $sdwac_coupon_id = $post_meta["list_id"];
             $sdwac_coupon_main = get_post_meta($sdwac_coupon_id, "sdwac_coupon_main", true);
-            if (!$sdwac_coupon_main) {
-                return $price;
-            }
+            if (!$sdwac_coupon_main) return $price;
             $sdwac_coupon_discounts = get_post_meta($sdwac_coupon_id, "sdwac_coupon_discounts", true);
             $sdwac_coupon_filters = get_post_meta($post_meta["list_id"], "sdwac_coupon_filters", true);
-            if ($sdwac_coupon_main["type"] != "product") {
-                return $price;
-            }
+            if ($sdwac_coupon_main["type"] != "product") return $price;
+
             foreach ($sdwac_coupon_filters as $sdwac_coupon_filter) {
                 if ($sdwac_coupon_filter["type"] == "products") {
                     foreach ($cartProducts as $cartProduct) {
@@ -364,12 +343,10 @@ class sdwac_front
      *
      * @return coupon_html
      **/
-    public function sdwac_coupon_change_product_coupon_html($coupon_html, $coupon, $discount_amount_html)
+    public function change_product_coupon_html($coupon_html, $coupon, $discount_amount_html)
     {
         $post_meta = get_post_meta($coupon->get_id(), "sdwac_coupon_panel", true);
-        if (empty($post_meta["list_id"])) {
-            return $coupon_html;
-        }
+        if (empty($post_meta["list_id"])) return $coupon_html;
         $sdwac_coupon_main = get_post_meta($post_meta["list_id"], "sdwac_coupon_main", true);
         $sdwac_coupon_discounts = get_post_meta($post_meta["list_id"], "sdwac_coupon_discounts", true);
 
@@ -389,16 +366,11 @@ class sdwac_front
      * WooCommerce Custom Validator
      *
      **/
-    public function sdwac_coupon_woocommerce_coupon_is_valid($valid, $coupon)
+    public function woocommerce_coupon_is_valid($valid, $coupon)
     {
-        if (!$valid)
-            return false;
-
-        $validator = Validator::check($coupon->get_code(), $coupon->get_id());
-
-        if ($validator)
-            return true;
-        else
-            return false;
+        $post_meta = get_post_meta($coupon->get_id(), 'sdwac_coupon_panel', true);
+        if (!$post_meta) return;
+        $validator = Validator::check($coupon->get_id(), $post_meta['list_id']);
+        return $validator;
     }
 }

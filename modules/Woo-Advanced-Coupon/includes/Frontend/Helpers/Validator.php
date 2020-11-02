@@ -11,15 +11,11 @@ use WC_Discounts;
 class Validator
 {
 
-    static public function check($coupon = null, $post_id = null, $sdwac_coupon_id = null)
+    static public function check($coupon, $post_id = null)
     {
-        $result = self::sdwac_coupon_fiter_validate($coupon, $post_id, $sdwac_coupon_id) ? true : false;
-        if ($result) {
-            $result = self::sdwac_coupon_multi_validate($coupon, $post_id) ? true : false;
-        }
-        if ($result) {
-            $result = self::sdwac_coupon_rules_validate($coupon, $post_id, $sdwac_coupon_id) ? true : false;
-        }
+        $result = self::coupon_filter_validate($coupon, $post_id) ? true : false;
+        if ($result) $result = self::sdwac_coupon_multi_validate($coupon, $post_id) ? true : false;
+        if ($result) $result = self::sdwac_coupon_rules_validate($coupon, $post_id) ? true : false;
         $result = apply_filters("sdwac_coupon_validator", $result);
         return $result;
     }
@@ -28,8 +24,9 @@ class Validator
     {
         $sdwac_coupon_woo_setting_multi = get_option("sdwac_woo_setting_multi");
         $applied_coupons = WC()->cart->get_applied_coupons();
-        if (count($applied_coupons) > 1) {
-            if ($sdwac_coupon_woo_setting_multi == "no" & $applied_coupons[0] != $coupon) {
+        $coupon_code = wc_get_coupon_code_by_id($coupon);
+        if (count($applied_coupons) >= 1) {
+            if ($sdwac_coupon_woo_setting_multi == "no" & $applied_coupons[0] != $coupon_code) {
                 wc_clear_notices();
                 return false;
             }
@@ -37,22 +34,13 @@ class Validator
         return true;
     }
 
-    static public function sdwac_coupon_fiter_validate($coupon, $post_id, $sdwac_coupon_id)
+    static public function coupon_filter_validate($coupon, $post_id)
     {
         $result = true;
-        if ($sdwac_coupon_id == null) {
-            $post_meta = get_post_meta($post_id, "sdwac_coupon_panel", true);
-            if (empty($post_meta["list_id"])) {
-                return $result;
-            }
-            $filters = get_post_meta($post_meta["list_id"], "sdwac_coupon_filters", true);
-            $sdwac_coupon_main = get_post_meta($post_meta["list_id"], "sdwac_coupon_main", true);
-        } else {
-            $filters = get_post_meta($sdwac_coupon_id, "sdwac_coupon_filters", true);
-            $sdwac_coupon_main = get_post_meta($sdwac_coupon_id, "sdwac_coupon_main", true);
-        }
+        $filters = get_post_meta($post_id, "sdwac_coupon_filters", true);
+        $sdwac_coupon_main = get_post_meta($post_id, "sdwac_coupon_main", true);
 
-        if (!$filters || !$sdwac_coupon_main || $sdwac_coupon_main["type"] == "product") {
+        if (!$filters || !$sdwac_coupon_main) {
             return $result;
         }
 
@@ -94,26 +82,13 @@ class Validator
         return $result;
     }
 
-    static function sdwac_coupon_rules_validate($coupon, $post_id, $sdwac_coupon_id)
+    static function sdwac_coupon_rules_validate($coupon, $post_id)
     {
         $result = true;
-        if ($sdwac_coupon_id == null) {
-            $post_meta = get_post_meta($post_id, "sdwac_coupon_panel", true);
-            if (empty($post_meta["list_id"])) {
-                return $result;
-            } else {
-                $rules = get_post_meta($post_meta["list_id"], "sdwac_coupon_rules", true);
-                if (!$rules || $rules["rules"] == null) {
-                    return $result;
-                }
-            }
-        } else {
-            $rules = get_post_meta($sdwac_coupon_id, "sdwac_coupon_rules", true);
-            if (!$rules || $rules["rules"] == null) {
-                return $result;
-            }
+        $rules = get_post_meta($post_id, "sdwac_coupon_rules", true);
+        if (!$rules || $rules["rules"] == null) {
+            return $result;
         }
-
 
         $relation = $rules["relation"];
 
@@ -130,7 +105,7 @@ class Validator
                                 $result = false;
                             }
                         } else if ($calculate == "from_filter") {
-                            $amount = self::sdwac_coupon_cart_filter_subtotal($post_meta["list_id"]);
+                            $amount = self::sdwac_coupon_cart_filter_subtotal($post_id);
                             if (!($amount < (float) $value)) {
                                 $result = false;
                             }
@@ -143,7 +118,7 @@ class Validator
                                 $result = false;
                             }
                         } else if ($calculate == "from_filter") {
-                            $amount = self::sdwac_coupon_cart_filter_subtotal($post_meta["list_id"]);
+                            $amount = self::sdwac_coupon_cart_filter_subtotal($post_id);
                             if (!($amount <= (float) $value)) {
                                 $result = false;
                             }
@@ -156,7 +131,7 @@ class Validator
                                 $result = false;
                             }
                         } else if ($calculate == "from_filter") {
-                            $amount = self::sdwac_coupon_cart_filter_subtotal($post_meta["list_id"]);
+                            $amount = self::sdwac_coupon_cart_filter_subtotal($post_id);
                             if (!($amount > (float) $value)) {
                                 $result = false;
                             }
@@ -169,7 +144,7 @@ class Validator
                                 $result = false;
                             }
                         } else if ($calculate >= "from_filter") {
-                            $amount = self::sdwac_coupon_cart_filter_subtotal($post_meta["list_id"]);
+                            $amount = self::sdwac_coupon_cart_filter_subtotal($post_id);
                             if (!($amount < (float) $value)) {
                                 $result = false;
                             }
@@ -190,7 +165,7 @@ class Validator
                                 $result = false;
                             }
                         } else if ($calculate == "from_filter") {
-                            $total = self::sdwac_coupon_cart_filter_line_total($post_meta["list_id"]);
+                            $total = self::sdwac_coupon_cart_filter_line_total($post_id);
                             if (!($total < (float) $value)) {
                                 $result = false;
                             }
@@ -202,7 +177,7 @@ class Validator
                                 $result = false;
                             }
                         } else if ($calculate == "from_filter") {
-                            $total = self::sdwac_coupon_cart_filter_line_total($post_meta["list_id"]);
+                            $total = self::sdwac_coupon_cart_filter_line_total($post_id);
                             if (!($total <= (float) $value)) {
                                 $result = false;
                             }
@@ -214,7 +189,7 @@ class Validator
                                 $result = false;
                             }
                         } else if ($calculate == "from_filter") {
-                            $total = self::sdwac_coupon_cart_filter_line_total($post_meta["list_id"]);
+                            $total = self::sdwac_coupon_cart_filter_line_total($post_id);
                             if (!($total > (float) $value)) {
                                 $result = false;
                             }
@@ -226,7 +201,7 @@ class Validator
                                 $result = false;
                             }
                         } else if ($calculate == "from_filter") {
-                            $total = self::sdwac_coupon_cart_filter_line_total($post_meta["list_id"]);
+                            $total = self::sdwac_coupon_cart_filter_line_total($post_id);
                             if (!($total >= (float) $value)) {
                                 $result = false;
                             }
