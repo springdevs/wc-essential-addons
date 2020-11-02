@@ -293,6 +293,9 @@ class Products
                 $args["ID"] = $post_id;
                 $args["post_title"] = "Booking #{$post_id}";
                 wp_update_post($args);
+                update_post_meta($order_id, "_booking_post_meta", [
+                    'post_id' => $post_id
+                ]);
                 update_post_meta($post_id, "_booking_order_meta", $date_time);
             endif;
         }

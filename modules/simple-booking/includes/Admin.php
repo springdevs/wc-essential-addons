@@ -7,6 +7,7 @@ use SpringDevs\WcBooking\Admin\BookingOrder;
 use SpringDevs\WcBooking\Admin\Menu;
 use SpringDevs\WcBooking\Admin\OrderPosts;
 use SpringDevs\WcBooking\Illuminate\Gateways;
+use SpringDevs\WcBooking\Illuminate\Order;
 use SpringDevs\WcBooking\Illuminate\OrderPage;
 use SpringDevs\WcBooking\Illuminate\OrderStatus;
 
@@ -29,6 +30,7 @@ class Admin
         new BookingOrder;
         new OrderStatus;
         new OrderPosts;
+        new Order;
     }
 
     /**

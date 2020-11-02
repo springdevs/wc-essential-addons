@@ -6,6 +6,7 @@ use SpringDevs\WcBooking\Frontend\Gateways;
 use SpringDevs\WcBooking\Frontend\MyAccount;
 use SpringDevs\WcBooking\Frontend\Products;
 use SpringDevs\WcBooking\Illuminate\Gateways as IlluminateGateways;
+use SpringDevs\WcBooking\Illuminate\Order;
 use SpringDevs\WcBooking\Illuminate\OrderPage;
 use SpringDevs\WcBooking\Illuminate\OrderStatus;
 
@@ -26,5 +27,6 @@ class Frontend
         new OrderPage;
         new MyAccount;
         new OrderStatus;
+        new Order;
     }
 }

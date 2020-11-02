@@ -39,7 +39,8 @@ $postslist = new WP_Query($args);
                 $product = wc_get_product($post_meta["product_id"]);
                 $attributes = [];
                 $order = wc_get_order($post_meta["order_id"]);
-                foreach ($order->get_items() as $key => $item) {
+                $order_items = $order && is_array($order->get_items()) ? $order->get_items() : [];
+                foreach ($order_items as $key => $item) {
                     foreach ($item->get_meta_data() as $data) {
                         if ($data->key != "Date" && $data->key != "Time") $attributes[$data->key] = $data->value;
                     }

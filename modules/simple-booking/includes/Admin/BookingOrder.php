@@ -113,8 +113,10 @@ class BookingOrder
         $post_meta = get_post_meta($post_id, "_booking_order_meta", true);
         $product = wc_get_product($post_meta["product_id"]);
         $order = wc_get_order($post_meta["order_id"]);
+        if (!$order) return;
+        $order_items = $order && is_array($order->get_items()) ? $order->get_items() : [];
         $attributes = [];
-        foreach ($order->get_items() as $key => $item) {
+        foreach ($order_items as $key => $item) {
             foreach ($item->get_meta_data() as $data) {
                 if ($data->key != "Date" && $data->key != "Time") $attributes[$data->key] = $data->value;
             }
@@ -123,11 +125,11 @@ class BookingOrder
 ?>
             <a href="<?php the_permalink($post_meta["product_id"]); ?>"><?php echo $product->get_title(); ?></a>
             <br />
-            <?php foreach ($attributes as $key => $value): ?>
-                <strong><?php echo $key; ?> : </strong> <?php echo $value; ?> <br/>
+            <?php foreach ($attributes as $key => $value) : ?>
+                <strong><?php echo $key; ?> : </strong> <?php echo $value; ?> <br />
             <?php endforeach; ?>
             <hr />
-            <?php echo $post_meta["date"].' - '.$post_meta["time"]; ?>
+            <?php echo $post_meta["date"] . ' - ' . $post_meta["time"]; ?>
         <?php
         } elseif ($column == "customer") {
         ?>
