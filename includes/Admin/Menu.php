@@ -20,6 +20,7 @@ class Menu
 
     public function handle_requests()
     {
+        global $pagenow;
         if (isset($_GET["page"])) {
             if ($_GET["page"] == "springdevs-modules") {
                 if (isset($_GET["modules_activate"])) {
@@ -28,6 +29,10 @@ class Menu
                     $this->deactive_modules($_GET["modules_deactivate"]);
                 }
             }
+        }
+        if ($pagenow == "admin.php" && isset($_GET['page']) && $_GET['page'] == 'springdevs-freemius-setup') {
+            wp_redirect(admin_url('/admin.php?page=springdevs-freemius-setup-account'));
+            exit;
         }
     }
 
@@ -42,6 +47,7 @@ class Menu
         $capability = 'manage_options';
         $hook = add_menu_page(__('Missing Addons', 'sdevs_wea'), __('Missing Addons', 'sdevs_wea'), $capability, $parent_slug, [$this, 'plugin_page'], 'dashicons-image-filter', 40);
         add_submenu_page($parent_slug, "", __("All Modules", "sdevs_wea"), $capability, $parent_slug, [$this, 'plugin_page']);
+        if (!function_exists('sdevs_freemius_setup') || !sdevs_freemius_setup()->is__premium_only()) add_submenu_page($parent_slug, __("Active Pro", "sdevs_wea"), __("Active Pro", "sdevs_wea"), $capability, "springdevs-freemius-setup", [$this, 'plugin_page']);
         add_action('load-' . $hook, [$this, 'init_hooks']);
     }
 

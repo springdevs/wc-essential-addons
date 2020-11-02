@@ -2,12 +2,9 @@
 
 function sdevs_has_pro_version()
 {
-    if (in_array('wc-missing-addons-pro/wc-missing-addons-pro.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-        return true;
-    }
+    if (class_exists('Sdevs_wma_Main_Pro')) return true;
     return false;
 }
-
 
 function sdevs_is_pro_module_activate($module)
 {
