@@ -69,6 +69,7 @@ class Helper
     {
         $result = true;
         $author = get_current_user_id();
+        $product = wc_get_product($product_id);
         $cancelled_items = get_user_meta($author, '_subscrpt_cancelled_items', true);
         $expired_items = get_user_meta($author, '_subscrpt_expired_items', true);
         $active_items = get_user_meta($author, '_subscrpt_active_items', true);
@@ -95,6 +96,7 @@ class Helper
             if ($pending_item['product'] == $product_id) $result = false;
         }
 
+        if ($product->is_type('simple')) return $result;
         return apply_filters('subscrpt_filter_product_trial', $result, $product_id, $active_items, $pending_items, $cancelled_items, $expired_items);
     }
 }

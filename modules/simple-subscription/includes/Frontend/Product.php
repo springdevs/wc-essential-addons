@@ -64,18 +64,25 @@ class Product
 
     public function save_order_item_product_meta($item, $cart_item_key, $cart_item, $order)
     {
-        if (isset($cart_item['renew_subscrpt'])) {
-            $item->update_meta_data('_renew_subscrpt', $cart_item['renew_subscrpt']);
-        }
+        if (isset($cart_item['renew_subscrpt'])) $item->update_meta_data('_renew_subscrpt', $cart_item['renew_subscrpt']);
     }
 
     public function text_if_active()
     {
         global $product;
         if (!$product->is_type('simple')) return;
+        $post_meta = get_post_meta($product->get_id(), 'subscrpt_general', true);
         $unexpired = Helper::Check_un_expired($product->get_id());
-        if ($unexpired)
-            echo '<strong>' . __('You Already Purchased These Product!', 'sdevs_wea') . '</strong>';
+        if (is_array($post_meta) && isset($post_meta['limit'])) {
+            if ($post_meta['limit'] == "unlimited") return;
+            if ($post_meta['limit'] == "one") if (!$unexpired) return;
+            if ($post_meta['limit'] == "only_one") {
+                if (!subscrpt_check_trial($product->get_id())) {
+                    echo '<strong>' . __('You Already Purchased These Product!', 'sdevs_wea') . '</strong>';
+                }
+            }
+        }
+        if ($unexpired) echo '<strong>' . __('You Already Purchased These Product!', 'sdevs_wea') . '</strong>';
     }
 
     public function remove_button_active_products($button, $product)
@@ -122,17 +129,13 @@ class Product
     {
         global $product;
         $post_meta = get_post_meta($product->get_id(), 'subscrpt_general', true);
+        if (is_array($post_meta) && isset($post_meta['limit']) && $post_meta['limit'] == "unlimited") return $post_meta['cart_txt'];
         $expired = Helper::CheckExpired($product->get_id());
-        $unexpired = Helper::Check_un_expired($product->get_id());
-
         if ($expired) :
             $text = __("renew", "sdevs_wea");
-        elseif ($unexpired) :
-            $text = __('Subscribed', 'sdevs_wea');
         elseif (is_array($post_meta) && $post_meta['enable']) :
             $text = $post_meta['cart_txt'];
         endif;
-
         return $text;
     }
 
