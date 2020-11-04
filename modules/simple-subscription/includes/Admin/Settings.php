@@ -52,6 +52,7 @@ class Settings
                                 <select name="subscrpt_active_role" id="subscrpt_active_role">
                                     <?php wp_dropdown_roles(get_option('subscrpt_active_role', 'subscriber')); ?>
                                 </select>
+                                <p class="description"><?php _e('When a subscription is activated, either manually or after a successful purchase, new users will be assigned this role.', 'sdevs_wea'); ?></p>
                             </td>
                         </tr>
                         <tr>
@@ -64,6 +65,7 @@ class Settings
                                 <select name="subscrpt_unactive_role" id="subscrpt_unactive_role">
                                     <?php wp_dropdown_roles(get_option('subscrpt_unactive_role', 'customer')); ?>
                                 </select>
+                                <p class="description"><?php _e("If a subscriber's subscription is manually cancelled or expires, will be assigned this role.", "sdevs_wea"); ?></p>
                             </td>
                         </tr>
                         <?php do_action("subscrpt_setting_fields"); ?>
