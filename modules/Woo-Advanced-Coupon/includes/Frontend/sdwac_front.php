@@ -110,9 +110,7 @@ class sdwac_front
             if ($data["first_coupon"] === "no") {
                 foreach ($data["items"] as $woocoupon) {
                     $validate = Validator::check(null, null, $woocoupon);
-                    if (!$validate) {
-                        return 0;
-                    }
+                    if (!$validate) return 0;
                     $sdwac_coupon_main        = get_post_meta($woocoupon, "sdwac_coupon_main", true);
                     $sdwac_coupon_coupon_type = $sdwac_coupon_main["type"];
                     $sdwac_coupon_discounts = get_post_meta($woocoupon, "sdwac_coupon_discounts", true);
@@ -223,7 +221,7 @@ class sdwac_front
                         $discount_total = $sdwac_coupon_discounts["value"];
                         break;
                 }
-                if ($post_meta["overwrite_discount"] === null) {
+                if (!$post_meta["overwrite_discount"]) {
                     $store_coupons[$coupon] = $couponData->get_amount();
                     $cart->add_fee($sdwac_coupon_main["label"] ? $sdwac_coupon_main["label"] : "Cart Discount", -$discount_total);
                     $discount_amount += $couponData->get_amount();
@@ -232,17 +230,11 @@ class sdwac_front
                 }
                 $discount_amount += $discount_total;
             } else if ($sdwac_coupon_coupon_type == "product") {
-                if ($post_meta["overwrite_discount"] === null) {
+                if (!$post_meta["overwrite_discount"]) {
                     $discount_total = $couponData->get_amount();
                     $store_coupons[$coupon] = $discount_total;
                     $discount_amount += $discount_total;
                 } else {
-                    // wp_register_style('dummy-handle', false);
-                    // wp_enqueue_style('dummy-handle');
-                    // wp_add_inline_style(
-                    //     'dummy-handle',
-                    //     '.coupon-' . $coupon . ' { display: none; }'
-                    // );
                     $store_coupons[$coupon] = "product discount";
                     $discount_amount += .001;
                 }
@@ -257,7 +249,7 @@ class sdwac_front
                                 $discount_total = $sdwac_coupon_discount["value"];
                                 break;
                         }
-                        if ($post_meta["overwrite_discount"] === null) {
+                        if (!$post_meta["overwrite_discount"]) {
                             $store_coupons[$coupon] = $couponData->get_amount();
                             $cart->add_fee($sdwac_coupon_main["label"] ? $sdwac_coupon_main["label"] : "Bulk Discount", -$discount_total);
                             $discount_amount += $couponData->get_amount();
@@ -354,8 +346,9 @@ class sdwac_front
             if ($sdwac_coupon_discounts["type"] == "percentage") {
                 $discount_amount_html = '[on products] <span class="woocommerce-Price-amount amount">' . $sdwac_coupon_discounts["value"] . '%</span>';
             } else {
-                $discount_amount_html = '[on products] <span class="woocommerce-Price-amount amount">' . get_woocommerce_currency_symbol() . ' ' . $sdwac_coupon_discounts["value"] . '</span>';
+                $discount_amount_html = '[on products] ' . wc_price($sdwac_coupon_discounts["value"]);
             }
+            if (!$post_meta['overwrite_discount']) $discount_amount_html .= " + " . wc_price($coupon->get_amount());
             $coupon_html          = $discount_amount_html . ' <a class="woocommerce-remove-coupon" href="' . esc_url(add_query_arg('remove_coupon', urlencode($coupon->get_code()), defined('WOOCOMMERCE_CHECKOUT') ? wc_get_checkout_url() : wc_get_cart_url())) . '" class="woocommerce-remove-coupon" data-coupon="' . esc_attr($coupon->get_code()) . '">' . __('[Remove]', 'sdevs_wea') . '</a>';
         }
         return $coupon_html;
