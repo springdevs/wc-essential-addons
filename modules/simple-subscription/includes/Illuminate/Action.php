@@ -17,6 +17,7 @@ class Action
     {
         self::get($author);
         self::edit($action, $data);
+        self::user($author, $action);
         self::update($author);
     }
 
@@ -48,6 +49,16 @@ class Action
             case 'cancelled':
                 self::cancelled($data);
                 break;
+        }
+    }
+
+    static private function user($author, $action)
+    {
+        $user = new \WP_User($author);
+        if (!empty($user->roles) && is_array($user->roles) && in_array('administrator', $user->roles)) return;
+        if ($action == 'active') $user->set_role(get_option('subscrpt_active_role', 'subscriber'));
+        if (($action == 'cancelled' || $action == 'expired') && (count(self::$active_items) == 0 && count(self::$pending_items) == 0)) {
+            $user->set_role(get_option('subscrpt_unactive_role', 'customer'));
         }
     }
 

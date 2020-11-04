@@ -14,6 +14,8 @@
 
 # subscrpt_when_product_expired
 
+# subscrpt_setting_fields
+
 -=== CheckOut Hooks ===-
 
 # subscrpt_filter_checkout_data ✔

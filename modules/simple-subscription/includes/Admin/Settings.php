@@ -25,7 +25,9 @@ class Settings
      **/
     public function register_settings()
     {
-        register_setting('subscrpt_settings', 'subscrpt_demo');
+        register_setting('subscrpt_settings', 'subscrpt_active_role');
+        register_setting('subscrpt_settings', 'subscrpt_unactive_role');
+        do_action('subscrpt_register_settings', 'subscrpt_settings');
     }
 
     public function settings_content()
@@ -33,8 +35,8 @@ class Settings
 ?>
         <div class="wrap">
             <?php settings_errors(); ?>
-            <h1>Subscription Settings</h1>
-            <p>These settings can effect Subscription</p>
+            <h1><?php _e('Subscription Settings', 'sdevs_wea'); ?></h1>
+            <p><?php _e('These settings can effect Subscription', 'sdevs_wea'); ?></p>
             <form method="post" action="options.php">
                 <?php settings_fields('subscrpt_settings'); ?>
                 <?php do_settings_sections('subscrpt_settings'); ?>
@@ -42,15 +44,29 @@ class Settings
                     <tbody>
                         <tr>
                             <th scope="row">
-                                <label for="sdwac_first_time_purchase_coupon_label">
-                                    <?php _e('Demo', 'sdevs_wea'); ?>
+                                <label for="subscrpt_active_role">
+                                    <?php _e('Subscriber Default Role', 'sdevs_wea'); ?>
                                 </label>
                             </th>
                             <td>
-                                <input type="text" name="sdwac_first_time_purchase_coupon_label" id="sdwac_first_time_purchase_coupon_label" required />
-                                <p class="description"><?php _e('Display Label on cart', 'sdevs_wea'); ?></p>
+                                <select name="subscrpt_active_role" id="subscrpt_active_role">
+                                    <?php wp_dropdown_roles(get_option('subscrpt_active_role', 'subscriber')); ?>
+                                </select>
                             </td>
                         </tr>
+                        <tr>
+                            <th scope="row">
+                                <label for="subscrpt_unactive_role">
+                                    <?php _e('Subscriber Unactive Role', 'sdevs_wea'); ?>
+                                </label>
+                            </th>
+                            <td>
+                                <select name="subscrpt_unactive_role" id="subscrpt_unactive_role">
+                                    <?php wp_dropdown_roles(get_option('subscrpt_unactive_role', 'customer')); ?>
+                                </select>
+                            </td>
+                        </tr>
+                        <?php do_action("subscrpt_setting_fields"); ?>
                     </tbody>
                 </table>
 
