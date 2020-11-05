@@ -25,6 +25,16 @@ class ActionController
         if (!wp_verify_nonce($wpnonce, "subscrpt_nonce")) wp_die(__('Sorry !! You cannot permit to access.', 'sdevs_wea'));
         if ($action == 'renew') {
             $this->RenewProduct($subscrpt_id);
+        } elseif ($action == 'early-renew') {
+            $post_meta = get_post_meta($subscrpt_id, '_subscrpt_order_general', true);
+            $data = ["post" => $subscrpt_id, "product" => $post_meta['product_id']];
+            if (isset($post_meta['variation_id'])) $data['variation'] = $post_meta['variation_id'];
+            Action::status("renew", get_current_user_id(), $data);
+            echo "<script>location.href = '" . get_permalink(wc_get_page_id('myaccount')) . "view-subscrpt/" . $subscrpt_id . "';</script>";
+        } elseif ($action == 'renew-on') {
+            update_post_meta($subscrpt_id, "_subscrpt_auto_renew", 1);
+        } elseif ($action == 'renew-off') {
+            update_post_meta($subscrpt_id, "_subscrpt_auto_renew", 0);
         } else {
             $post_meta = get_post_meta($subscrpt_id, '_subscrpt_order_general', true);
             if ($action == 'cancelled') {

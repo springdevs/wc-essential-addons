@@ -127,6 +127,7 @@ class Thankyou
                 $_subscrpt_order_general['post_id'] = $post_id;
                 if ($is_renew) $_subscrpt_order_general['stats'] = 'Renew Order';
                 $_subscrpt_order_general = apply_filters('subscrpt_filter_checkout_data', $_subscrpt_order_general, $conditional_key, $cart_item);
+                if ($order->get_payment_method() == 'stripe') update_post_meta($post_id, "_subscrpt_auto_renew", 1);
                 update_post_meta($unexpire_data['post'], "_subscrpt_order_general", $_subscrpt_order_general);
                 $order_history = get_post_meta($unexpire_data['post'], '_subscrpt_order_history', true);
                 if (!is_array($order_history)) $order_history = [];

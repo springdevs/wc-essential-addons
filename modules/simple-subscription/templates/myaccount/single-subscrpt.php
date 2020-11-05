@@ -7,7 +7,13 @@ $order = wc_get_order($post_meta['order_id']);
 $product = wc_get_product($post_meta['product_id']);
 $status = get_post_status($id);
 ?>
-
+<style>
+    .auto-renew-on,
+    .subscription_renewal_early,
+    .auto-renew-off {
+        margin-bottom: 10px;
+    }
+</style>
 <table class="shop_table subscription_details">
     <tbody>
         <tr>
@@ -62,6 +68,7 @@ $status = get_post_status($id);
                     <?php elseif (trim($status) == trim("pe_cancelled")) : ?>
                         <a href="" class="button subscription_renewal_early">Reactive</a>
                     <?php endif; ?>
+                    <?php do_action('subscrpt_single_action_buttons', $id, $order, $subscrpt_nonce); ?>
                 </td>
             </tr>
         <?php endif; ?>

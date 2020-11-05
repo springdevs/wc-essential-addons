@@ -193,9 +193,9 @@ class Subscriptions
     {
         $actions = [
             ["label" => __('Activate Subscription', 'sdevs_wea'), "value" => 'active'],
-            ["label" => __('Pending Subscription', 'sdevs_wea'), "value" => 'pending'],
-            ["label" => __('Expire Subscription', 'sdevs_wea'), "value" => 'expired'],
-            ["label" => __('Cancel Subscription', 'sdevs_wea'), "value" => 'cancelled'],
+            ["label" => __('Pending Subscription', 'sdevs_wea'),  "value" => 'pending'],
+            ["label" => __('Expire Subscription', 'sdevs_wea'),   "value" => 'expired'],
+            ["label" => __('Cancel Subscription', 'sdevs_wea'),   "value" => 'cancelled'],
         ];
         $status = get_post_status(get_the_ID());
         ?>

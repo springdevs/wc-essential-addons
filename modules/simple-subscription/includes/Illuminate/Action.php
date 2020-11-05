@@ -43,6 +43,9 @@ class Action
             case 'active':
                 self::active($data);
                 break;
+            case 'renew':
+                self::renew($data);
+                break;
             case 'pending':
                 self::pending($data);
                 break;
@@ -81,6 +84,12 @@ class Action
             unset(self::$cancelled_items[$key]);
         }
 
+        $post_meta = get_post_meta($data['post'], '_subscrpt_order_general', true);
+        if ($post_meta['trial'] != null && time() >= $post_meta['start_date']) {
+            $post_meta['trial'] = null;
+            update_post_meta($data['post'], '_subscrpt_order_general', $post_meta);
+        }
+
         $comment_id = wp_insert_comment([
             "comment_agent" => "simple-subscriptions",
             "comment_author" => "simple-subscriptions",
@@ -89,7 +98,7 @@ class Action
             "comment_type" => "order_note"
         ]);
         update_comment_meta($comment_id, 'subscrpt_activity', __('Subscription Expired', 'sdevs_wea'));
-        do_action('subscrpt_when_product_expired', $data['post'], $data['product'], $data);
+        do_action('subscrpt_when_product_expired', $data['post'], $data['product'], $data, false);
     }
 
     static private function active($data)
@@ -119,6 +128,16 @@ class Action
             "comment_type" => "order_note"
         ]);
         update_comment_meta($comment_id, 'subscrpt_activity', __('Subscription Activated', 'sdevs_wea'));
+    }
+
+    static private function renew($data)
+    {
+        $post_meta = get_post_meta($data['post'], '_subscrpt_order_general', true);
+        if ($post_meta['trial'] != null) {
+            $post_meta['trial'] = null;
+            update_post_meta($data['post'], '_subscrpt_order_general', $post_meta);
+        }
+        do_action('subscrpt_when_product_expired', $data['post'], $data['product'], $data, true);
     }
 
     static private function pending($data)

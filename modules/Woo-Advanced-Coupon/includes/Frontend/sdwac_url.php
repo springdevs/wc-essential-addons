@@ -49,8 +49,12 @@ class sdwac_url
         $coupons = WC()->cart->get_applied_coupons();
         $code = WC()->session->get('coupon_code');
         $discounts = new \WC_Discounts(WC()->cart);
-        $applied_coupons = WC()->cart->get_applied_coupons();
-        if (is_wp_error($discounts) && !$discounts->is_coupon_valid($code) && in_array($code, $applied_coupons)) WC()->session->__unset('coupon_code');
+        $coupon_data = new \WC_Coupon($code);
+        $coupon_meta = $coupon_data->get_meta('sdwac_coupon_panel', true);
+        if (is_wp_error($discounts) || !$discounts->is_coupon_valid($code) || !$coupon_meta['url_coupon']) {
+            WC()->session->__unset('coupon_code');
+            return;
+        }
         if ($code) {
             if (in_array($code, $coupons)) {
                 WC()->session->__unset('coupon_code');
