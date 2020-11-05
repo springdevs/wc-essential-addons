@@ -79,7 +79,6 @@ $status = get_post_status($id);
 </table>
 
 <h2><?php _e('Subscription totals', 'sdevs_wea'); ?></h2>
-
 <table class="shop_table order_details">
     <thead>
         <tr>
@@ -91,13 +90,16 @@ $status = get_post_status($id);
         <?php
         $product_name = apply_filters('subscrpt_filter_product_name', $product->get_name(), $post_meta);
         $product_link = apply_filters('subscrpt_filter_product_permalink', $product->get_permalink(), $post_meta);
+        $time = $product_meta['time'] == 1 ? null : $product_meta['time'];
+        $type = subscrpt_get_typos($product_meta['time'], $product_meta["type"]);
+        $product_price_html = wc_price($product->get_price() * $post_meta['qty']) . " / " . $time . " " . $type;
         ?>
         <tr class="order_item">
             <td class="product-name">
                 <a href="<?php echo $product_link; ?>"><?php echo $product_name; ?></a>
                 <strong class="product-quantity">× <?php echo $post_meta['qty']; ?></strong> </td>
             <td class="product-total">
-                <span class="woocommerce-Price-amount amount"><?php echo $post_meta['subtotal_price_html']; ?></span>
+                <span class="woocommerce-Price-amount amount"><?php echo wc_price($product->get_price()) . " / " . $time . " " . $type; ?></span>
             </td>
         </tr>
     </tbody>
@@ -105,14 +107,14 @@ $status = get_post_status($id);
         <tr>
             <th scope="row"><?php _e('Subtotal', 'sdevs_wea'); ?>:</th>
             <td>
-                <span class="woocommerce-Price-amount amount"><?php echo $post_meta['subtotal_price_html']; ?></span>
+                <span class="woocommerce-Price-amount amount"><?php echo wc_price($product->get_price() * $post_meta['qty']); ?></span>
             </td>
         </tr>
         <tr>
-            <th scope="row"><?php _e('Total', 'sdevs_wea'); ?>:</th>
+            <th scope="row"><?php _e('Renew', 'sdevs_wea'); ?>:</th>
             <td>
                 <span class="woocommerce-Price-amount amount">
-                    <?php echo $post_meta['total_price_html']; ?>
+                    <?php echo $product_price_html; ?>
                 </span>
             </td>
         </tr>
