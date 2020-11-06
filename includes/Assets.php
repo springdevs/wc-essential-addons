@@ -73,7 +73,22 @@ class Assets
     {
         $plugin_js_assets_path = SDEVS_WEA_ASSETS_ASSETS . '/js/';
 
-        $scripts = [];
+        $scripts = [
+            "freemius_checkout" => [
+                "src" => "https://checkout.freemius.com/checkout.min.js",
+                "deps" => ['jquery'],
+                "in_footer" => true
+            ],
+            "freemius_custom" => [
+                "src" => $plugin_js_assets_path . "pricing.js",
+                "deps" => ['freemius_checkout'],
+                "in_footer" => true
+            ],
+            "sdmaw_custom" => [
+                "src" => $plugin_js_assets_path . "custom.js",
+                "in_footer" => true
+            ]
+        ];
 
         return $scripts;
     }
