@@ -30,7 +30,6 @@ class ActionController
             $data = ["post" => $subscrpt_id, "product" => $post_meta['product_id']];
             if (isset($post_meta['variation_id'])) $data['variation'] = $post_meta['variation_id'];
             Action::status("renew", get_current_user_id(), $data);
-            echo "<script>location.href = '" . get_permalink(wc_get_page_id('myaccount')) . "view-subscrpt/" . $subscrpt_id . "';</script>";
         } elseif ($action == 'renew-on') {
             update_post_meta($subscrpt_id, "_subscrpt_auto_renew", 1);
         } elseif ($action == 'renew-off') {
@@ -49,6 +48,7 @@ class ActionController
             if (isset($post_meta['variation_id'])) $data['variation'] = $post_meta['variation_id'];
             Action::status($action, get_current_user_id(), $data);
         }
+        echo "<script>location.href = '" . get_permalink(wc_get_page_id('myaccount')) . "view-subscrpt/" . $subscrpt_id . "';</script>";
     }
 
     public function RenewProduct($subscrpt_id)

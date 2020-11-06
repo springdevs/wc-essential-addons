@@ -37,10 +37,18 @@ $postslist = new WP_Query($args);
             while ($postslist->have_posts()) : $postslist->the_post();
                 $post_meta = get_post_meta(get_the_ID(), "_subscrpt_order_general", true);
                 $product = wc_get_product($post_meta["product_id"]);
+                if (isset($post_meta['variation_id'])) {
+                    $product_meta = get_post_meta($post_meta['variation_id'], 'subscrpt_general', true);
+                } else {
+                    $product_meta = $product->get_meta('subscrpt_general', true);
+                }
                 $product_name = get_the_title($post_meta['product_id']);
                 $product_name = apply_filters('subscrpt_filter_product_name', $product_name, $post_meta);
                 $product_link = get_the_permalink($post_meta['product_id']);
                 $product_link = apply_filters('subscrpt_filter_product_permalink', $product_link, $post_meta);
+                $time = $product_meta['time'] == 1 ? null : $product_meta['time'];
+                $type = subscrpt_get_typos($product_meta['time'], $product_meta["type"]);
+                $product_price_html = wc_price($product->get_price() * $post_meta['qty']) . " / " . $time . " " . $type;
         ?>
                 <tr>
                     <td><?php the_ID(); ?></td>
@@ -51,7 +59,7 @@ $postslist = new WP_Query($args);
                     <?php else : ?>
                         <td><small>First Billing : </small><?php echo date('F d, Y', $post_meta['start_date']); ?></td>
                     <?php endif; ?>
-                    <td><?php echo $post_meta['subtotal_price_html']; ?></td>
+                    <td><?php echo $product_price_html; ?></td>
                     <td>
                         <a href="<?php echo get_permalink(wc_get_page_id('myaccount')) . "view-subscrpt/" . get_the_ID(); ?>" class="woocommerce-button button view">View</a>
                     </td>
