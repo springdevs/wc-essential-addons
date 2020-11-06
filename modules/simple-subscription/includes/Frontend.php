@@ -7,6 +7,7 @@ use SpringDevs\WcSubscription\Frontend\Downloadable;
 use SpringDevs\WcSubscription\Frontend\MyAccount;
 use SpringDevs\WcSubscription\Frontend\Product;
 use SpringDevs\WcSubscription\Frontend\Thankyou;
+use SpringDevs\WcSubscription\Illuminate\AutoRenewal;
 use SpringDevs\WcSubscription\Illuminate\Cron;
 use SpringDevs\WcSubscription\Illuminate\Email;
 use SpringDevs\WcSubscription\Illuminate\Order;
@@ -33,5 +34,6 @@ class Frontend
         new Downloadable;
         new Order;
         new Email;
+        new AutoRenewal;
     }
 }
