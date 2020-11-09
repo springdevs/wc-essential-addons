@@ -19,7 +19,7 @@ final class sdwac_coupon_main
      *
      * @var string
      */
-    const version = '1.0.0';
+    const version = '1.0.1';
 
     /**
      * Holds various class instances

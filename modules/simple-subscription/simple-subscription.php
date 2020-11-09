@@ -19,7 +19,7 @@ final class Sdevs_Wc_Subscription
      *
      * @var string
      */
-    const version = '1.0.0';
+    const version = '1.0.1';
 
     /**
      * Holds various class instances
