@@ -3,7 +3,7 @@
 Plugin Name: Missing Addons for WooCommerce
 Plugin URI: https://wordpress.org/plugins/wc-essential-addons/
 Description: Supercharge your WooCommerce powered store!
-Version: 1.0.4
+Version: 1.0.5
 Author: SpringDevs
 Author URI: https://springdevs.com/
 License: GPLv2
