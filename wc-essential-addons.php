@@ -58,7 +58,7 @@ final class sdevs_wea_Main
      *
      * @var string
      */
-    const version = '1.0.4';
+    const version = '1.0.5';
 
     /**
      * Holds various class instances

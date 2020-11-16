@@ -2,7 +2,7 @@
   <div>
     <div v-if="loading" class="spinner is-active sdwac_coupon_spinner"></div>
     <div v-else>
-      <div v-if="$root.sdwac_coupon_form.type != 'product'">
+      <div>
         <input type="hidden" name="rulesLength" :value="conditions.length" />
         <div class="sdwac_coupon-form">
           <label>
@@ -14,7 +14,8 @@
                   type="radio"
                   value="match_all"
                   v-model="relation"
-                /> Match All
+                />
+                Match All
               </label>
               <label>
                 <input
@@ -22,7 +23,8 @@
                   type="radio"
                   value="match_any"
                   v-model="relation"
-                /> Match Any
+                />
+                Match Any
               </label>
             </div>
           </label>
@@ -30,53 +32,57 @@
         <div
           class="sdwac_coupon-flex sdwac_coupon-filter sdwac_coupon-bulk-discount"
           v-for="(condition, index) in conditions"
-          :key="'condition'+index"
+          :key="'condition' + index"
         >
           <div class="sdwac_coupon-bulk-list">
             <div class="sdwac_coupon-form">
-              <label :for="'sdwac_coupon_rule_type_'+index">
+              <label :for="'sdwac_coupon_rule_type_' + index">
                 <strong>Condition Type</strong>
               </label>
               <select
-                :id="'sdwac_coupon_rule_type_'+index"
-                :name="'sdwac_coupon_rule_type_'+index"
+                :id="'sdwac_coupon_rule_type_' + index"
+                :name="'sdwac_coupon_rule_type_' + index"
                 v-model="condition.type"
               >
                 <option
                   v-for="(type, index) in types"
-                  :key="'type-'+index"
+                  :key="'type-' + index"
                   :value="type.value"
-                >{{ type.label }}</option>
+                >
+                  {{ type.label }}
+                </option>
               </select>
             </div>
           </div>
           <div class="sdwac_coupon-bulk-list">
             <div class="sdwac_coupon-form">
-              <label :for="'sdwac_coupon_rule_operator_'+index">
+              <label :for="'sdwac_coupon_rule_operator_' + index">
                 <strong>count should be</strong>
               </label>
               <select
-                :id="'sdwac_coupon_rule_operator_'+index"
-                :name="'sdwac_coupon_rule_operator_'+index"
+                :id="'sdwac_coupon_rule_operator_' + index"
+                :name="'sdwac_coupon_rule_operator_' + index"
                 v-model="condition.operator"
               >
                 <option
                   v-for="(operator, index) in operators"
-                  :key="'operator-'+index"
+                  :key="'operator-' + index"
                   :value="operator.value"
-                >{{ operator.label }}</option>
+                >
+                  {{ operator.label }}
+                </option>
               </select>
             </div>
           </div>
           <div class="sdwac_coupon-bulk-list">
             <div class="sdwac_coupon-form">
-              <label :for="'sdwac_coupon_rule_item_'+index">
+              <label :for="'sdwac_coupon_rule_item_' + index">
                 <strong>item count</strong>
               </label>
               <input
                 type="number"
-                :id="'sdwac_coupon_rule_item_'+index"
-                :name="'sdwac_coupon_rule_item_'+index"
+                :id="'sdwac_coupon_rule_item_' + index"
+                :name="'sdwac_coupon_rule_item_' + index"
                 placeholder="1"
                 min="1"
                 v-model="condition.item_count"
@@ -85,28 +91,35 @@
           </div>
           <div class="sdwac_coupon-bulk-list">
             <div class="sdwac_coupon-form">
-              <label :for="'sdwac_coupon_rule_calculate_'+index">
+              <label :for="'sdwac_coupon_rule_calculate_' + index">
                 <strong>calculate item count</strong>
               </label>
               <select
-                :id="'sdwac_coupon_rule_calculate_'+index"
-                :name="'sdwac_coupon_rule_calculate_'+index"
+                :id="'sdwac_coupon_rule_calculate_' + index"
+                :name="'sdwac_coupon_rule_calculate_' + index"
                 v-model="condition.calculate"
               >
                 <option
                   v-for="(calculate, index) in calculates"
-                  :key="'calculate-'+index"
+                  :key="'calculate-' + index"
                   :value="calculate.value"
-                >{{ calculate.label }}</option>
+                >
+                  {{ calculate.label }}
+                </option>
               </select>
             </div>
           </div>
           <div class="sdwac_coupon-filter-close">
-            <span @click="removeRule(index)" class="dashicons dashicons-no-alt"></span>
+            <span
+              @click="removeRule(index)"
+              class="dashicons dashicons-no-alt"
+            ></span>
           </div>
         </div>
         <div class="sdwac_coupon_buttons">
-          <button type="button" @click="AddRules" class="button-primary">Add Condition</button>
+          <button type="button" @click="AddRules" class="button-primary">
+            Add Condition
+          </button>
         </div>
       </div>
     </div>
@@ -204,9 +217,6 @@ export default {
           console.log(error);
         });
     },
-  },
-  mounted() {
-    this.getRules();
   },
 };
 </script>

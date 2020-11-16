@@ -77,7 +77,12 @@ class Assets
             "sdwac_coupon_app" => [
                 "src" => $plugin_js_assets_path . "app.js",
                 "in_footer" => true
-            ]
+            ],
+            "sdwac_admin_coupon" => [
+                "src" => $plugin_js_assets_path . "admin/coupon.js",
+                "deps" => ['jquery'],
+                "in_footer" => true
+            ],
         ];
 
         return $scripts;

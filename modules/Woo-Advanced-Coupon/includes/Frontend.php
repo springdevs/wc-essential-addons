@@ -2,9 +2,13 @@
 
 namespace springdevs\WooAdvanceCoupon;
 
+use springdevs\WooAdvanceCoupon\Frontend\Auto;
+use springdevs\WooAdvanceCoupon\Frontend\Coupon;
 use springdevs\WooAdvanceCoupon\Frontend\sdwac_auto;
 use springdevs\WooAdvanceCoupon\Frontend\sdwac_front;
 use springdevs\WooAdvanceCoupon\Frontend\sdwac_url;
+use springdevs\WooAdvanceCoupon\Frontend\Url;
+use springdevs\WooAdvanceCoupon\Frontend\Validation;
 
 /**
  * Frontend handler class
@@ -17,12 +21,14 @@ class Frontend
     public function __construct()
     {
         $exists = $this->is_rest();
-        if ($exists) {
-            return;
-        }
-        new sdwac_front;
-        new sdwac_url;
-        new sdwac_auto;
+        if ($exists) return;
+        new Validation;
+        new Coupon;
+        new Auto;
+        new Url;
+        // new sdwac_front;
+        // new sdwac_url;
+        // new sdwac_auto;
     }
 
     public function is_rest()

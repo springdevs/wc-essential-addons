@@ -6,7 +6,7 @@ namespace springdevs\WooAdvanceCoupon\Frontend;
  * Class sdwac_coupon_url
  * control url apply coupon system
  */
-class sdwac_url
+class Url
 {
     public function __construct()
     {
@@ -48,10 +48,12 @@ class sdwac_url
     {
         $coupons = WC()->cart->get_applied_coupons();
         $code = WC()->session->get('coupon_code');
-        $discounts = new \WC_Discounts(WC()->cart);
+        $coupon_id = wc_get_coupon_id_by_code($code);
+        if ($coupon_id == 0) return;
         $coupon_data = new \WC_Coupon($code);
         $coupon_meta = $coupon_data->get_meta('sdwac_coupon_panel', true);
-        if (is_wp_error($discounts) || !$discounts->is_coupon_valid($code) || !$coupon_meta['url_coupon']) {
+        if (empty($coupon_meta) && !is_array($coupon_meta)) return;
+        if (!$coupon_meta['url_coupon']) {
             WC()->session->__unset('coupon_code');
             return;
         }

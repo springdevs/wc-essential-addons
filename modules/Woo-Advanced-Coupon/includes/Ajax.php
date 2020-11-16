@@ -50,8 +50,8 @@ class Ajax
 	{
 		$post_id = (int)$_POST["post_id"];
 		if (is_int($post_id)) {
-			$post_meta = get_post_meta($post_id, "sdwac_coupon_rules", true);
-			wp_send_json($post_meta);
+			$post_meta = get_post_meta($post_id, "_sdwac_coupon_meta", true);
+			if (isset($post_meta['rules']) && isset($post_meta['relation']) && is_array($post_meta['rules'])) wp_send_json(["relation" => $post_meta['relation'], "rules" => $post_meta['rules']]);
 		}
 	}
 
@@ -59,8 +59,8 @@ class Ajax
 	{
 		$post_id = (int)$_POST["post_id"];
 		if (is_int($post_id)) {
-			$post_meta = get_post_meta($post_id, "sdwac_coupon_discounts", true);
-			wp_send_json($post_meta);
+			$post_meta = get_post_meta($post_id, "_sdwac_coupon_meta", true);
+			if (isset($post_meta['discounts']) && is_array($post_meta['discounts'])) wp_send_json($post_meta['discounts']);
 		}
 	}
 

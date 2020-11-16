@@ -47,36 +47,31 @@ class sdwac_Panels
 
     public function coupon_tabs_screen()
     {
-        $woocoupon = null;
         $url_coupon = "yes";
         $auto_coupon = "yes";
-        $overwrite_discount = "yes";
         $post_meta = get_post_meta(get_the_ID(), 'sdwac_coupon_panel', true);
+        $coupon_meta = get_post_meta(get_the_ID(), '_sdwac_coupon_meta', true);
+        $product_list_type = null;
+        if (!empty($coupon_meta) && is_array($coupon_meta)) {
+            $product_list_type = isset($coupon_meta['list']) ? $coupon_meta['list'] : null;
+        }
         if (!empty($post_meta) && is_array($post_meta)) {
-            $woocoupon = $post_meta['list_id'];
             $url_coupon = $post_meta['url_coupon'] ? "yes" : false;
             $auto_coupon = $post_meta['auto_coupon'] ? "yes" : false;
-            $overwrite_discount = $post_meta['overwrite_discount'] ? "yes" : false;
         }
 ?>
         <div id="sdwac_coupon_tabs_screen" class="panel woocommerce_options_panel">
+            <input type="hidden" name="sdwac_coupon_admin_nonce" value="<?php echo wp_create_nonce('sdwac_coupon_admin_nonce'); ?>">
             <?php
-            $args = [
-                "post_type" => "woocoupon",
-                'post_status' => 'publish'
-            ];
-            $posts = get_posts($args);
-            $options = [];
-            $options[null] = "Select Coupon";
-            foreach ($posts as $post) {
-                $options[$post->ID] = $post->post_title;
-            }
+
             woocommerce_wp_select([
-                "id" => "sdwac_coupon_feature",
-                "label" => "Coupon Feature",
-                "options" => $options,
-                "value" => $woocoupon,
-                "type" => "text"
+                "id" => "sdwac_product_lists",
+                "label" => "Product Lists",
+                "options" => [
+                    'inList' => 'In List',
+                    'noList' => 'Not In List',
+                ],
+                "value" => $product_list_type
             ]);
 
             woocommerce_wp_checkbox([
@@ -91,13 +86,6 @@ class sdwac_Panels
                 "label" => __("Automatic Apply", "sdevs_wea"),
                 "value" => "yes",
                 "cbvalue" => $auto_coupon
-            ]);
-
-            woocommerce_wp_checkbox([
-                "id" => "sdwac_overwrite_discount",
-                "label" => __("Overwrite Discount", "sdevs_wea"),
-                "value" => "yes",
-                "cbvalue" => $overwrite_discount
             ]);
             ?>
         </div>
