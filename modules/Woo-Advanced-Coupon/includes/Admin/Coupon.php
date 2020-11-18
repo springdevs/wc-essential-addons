@@ -11,7 +11,6 @@ class Coupon
     {
         add_action("edit_form_top", [$this, 'add_html_for_vue']);
         add_action("admin_enqueue_scripts", [$this, 'enqueue_assets']);
-        add_filter('woocommerce_coupon_discount_types', [$this, 'custom_coupon_discount_types'], 10, 1);
         add_action('save_post_shop_coupon', [$this, 'coupon_save_meta_post']);
     }
 
@@ -38,14 +37,6 @@ class Coupon
             'sdwac_coupon_post',
             array('id' => get_the_ID())
         );
-    }
-
-    public function custom_coupon_discount_types($discount_types)
-    {
-        $discount_types['sdwac_product_percent'] = __('Product Adjustment [Percentage]', 'sdevs_wea');
-        $discount_types['sdwac_product_fixed'] = __('Product Adjustment [Fixed]', 'sdevs_wea');
-        $discount_types['sdwac_bulk'] = __('Bulk Discount', 'sdevs_wea');
-        return $discount_types;
     }
 
     /**
@@ -75,27 +66,29 @@ class Coupon
                     ]);
                 }
             }
-
-            $rulesLength = sanitize_text_field($_POST["rulesLength"]);
-            $relation = $_POST["sdwac_coupon_rule_relation"] ? sanitize_text_field($_POST["sdwac_coupon_rule_relation"]) : "match_all";
-            $sdwac_coupon_rules = [];
-            if ($rulesLength != 0) {
-                for ($i = 0; $i < $rulesLength; $i++) {
-                    array_push($sdwac_coupon_rules, [
-                        "type" => sanitize_text_field($_POST["sdwac_coupon_rule_type_" . $i]),
-                        "operator" => sanitize_text_field($_POST["sdwac_coupon_rule_operator_" . $i]),
-                        "item_count" => sanitize_text_field($_POST["sdwac_coupon_rule_item_" . $i]),
-                        "calculate" => sanitize_text_field($_POST["sdwac_coupon_rule_calculate_" . $i])
-                    ]);
-                }
-            }
-
             update_post_meta($post_id, '_sdwac_coupon_meta', [
                 "type" => $type,
                 'discounts' => $sdwac_coupon_discount,
-                'relation' => $relation,
-                'rules' => $sdwac_coupon_rules
             ]);
         }
+
+        $post_meta = get_post_meta($post_id, '_sdwac_coupon_meta', true);
+        if (!is_array($post_meta)) $post_meta = [];
+        $rulesLength = sanitize_text_field($_POST["rulesLength"]);
+        $relation = $_POST["sdwac_coupon_rule_relation"] ? sanitize_text_field($_POST["sdwac_coupon_rule_relation"]) : "match_all";
+        $sdwac_coupon_rules = [];
+        if ($rulesLength != 0) {
+            for ($i = 0; $i < $rulesLength; $i++) {
+                array_push($sdwac_coupon_rules, [
+                    "type" => sanitize_text_field($_POST["sdwac_coupon_rule_type_" . $i]),
+                    "operator" => sanitize_text_field($_POST["sdwac_coupon_rule_operator_" . $i]),
+                    "item_count" => sanitize_text_field($_POST["sdwac_coupon_rule_item_" . $i]),
+                    "calculate" => sanitize_text_field($_POST["sdwac_coupon_rule_calculate_" . $i])
+                ]);
+            }
+        }
+        $post_meta['relation'] = $relation;
+        $post_meta['rules'] = $sdwac_coupon_rules;
+        update_post_meta($post_id, '_sdwac_coupon_meta', $post_meta);
     }
 }

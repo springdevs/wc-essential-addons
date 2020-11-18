@@ -18,12 +18,15 @@ class Validation
         $product_ids = $coupon->get_product_ids();
         $coupon_id = $coupon->get_id();
         $coupon_meta = get_post_meta($coupon_id, "_sdwac_coupon_meta", true);
-        if (empty($coupon_meta) && !is_array($coupon_meta)) return $valid;
+        if (empty($coupon_meta) || !is_array($coupon_meta)) return $valid;
+        if (isset($coupon_meta['relation']) && isset($coupon_meta['rules']) && $coupon->get_discount_type() != 'sdwac_product_percent' && $coupon->get_discount_type() != 'sdwac_product_fixed') {
+            $check_rules = $this->check_rules($coupon_meta['relation'], $coupon_meta['rules'], $coupon);
+            if (!$check_rules) return false;
+        }
+        if (!isset($coupon_meta['type'])) return $valid;
         $check_multi = $this->check_multi();
         if (!$check_multi) return false;
-        if ($coupon_meta['type'] == 'sdwac_bulk') {
-            return $this->check_rules($coupon_meta['relation'], $coupon_meta['rules'], $coupon);
-        } elseif ($coupon_meta['type'] == 'sdwac_product_percent' || $coupon_meta['type'] == 'sdwac_product_fixed') {
+        if ($coupon_meta['type'] == 'sdwac_product_percent' || $coupon_meta['type'] == 'sdwac_product_fixed') {
             if ($coupon_meta['list'] == 'inList') {
                 foreach (WC()->cart->get_cart() as $value) if (!in_array($value["product_id"], $product_ids)) return false;
             }
@@ -52,7 +55,7 @@ class Validation
                     case 'less_than':
                         $subtotal = WC()->cart->cart_contents_total;
                         if ($calculate == "from_cart") {
-                            if (!($subtotal < $value)) {
+                            if (!($subtotal < $value && $subtotal != 0)) {
                                 $result = false;
                             }
                         } else if ($calculate == "from_filter") {
@@ -64,7 +67,7 @@ class Validation
                         break;
                     case 'less_than_or_equal':
                         $subtotal = WC()->cart->cart_contents_total;
-                        if ($calculate == "from_cart") {
+                        if ($calculate == "from_cart" && $subtotal != 0) {
                             if (!($subtotal <= $value)) {
                                 $result = false;
                             }
@@ -77,20 +80,16 @@ class Validation
                         break;
                     case 'greater_than':
                         $subtotal = WC()->cart->cart_contents_total;
-                        if ($calculate == "from_cart") {
-                            if (!($subtotal > $value)) {
-                                $result = false;
-                            }
+                        if ($calculate == "from_cart" && $subtotal != 0) {
+                            if (!($subtotal > $value)) $result = false;
                         } else if ($calculate == "from_filter") {
                             $amount = $this->get_coupon_filter_cart_subtotal($coupon->get_product_ids());
-                            if (!($amount > (float) $value)) {
-                                $result = false;
-                            }
+                            if (!($amount > (float) $value)) $result = false;
                         }
                         break;
                     case 'greater_than_or_equal':
                         $subtotal = WC()->cart->cart_contents_total;
-                        if ($calculate == "from_cart") {
+                        if ($calculate == "from_cart" && $subtotal != 0) {
                             if (!($subtotal >= $value)) {
                                 $result = false;
                             }

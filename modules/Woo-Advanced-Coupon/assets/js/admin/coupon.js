@@ -3,12 +3,6 @@ jQuery(document).ready(($) => {
     let type_field = $("select#discount_type");
     let type_field_value = $("select#discount_type").val();
 
-    if (type_field_value == 'sdwac_product_percent' || type_field_value == 'sdwac_product_fixed' || type_field_value == 'sdwac_bulk') {
-        $(".sdwac_coupon_coupon_panel").show();
-    } else {
-        $(".sdwac_coupon_coupon_panel").hide();
-    }
-
     if (type_field_value == 'sdwac_product_percent' || type_field_value == 'sdwac_product_fixed') {
         $(".sdwac_product_lists_field").show();
         $("#sdwac_coupon_rules_box").hide();
@@ -27,11 +21,6 @@ jQuery(document).ready(($) => {
 
     type_field.change(() => {
         type_field_value = type_field.val();
-        if (type_field_value == 'sdwac_product_percent' || type_field_value == 'sdwac_product_fixed' || type_field_value == 'sdwac_bulk') {
-            $(".sdwac_coupon_coupon_panel").show();
-        } else {
-            $(".sdwac_coupon_coupon_panel").hide();
-        }
         if (type_field_value == 'sdwac_product_percent' || type_field_value == 'sdwac_product_fixed') {
             $(".sdwac_product_lists_field").show();
             $("#sdwac_coupon_rules_box").hide();

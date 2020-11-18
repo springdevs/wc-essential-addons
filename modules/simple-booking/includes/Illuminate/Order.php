@@ -56,7 +56,7 @@ class Order
         }
 
         $order_meta = get_post_meta($order_id, '_booking_post_meta', true);
-        if (!$order_meta && is_array($order_meta) && !isset($order_meta['post_id'])) return;
+        if (!$order_meta || !is_array($order_meta) || !isset($order_meta['post_id'])) return;
         wp_update_post([
             "ID" => $order_meta['post_id'],
             "post_status" => $post_status
