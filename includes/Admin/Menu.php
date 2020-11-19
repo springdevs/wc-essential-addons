@@ -18,6 +18,7 @@ class Menu
         add_action('admin_menu', [$this, 'admin_menu']);
         add_action('admin_enqueue_scripts', function () {
             wp_enqueue_script('sdmaw_custom');
+            wp_enqueue_style('sdwac_app_css');
         });
     }
 

@@ -12,27 +12,18 @@ class sdwac_Panels
     {
         add_filter('woocommerce_coupon_data_tabs', [$this, 'coupon_data_tabs'], 100, 1);
         add_filter('woocommerce_coupon_data_panels', [$this, 'coupon_tabs_screen']);
-        add_action('save_post', [$this, 'save_coupon_data']);
+        add_action('save_post_shop_coupon', [$this, 'save_coupon_data']);
     }
 
     public function save_coupon_data($post_id)
     {
-        if (isset($_POST["post_type"])) {
-            if (!isset($_POST["sdwac_coupon_feature"]) & $_POST["post_type"] != "shop_coupon") {
-                return;
-            }
-            $woocoupon_id = sanitize_text_field($_POST["sdwac_coupon_feature"]);
-            $overwrite_discount = isset($_POST["sdwac_overwrite_discount"]) ? true : false;
-            $url_coupon = isset($_POST["sdwac_url_coupon"]) ? true : false;
-            $auto_coupon = isset($_POST["sdwac_auto_coupon"]) ? true : false;
-            $sdwac_coupon_data = [
-                "list_id" => $woocoupon_id,
-                "overwrite_discount" => $overwrite_discount,
-                "url_coupon" => $url_coupon,
-                "auto_coupon" => $auto_coupon
-            ];
-            update_post_meta($post_id, "sdwac_coupon_panel", $sdwac_coupon_data);
-        }
+        $url_coupon = isset($_POST["sdwac_url_coupon"]) ? true : false;
+        $auto_coupon = isset($_POST["sdwac_auto_coupon"]) ? true : false;
+        $sdwac_coupon_data = [
+            "url_coupon" => $url_coupon,
+            "auto_coupon" => $auto_coupon
+        ];
+        update_post_meta($post_id, "sdwac_coupon_panel", $sdwac_coupon_data);
     }
 
     public function coupon_data_tabs($tabs)
