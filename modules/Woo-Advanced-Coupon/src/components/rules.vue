@@ -4,30 +4,33 @@
     <div v-else>
       <div>
         <input type="hidden" name="rulesLength" :value="conditions.length" />
-        <div class="sdwac_coupon-form">
-          <label>
-            <strong>Conditions Relationship</strong>
-            <div class="sdwac_coupon-checkbox">
-              <label>
-                <input
-                  name="sdwac_coupon_rule_relation"
-                  type="radio"
-                  value="match_all"
-                  v-model="relation"
-                />
-                Match All
-              </label>
-              <label>
-                <input
-                  name="sdwac_coupon_rule_relation"
-                  type="radio"
-                  value="match_any"
-                  v-model="relation"
-                />
-                Match Any
-              </label>
-            </div>
-          </label>
+        <div class="sdwac_coupon-form sdevs-form">
+          <div class="sdwac_coupon-checkbox">
+            <label for="sdwac_rule_match_all">
+              <input
+                name="sdwac_coupon_rule_relation"
+                id="sdwac_rule_match_all"
+                type="radio"
+                value="match_all"
+                v-model="relation"
+              />
+              <strong>Match All</strong>
+              <p>The coupon will be applied only if all rules are matched.</p>
+            </label>
+            <label for="sdwac_rule_match_any">
+              <input
+                name="sdwac_coupon_rule_relation"
+                id="sdwac_rule_match_any"
+                type="radio"
+                value="match_any"
+                v-model="relation"
+              />
+              <strong>Match Any</strong>
+              <p>
+                The coupon will be applied only if one of the rules are matched.
+              </p>
+            </label>
+          </div>
         </div>
         <div
           class="sdwac_coupon-flex sdwac_coupon-filter sdwac_coupon-bulk-discount"
@@ -35,7 +38,7 @@
           :key="'condition' + index"
         >
           <div class="sdwac_coupon-bulk-list">
-            <div class="sdwac_coupon-form">
+            <div class="sdwac_coupon-form sdevs-form">
               <label :for="'sdwac_coupon_rule_type_' + index">
                 <strong>Condition Type</strong>
               </label>
@@ -55,7 +58,7 @@
             </div>
           </div>
           <div class="sdwac_coupon-bulk-list">
-            <div class="sdwac_coupon-form">
+            <div class="sdwac_coupon-form sdevs-form">
               <label :for="'sdwac_coupon_rule_operator_' + index">
                 <strong>count should be</strong>
               </label>
@@ -75,7 +78,7 @@
             </div>
           </div>
           <div class="sdwac_coupon-bulk-list">
-            <div class="sdwac_coupon-form">
+            <div class="sdwac_coupon-form sdevs-form">
               <label :for="'sdwac_coupon_rule_item_' + index">
                 <strong>item count</strong>
               </label>
@@ -90,7 +93,7 @@
             </div>
           </div>
           <div class="sdwac_coupon-bulk-list">
-            <div class="sdwac_coupon-form">
+            <div class="sdwac_coupon-form sdevs-form">
               <label :for="'sdwac_coupon_rule_calculate_' + index">
                 <strong>calculate item count</strong>
               </label>
@@ -128,7 +131,7 @@
 
 <script>
 export default {
-  name: "sdwac_couponrules",
+  name: "sdwac_rules",
   data() {
     return {
       loading: true,

@@ -48,8 +48,8 @@
 }
 
 .sdwac_coupon-filter-close {
-  background: red;
-  color: white;
+  background: white;
+  color: red;
   border-radius: 50%;
   position: relative;
   top: 18px;
@@ -145,8 +145,22 @@ ul.hidden-items>li {
 }
 
 .sdwac_coupon-checkbox {
-  margin-bottom: 15px;
-  margin-top: -7px;
+  display: grid;
+  margin: 15px 0;
+}
+
+.sdwac_coupon-checkbox>label {
+  margin-bottom: 10px;
+}
+
+.sdwac_coupon-checkbox>label>strong {
+  color: #484747;
+}
+
+.sdwac_coupon-checkbox p {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .sdwac_coupon-checkbox>label:nth-child(1) {
@@ -180,4 +194,5 @@ pre.sdwac_coupon_pre_column {
   .sdwac_coupon-filter-list {
     width: 100% !important;
   }
+
 }

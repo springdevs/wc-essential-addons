@@ -23,7 +23,7 @@ class MetaBoxes
 		// sdwac_coupon Discount
 		add_meta_box(
 			'sdwac_coupon_discount_box',
-			'Coupon Discounts',
+			'Rules for cart total',
 			[$this, 'coupon_discount_screen'],
 			'shop_coupon',
 			'normal',
@@ -33,7 +33,7 @@ class MetaBoxes
 		// sdwac_coupon Rules
 		add_meta_box(
 			'sdwac_coupon_rules_box',
-			'Coupon Rules (optional)',
+			'Advanced Rules (optional)',
 			[$this, 'coupon_rules_screen'],
 			'shop_coupon',
 			'normal',

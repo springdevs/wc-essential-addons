@@ -172,3 +172,23 @@ button.sdwma-pricing-action.feature {
 .sdwma-pricing-palden .sdwma-pricing-item--featured .sdwma-pricing-deco {
     padding: 5em 0 8.885em 0;
 }
+
+#sdwac_coupon_discount_box,
+#sdwac_coupon_rules_box {
+    box-shadow: rgba(0, 0, 0, 0.08) 1px -1px 10px 1px !important;
+}
+
+.sdevs-form label {
+    color: gray;
+}
+
+.sdevs-form label>strong {
+    color: #484747;
+}
+
+.sdevs-form select,
+.sdevs-form input {
+    border-color: #f1dede;
+    color: #72727d;
+    border-radius: 5px;
+}

@@ -7,7 +7,7 @@
     >
       <input type="hidden" name="discountLength" :value="discounts.length" />
       <div class="sdwac_coupon-bulk-list">
-        <div class="sdwac_coupon-form">
+        <div class="sdwac_coupon-form sdevs-form">
           <label :for="'sdwac_coupon_discount_min_' + index">
             <strong>Min</strong>
           </label>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="sdwac_coupon-bulk-list">
-        <div class="sdwac_coupon-form">
+        <div class="sdwac_coupon-form sdevs-form">
           <label :for="'sdwac_coupon_discount_max_' + index">
             <strong>Max</strong>
           </label>
@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="sdwac_coupon-bulk-list">
-        <div class="sdwac_coupon-form">
+        <div class="sdwac_coupon-form sdevs-form">
           <label :for="'sdwac_coupon_discount_type_' + index">
             <strong>Type</strong>
           </label>
@@ -50,7 +50,7 @@
         </div>
       </div>
       <div class="sdwac_coupon-bulk-list">
-        <div class="sdwac_coupon-form">
+        <div class="sdwac_coupon-form sdevs-form">
           <label :for="'sdwac_coupon_discount_value_' + index">
             <strong>Value</strong>
           </label>
@@ -80,7 +80,7 @@
 
 <script>
 export default {
-  name: "sdwac_coupondiscount",
+  name: "sdwac_discount",
   data() {
     return {
       loading: true,
