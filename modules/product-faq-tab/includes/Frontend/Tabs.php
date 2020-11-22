@@ -14,19 +14,21 @@ class Tabs
 
     public function custompft_add_tabs($tabs)
     {
-        $tabs['custompft_faqs'] = array(
-            'title'     => __('Faq\'s', 'sdevs_wea'),
-            'priority'     => 50,
-            'callback'     => [$this, 'custompft_tab_content']
-        );
-
+        $faqs = apply_filters("custompft_faq", get_the_ID());
+        if (is_array($faqs)) :
+            $tabs['custompft_faqs'] = array(
+                'title'     => __('Faq\'s', 'sdevs_wea'),
+                'priority'     => 50,
+                'callback'     => [$this, 'custompft_tab_content']
+            );
+        endif;
         return $tabs;
     }
 
     public function custompft_tab_content()
     {
         $faqs = apply_filters("custompft_faq", get_the_ID());
-        if ($faqs != "") :
+        if (is_array($faqs)) :
 ?>
             <ul class="custompft_faq_views">
                 <?php foreach ($faqs as $faq) : ?>
