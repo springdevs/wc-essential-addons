@@ -10,13 +10,12 @@ class Setting
 {
     public function __construct()
     {
-        add_filter('woocommerce_get_sections_wcma', [$this, 'add_section']);
+        add_filter('woocommerce_get_sections_wcma', [$this, 'add_section'], 20);
         add_filter('woocommerce_get_settings_wcma', [$this, 'settings_content']);
     }
 
     public function add_section($sections)
     {
-        $sections[''] = __('General', 'sdevs_wea');
         $sections['coupon'] = __('Coupon', 'sdevs_wea');
         return $sections;
     }
