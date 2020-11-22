@@ -19,7 +19,7 @@ final class Sdevs_Easy_Gmap
      *
      * @var string
      */
-    const version = '1.0.0';
+    const version = '1.0.1';
 
     /**
      * Holds various class instances

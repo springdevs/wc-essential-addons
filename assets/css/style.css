@@ -173,6 +173,10 @@ button.sdwma-pricing-action.feature {
     padding: 5em 0 8.885em 0;
 }
 
+#gmap_setting_info,
+#gmap_post_info,
+#gmap_location_settings,
+#gmap_locations_info,
 #sdwac_coupon_discount_box,
 #sdwac_coupon_rules_box {
     box-shadow: rgba(0, 0, 0, 0.08) 1px -1px 10px 1px !important;
@@ -188,7 +192,11 @@ button.sdwma-pricing-action.feature {
 
 .sdevs-form select,
 .sdevs-form input {
-    border-color: #f1dede;
+    border-color: #e0d6d6;
     color: #72727d;
     border-radius: 5px;
+}
+
+.sdevs_th {
+    text-align: end !important;
 }

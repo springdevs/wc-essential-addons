@@ -10,6 +10,7 @@ class Maps
     public function __construct()
     {
         add_action('init', [$this, 'gmap_post_type'], 0);
+        add_filter('post_updated_messages', [$this, 'change_post_updated_messages']);
         add_filter('manage_gmap_posts_columns', [$this, 'gmap_custom_columns']);
         add_action('manage_gmap_posts_custom_column', [$this, 'gmap_columns_data'], 10, 2);
         add_action('add_meta_boxes', array($this, "gmap_metaboxes"));
@@ -56,12 +57,8 @@ class Maps
      **/
     public function gmap_save_meta_post($post_id)
     {
-        if (!isset($_POST["gmaplocation"])) {
-            return;
-        }
-        if (!wp_verify_nonce($_POST["gmap_post_nonce"], "gmap_post_nonce")) {
-            wp_die(__('Sorry !! You cannot permit to access.', 'sdevs_wea'));
-        }
+        if (!isset($_POST["gmaplocation"])) return;
+        if (!wp_verify_nonce($_POST["gmap_post_nonce"], "gmap_post_nonce")) wp_die(__('Sorry !! You cannot permit to access.', 'sdevs_wea'));
 
         $height = (int)$_POST["height"];
         $zoom = (int)$_POST["zoom"];
@@ -73,7 +70,6 @@ class Maps
             $zoomControl = isset($_POST["zoomControl"]) ? true : false;
             $rotateControl = isset($_POST["rotateControl"]) ? true : false;
 
-            update_post_meta($post_id, "gmap_maps",  sanitize_text_field($_POST["gmaplocation"]));
             update_post_meta($post_id, "gmap_in_settings", [
                 "height" => $height,
                 "zoom" => $zoom,
@@ -84,6 +80,8 @@ class Maps
                 "rotateControl" => $rotateControl
             ]);
         endif;
+
+        if (is_array($_POST["gmaplocation"])) update_post_meta($post_id, "gmap_maps",  $_POST["gmaplocation"]);
     }
 
     /**
@@ -131,14 +129,14 @@ class Maps
             $rotateControl = $post_meta["rotateControl"];
         }
 ?>
-        <table class="form-table">
+        <table class="form-table sdevs-form">
             <tbody>
                 <tr>
-                    <th scope="row"><label for="height">Height ( px )</label></th>
+                    <th class="sdevs_th" scope="row"><label for="height">Height ( px )</label></th>
                     <td><input name="height" type="number" id="height" value="<?php echo ($post_meta != "" && !empty($post_meta)) ? $post_meta["height"] : null; ?>" placeholder="Put Map Height" class="regular-text" required></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="zoom"> Zoom Level </label></th>
+                    <th class="sdevs_th" scope="row"><label for="zoom"> Zoom Level </label></th>
                     <td>
                         <select name="zoom" id="zoom">
                             <option value="0">Auto</option>
@@ -151,31 +149,31 @@ class Maps
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="streetViewControl">Enable streetViewControl</label></th>
+                    <th class="sdevs_th" scope="row"><label for="streetViewControl">Enable streetViewControl</label></th>
                     <td><input type="checkbox" name="streetViewControl" id="streetViewControl" <?php if ($streetViewControl) {
                                                                                                     echo "checked";
                                                                                                 } ?> /></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="draggable">Enable draggable</label></th>
+                    <th class="sdevs_th" scope="row"><label for="draggable">Enable draggable</label></th>
                     <td><input type="checkbox" name="draggable" id="draggable" <?php if ($draggable) {
                                                                                     echo "checked";
                                                                                 } ?> /></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="mapTypeControl">Enable mapTypeControl</label></th>
+                    <th class="sdevs_th" scope="row"><label for="mapTypeControl">Enable mapTypeControl</label></th>
                     <td><input type="checkbox" name="mapTypeControl" id="mapTypeControl" <?php if ($mapTypeControl) {
                                                                                                 echo "checked";
                                                                                             } ?> /></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="zoomControl">Enable zoomControl</label></th>
+                    <th class="sdevs_th" scope="row"><label for="zoomControl">Enable zoomControl</label></th>
                     <td><input type="checkbox" name="zoomControl" id="zoomControl" <?php if ($zoomControl) {
                                                                                         echo "checked";
                                                                                     } ?> /></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="rotateControl">Enable rotateControl</label></th>
+                    <th class="sdevs_th" scope="row"><label for="rotateControl">Enable rotateControl</label></th>
                     <td><input type="checkbox" name="rotateControl" id="rotateControl" <?php if ($rotateControl) {
                                                                                             echo "checked";
                                                                                         } ?> /></td>
@@ -201,7 +199,7 @@ class Maps
             }
         } ?>
         <input type="hidden" name="gmap_post_nonce" value="<?php echo $nonce; ?>" />
-        <table class="form-table">
+        <table class="form-table sdevs-form">
             <tbody>
                 <tr>
                     <td>
@@ -282,5 +280,38 @@ class Maps
         );
 
         register_post_type("gmap", $args);
+    }
+
+
+    /**
+     * function change_post_updated_messages
+     *
+     * change post updated texts
+     *
+     * @param Array $messages
+     * @return Array
+     **/
+    public function change_post_updated_messages($messages)
+    {
+        $post = get_post();
+        $messages['gmap'] = array(
+            0  => '',
+            1  => __('Map updated'),
+            2  => __('Custom field updated.'),
+            3  => __('Custom field deleted.'),
+            4  => __('Map updated'),
+            /* translators: %s: date and time of the revision */
+            5  => isset($_GET['revision']) ? sprintf(__('Map restored to revision from %s'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
+            6  => __('Map published'),
+            7  => __('Map saved'),
+            8  => __('Map submitted'),
+            9  => sprintf(
+                __('Map scheduled for: <strong>%1$s</strong>.'),
+                date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date))
+            ),
+            10 => __('Map draft updated')
+        );
+
+        return $messages;
     }
 }

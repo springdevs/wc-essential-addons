@@ -10,6 +10,7 @@ class Locations
     public function __construct()
     {
         add_action('init', [$this, 'gmap_post_type'], 0);
+        add_filter('post_updated_messages', [$this, 'change_post_updated_messages']);
         add_action('admin_enqueue_scripts', [$this, 'register_scripts']);
         add_action('add_meta_boxes', array($this, "gmap_metaboxes"));
         add_action('save_post', [$this, 'gmap_save_meta_post']);
@@ -87,10 +88,10 @@ class Locations
             $openInfoWindow = $post_meta["openInfoWindow"];
         }
 ?>
-        <table class="form-table">
+        <table class="form-table sdevs-form">
             <tbody>
                 <tr>
-                    <th scope="row"><label for="openInfoWindow">Default Open InfoWindow</label></th>
+                    <th class="sdevs_th" scope="row"><label for="openInfoWindow">Default Open InfoWindow</label></th>
                     <td><input type="checkbox" name="openInfoWindow" id="openInfoWindow" <?php if ($openInfoWindow) {
                                                                                                 echo "checked";
                                                                                             } ?> /></td>
@@ -126,18 +127,18 @@ class Locations
         }
     ?>
         <input type="hidden" name="gmap_location_nonce" value="<?php echo $nonce; ?>" />
-        <table class="form-table">
+        <table class="form-table sdevs-form">
             <tbody>
                 <tr>
-                    <th scope="row"><label for="searchLocation">Location</label></th>
+                    <th class="sdevs_th" scope="row"><label for="searchLocation">Location</label></th>
                     <td><input name="address" type="text" id="searchLocation" placeholder="Search Location By Google" value="<?php echo $address; ?>" class="regular-text"></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="gmap_lat">Latitude</label></th>
+                    <th class="sdevs_th" scope="row"><label for="gmap_lat">Latitude</label></th>
                     <td><input name="gmap_lat" type="text" id="gmap_lat" placeholder="Lat of your location" value="<?php echo $lat; ?>" class="regular-text" readonly></td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="gmap_lng">Longitude</label></th>
+                    <th class="sdevs_th" scope="row"><label for="gmap_lng">Longitude</label></th>
                     <td><input name="gmap_lng" type="text" id="gmap_lng" placeholder="Lng of your location" value="<?php echo $lng; ?>" class="regular-text" readonly></td>
                 </tr>
             </tbody>
@@ -194,5 +195,37 @@ class Locations
         );
 
         register_post_type("location", $args);
+    }
+
+    /**
+     * function change_post_updated_messages
+     *
+     * change post updated texts
+     *
+     * @param Array $messages
+     * @return Array
+     **/
+    public function change_post_updated_messages($messages)
+    {
+        $post = get_post();
+        $messages['location'] = array(
+            0  => '',
+            1  => __('Location updated'),
+            2  => __('Custom field updated.'),
+            3  => __('Custom field deleted.'),
+            4  => __('Location updated'),
+            /* translators: %s: date and time of the revision */
+            5  => isset($_GET['revision']) ? sprintf(__('Location restored to revision from %s'), wp_post_revision_title((int) $_GET['revision'], false)) : false,
+            6  => __('Location published'),
+            7  => __('Location saved'),
+            8  => __('Location submitted'),
+            9  => sprintf(
+                __('Location scheduled for: <strong>%1$s</strong>.'),
+                date_i18n(__('M j, Y @ G:i'), strtotime($post->post_date))
+            ),
+            10 => __('Location draft updated')
+        );
+
+        return $messages;
     }
 }
