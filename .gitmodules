@@ -1,0 +1,3 @@
+[submodule "PDF Invoices & Packing Slips"]
+	path = modules/pdf-invoices-and-packing-slips
+	url = https://github.com/springdevs/pdf-invoices-and-packing-slips
