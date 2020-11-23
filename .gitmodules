@@ -4,3 +4,15 @@
 [submodule "modules/easy-gmap"]
 	path = modules/easy-gmap
 	url = https://github.com/springdevs/Google-Map.git
+[submodule "modules/product-faq-tab"]
+	path = modules/product-faq-tab
+	url = https://github.com/springdevs/FAQ-Tabs.git
+[submodule "modules/Woo-Advanced-Coupon"]
+	path = modules/Woo-Advanced-Coupon
+	url = https://github.com/springdevs/Coupons.git
+[submodule "modules/simple-booking"]
+	path = modules/simple-booking
+	url = https://github.com/springdevs/Booking.git
+[submodule "modules/simple-subscription"]
+	path = modules/simple-subscription
+	url = https://github.com/springdevs/Subscription.git
