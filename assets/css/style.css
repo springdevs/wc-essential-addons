@@ -173,6 +173,7 @@ button.sdwma-pricing-action.feature {
     padding: 5em 0 8.885em 0;
 }
 
+#bookable_order_meta_fields,
 #gmap_setting_info,
 #gmap_post_info,
 #gmap_location_settings,
@@ -180,6 +181,7 @@ button.sdwma-pricing-action.feature {
 #sdwac_coupon_discount_box,
 #sdwac_coupon_rules_box {
     box-shadow: rgba(0, 0, 0, 0.08) 1px -1px 10px 1px !important;
+    /* border: none; */
 }
 
 .sdevs-form label {
@@ -199,4 +201,21 @@ button.sdwma-pricing-action.feature {
 
 .sdevs_th {
     text-align: end !important;
+}
+
+.sdevs_panel {
+    padding: 15px 10px 10px 10px !important;
+}
+
+.sdevs_panel strong {
+    display: grid;
+    color: #23282d;
+    margin-left: 12px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.sdevs_panel label {
+    font-weight: 500 !important;
 }

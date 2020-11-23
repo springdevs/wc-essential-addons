@@ -273,9 +273,15 @@ final class sdevs_wea_Main
             ],
             "Woo-Advanced-Coupon" => [
                 "name" => "Coupons",
-                "desc" => __(" Create gift vouchers, store credits, special discounts based on the amount spent, etc.", "sdevs_wea"),
+                "desc" => __("Create gift vouchers, store credits, special discounts based on the amount spent, etc.", "sdevs_wea"),
                 "class" => "sdwac_coupon_main",
                 "file_path" =>  __DIR__ . '/modules/Woo-Advanced-Coupon/woo-advance-coupon.php'
+            ],
+            "pdf-invoices-and-packing-slips" => [
+                "name" => "PDF Invoices & Packing Slips",
+                "desc" => __("Create, print & email PDF invoices & packing slips for WooCommerce orders.", "sdevs_wea"),
+                "class" => "Sdevs_pips_main",
+                "file_path" =>  __DIR__ . '/modules/pdf-invoices-and-packing-slips/pdf-invoices-and-packing-slips.php'
             ],
             "easy-gmap" => [
                 "name" => "Google Map",

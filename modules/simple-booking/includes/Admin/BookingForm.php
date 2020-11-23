@@ -56,14 +56,29 @@ class BookingForm
                 $bookable_require_conf = false;
             endif;
             $class = apply_filters('sdevs_booking_product_data_class', 'show_if_simple'); ?>
-            <div id="sdevs_booking_data" class="panel woocommerce_options_panel <?php echo $class; ?>">
+            <div id="sdevs_booking_data" class="panel sdevs_panel woocommerce_options_panel sdevs-form <?php echo $class; ?>">
+                <strong>Booking Settings</strong>
                 <?php
+
                 woocommerce_wp_checkbox([
                     "id" => "enable_booking",
                     "label" => __("Enable Booking", "sdevs_wea"),
                     "value" => "yes",
-                    "cbvalue" => $enable_booking
+                    "cbvalue" => $enable_booking,
+                    "description"  => __("check this box to enable booking for this product", "sdevs_wea"),
+                    "desc_tip"  =>  true
                 ]);
+
+                woocommerce_wp_checkbox([
+                    "id" => "bookable_require_conf",
+                    "label" => __("Require Confirmations", "sdevs_wea"),
+                    "value" => "yes",
+                    "cbvalue" => $bookable_require_conf,
+                    "description"  => __("check this box if admin approval / confirmation is required for booking", "sdevs_wea"),
+                    "desc_tip"  =>  true
+                ]);
+
+                echo "<hr style='margin: 20px 0;' /><strong>Calendar Display Options</strong>";
 
                 woocommerce_wp_text_input([
                     "id" => "display_next_days",
@@ -86,12 +101,7 @@ class BookingForm
                     "value" => $display_end_time
                 ]);
 
-                woocommerce_wp_checkbox([
-                    "id" => "bookable_require_conf",
-                    "label" => __("Require Confirmations", "sdevs_wea"),
-                    "value" => "yes",
-                    "cbvalue" => $bookable_require_conf
-                ]); ?>
+                ?>
             </div>
 <?php
         }
