@@ -1,6 +1,6 @@
-[submodule "PDF Invoices & Packing Slips"]
+[submodule "modules/pdf-invoices-and-packing-slips"]
 	path = modules/pdf-invoices-and-packing-slips
-	url = https://github.com/springdevs/pdf-invoices-and-packing-slips
+	url = https://github.com/springdevs/pdf-invoices-and-packing-slips.git
 [submodule "modules/easy-gmap"]
 	path = modules/easy-gmap
 	url = https://github.com/springdevs/Google-Map.git
