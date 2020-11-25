@@ -9,6 +9,9 @@
     text-align: left;
     padding-top: 25px;
     margin: 10px;
+    border: none;
+    box-shadow: 1px 1px 12px 0px #b0b9c19e;
+    position: relative;
 }
 
 .sdwma-pricing {
@@ -218,4 +221,19 @@ button.sdwma-pricing-action.feature {
 
 .sdevs_panel label {
     font-weight: 500 !important;
+}
+
+.sdevs-pro-badge {
+    background: #007cba;
+    color: white;
+    padding: 2px 7px;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.sdevs-pro-badge>span {
+    position: relative;
+    top: -2px;
 }
