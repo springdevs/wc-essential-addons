@@ -14,12 +14,38 @@ class Menu
      */
     public function __construct()
     {
+        add_filter('plugin_action_links_' . plugin_basename(SDEVS_WEA_ASSETS_FILE), [$this, 'add_plugin_action_links']);
+        add_filter('plugin_row_meta', array($this, 'plugin_row_meta'), 10, 3);
         add_action('admin_init', [$this, "handle_requests"]);
         add_action('admin_menu', [$this, 'admin_menu']);
         add_action('admin_enqueue_scripts', function () {
             wp_enqueue_script('sdmaw_custom');
             wp_enqueue_style('sdwac_app_css');
         });
+    }
+
+    public function add_plugin_action_links($links)
+    {
+        $action_links = [];
+        $action_links['settings'] = '<a href="' . admin_url('admin.php?page=springdevs-modules') . '" aria-label="' . esc_attr(__('Go to Modules', "sdevs_wea")) . '">' . esc_html__('Modules', 'sdevs_wea') . '</a>';
+
+        if (!sdevs_has_pro_version()) {
+            $action_links['pricing'] = '<a href="' . admin_url('admin.php?page=springdevs-freemius') . '" aria-label="' . esc_attr(__('Active Pro', "sdevs_wea")) . '" style="color: #007947;font-weight: 700;">' . esc_html__('Active Pro', 'sdevs_wea') . '</a>';
+        }
+
+        return array_merge($action_links, $links);
+    }
+
+    public function plugin_row_meta($links, $file, $plugin_data)
+    {
+        if (plugin_basename(SDEVS_WEA_ASSETS_FILE) === $file) {
+            $row_meta['support'] = '<a href="' . esc_url("https://wordpress.org/support/plugin/wc-essential-addons/") . '" aria-label="' . esc_attr__('Support', "sdevs_wea") . '" target="_blank">' . esc_html__('Support', "sdevs_wea") . '</a>';
+
+            $row_meta['roadmap'] = '<a href="' . esc_url("https://trello.com/b/dMZfJo7u/roadmap-missing-addons-for-woocommerce") . '" aria-label="' . esc_attr__('Roadmap', "sdevs_wea") . '" target="_blank">' . esc_html__('Roadmap', "sdevs_wea") . '</a>';
+
+            return array_merge($links, $row_meta);
+        }
+        return $links;
     }
 
     public function handle_requests()
