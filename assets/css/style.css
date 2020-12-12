@@ -202,6 +202,11 @@ button.sdwma-pricing-action.feature {
     border-radius: 5px;
 }
 
+.sdevs-form textarea {
+    border-color: #e0d6d6;
+    color: #72727d;
+}
+
 .sdevs_th {
     text-align: end !important;
 }
@@ -236,4 +241,10 @@ button.sdwma-pricing-action.feature {
 .sdevs-pro-badge>span {
     position: relative;
     top: -2px;
+}
+
+.sdevs_sidebar_form>.form-field {
+    display: inline-grid;
+    width: 100%;
+    line-height: 3;
 }
