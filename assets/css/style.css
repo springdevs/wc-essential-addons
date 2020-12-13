@@ -248,3 +248,17 @@ button.sdwma-pricing-action.feature {
     width: 100%;
     line-height: 3;
 }
+
+.sdevs-primary-button {
+    box-shadow: rgb(0, 103, 153) 0px 1px 0px;
+    text-shadow: rgb(0, 103, 153) 0px -1px 1px,
+    rgb(0, 103, 153) 1px 0px 1px,
+    rgb(0, 103, 153) 0px 1px 1px,
+    rgb(0, 103, 153) -1px 0px 1px !important;
+    background: rgb(0, 133, 186) !important;
+    border-color: rgb(0, 115, 170) rgb(0, 103, 153) rgb(0, 103, 153) !important;
+}
+
+.sdevs-primary-button:focus {
+    box-shadow: none !important;
+}
