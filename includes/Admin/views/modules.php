@@ -16,9 +16,9 @@ $active_modules = get_option("sdevs_wea_activated_modules", []);
                     <h3><?php echo $value['name']; ?></h3>
                     <p><?php echo $value['desc']; ?></p>
                     <?php if (array_key_exists($key, $active_modules)) : ?>
-                        <a href="admin.php?page=springdevs-modules&modules_deactivate=<?php echo $key; ?>" class="button-secondary"><?php _e('Deactivate', 'sdevs_wea'); ?></a>
+                        <a href="admin.php?page=springdevs-modules&modules_deactivate=<?php echo $key; ?>" class="sdevs-button sdevs-secondary-button"><?php _e('Deactivate', 'sdevs_wea'); ?></a>
                     <?php else : ?>
-                        <a href="admin.php?page=springdevs-modules&modules_activate=<?php echo $key; ?>" class="button-primary sdevs-primary-button"><?php _e('Activate', 'sdevs_wea'); ?></a>
+                        <a href="admin.php?page=springdevs-modules&modules_activate=<?php echo $key; ?>" class="sdevs-button sdevs-primary-button"><?php _e('Activate', 'sdevs_wea'); ?></a>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>
