@@ -2,8 +2,8 @@
     <section>
         <center>
             <h1 style="font-size: 2.5em;font-family: 'Open Sans', sans-serif;">Premium Plans</h1>
-            <p style="color: black;"> 
-            Offering a PRO module for some extraordinary features and modules. You can supercharge your store with our PRO modules.
+            <p style="color: black;">
+                Offering a PRO module for some extraordinary features and modules. You can supercharge your store with our PRO modules.
             </p>
         </center>
         <div class="sdwma-pricing sdwma-pricing-palden">
@@ -26,7 +26,7 @@
                     <li class="sdwma-pricing-feature">Booking Pro Module</li>
                     <li class="sdwma-pricing-feature">Access All <a href="https://trello.com/b/dMZfJo7u/roadmap-missing-addons-for-woocommerce" target="_new"> Upcoming Modules </a> </li>
                 </ul>
-                <button id="plan-1" class="sdwma-pricing-action">Buy Now</button>
+                <a style="text-decoration: none;" href="https://springdevs.com/" target="_blank" class="sdwma-pricing-action">Buy Now</a>
             </div>
             <div class="sdwma-pricing-item sdwma-features-item sdwma-ja-animate sdwma-pricing__item--featured" data-animation="move-from-bottom" data-delay="item-1" style="min-height: 497px;">
                 <div class="sdwma-pricing-deco" style="background: linear-gradient(135deg,#a93bfe,#584efd)">
@@ -47,7 +47,7 @@
                     <li class="sdwma-pricing-feature">Booking Pro Module</li>
                     <li class="sdwma-pricing-feature">Access All <a href="https://trello.com/b/dMZfJo7u/roadmap-missing-addons-for-woocommerce" target="_new"> Upcoming Modules </a> </li>
                 </ul>
-                <button id="plan-2" class="sdwma-pricing-action feature">Buy Now</button>
+                <a style="text-decoration: none;" href="https://springdevs.com/" target="_blank" class="sdwma-pricing-action feature">Buy Now</a>
             </div>
             <div class="sdwma-pricing-item sdwma-features-item sdwma-ja-animate" data-animation="move-from-bottom" data-delay="item-2" style="min-height: 497px;">
                 <div class="sdwma-pricing-deco">
@@ -68,7 +68,7 @@
                     <li class="sdwma-pricing-feature">Booking Pro Module</li>
                     <li class="sdwma-pricing-feature">Access All <a href="https://trello.com/b/dMZfJo7u/roadmap-missing-addons-for-woocommerce" target="_new"> Upcoming Modules </a> </li>
                 </ul>
-                <button id="plan-3" class="sdwma-pricing-action">Buy Now</button>
+                <a style="text-decoration: none;" href="https://springdevs.com/" target="_blank" class="sdwma-pricing-action">Buy Now</a>
             </div>
         </div>
     </section>
