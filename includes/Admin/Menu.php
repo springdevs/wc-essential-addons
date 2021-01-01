@@ -129,7 +129,7 @@ class Menu
                 $module_path = SDEVS_WEA_ASSETS_PATH . "/modules/" . $key;
                 $filter_module_path = apply_filters('sdevs_wma_module_path', $module_path, $key, $value);
                 if (file_exists($filter_module_path)) {
-                    require_once $filter_module_path . "/requirements.php";
+                    if (file_exists($filter_module_path . "/requirements.php")) require_once $filter_module_path . "/requirements.php";
                     $active_modules[$key] = $value;
                 }
             }
