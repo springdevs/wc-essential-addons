@@ -283,6 +283,12 @@ final class sdevs_wea_Main
                 "class" => "Sdevs_pips_main",
                 "file_path" =>  __DIR__ . '/modules/pdf-invoices-and-packing-slips/pdf-invoices-and-packing-slips.php'
             ],
+            "bulk-products-selling" => [
+                "name" => "Bulk Products Selling",
+                "desc" => __("Sell many products in one Like Group Product. But you can use single price here.", "sdevs_wea"),
+                "class" => "Sdevs_bpselling",
+                "file_path" =>  __DIR__ . '/modules/bulk-products-selling/bulk-products-selling.php'
+            ],
             "easy-gmap" => [
                 "name" => "Google Map",
                 "desc" => __("Embed a Google Map on your site to show your store location.", "sdevs_wea"),

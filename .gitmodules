@@ -16,3 +16,6 @@
 [submodule "modules/simple-subscription"]
 	path = modules/simple-subscription
 	url = https://github.com/springdevs/Subscription.git
+[submodule "modules/bulk-products-selling"]
+	path = modules/bulk-products-selling
+	url = https://github.com/springdevs/bulk-products-selling
