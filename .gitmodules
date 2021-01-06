@@ -19,3 +19,6 @@
 [submodule "modules/bulk-products-selling"]
 	path = modules/bulk-products-selling
 	url = https://github.com/springdevs/bulk-products-selling
+[submodule "modules/tutor-lms-subscription"]
+	path = modules/tutor-lms-subscription
+	url = https://github.com/springdevs/Tutor-LMS-Subscription

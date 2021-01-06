@@ -289,6 +289,12 @@ final class sdevs_wea_Main
                 "class" => "Sdevs_bpselling",
                 "file_path" =>  __DIR__ . '/modules/bulk-products-selling/bulk-products-selling.php'
             ],
+            "tutor-lms-subscription" => [
+                "name" => "Tutor LMS Subscription",
+                "desc" => __("Tutor LMS support to our subscription module", "sdevs_wea"),
+                "class" => "Sdevs_bpselling",
+                "file_path" =>  __DIR__ . '/modules/tutor-lms-subscription/tutor-lms-subscription.php'
+            ],
             "easy-gmap" => [
                 "name" => "Google Map",
                 "desc" => __("Embed a Google Map on your site to show your store location.", "sdevs_wea"),
