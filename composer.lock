@@ -1,9 +1,15 @@
 {
-    "packages": [
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "e6e9005ef0cd509a0013a13e551ca204",
+    "packages": [],
+    "packages-dev": [
         {
             "name": "raveren/kint",
             "version": "3.1",
-            "version_normalized": "3.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kint-php/kint.git",
@@ -35,9 +41,7 @@
                 "symfony/polyfill-iconv": "Replacement for ext-iconv if missing",
                 "symfony/polyfill-mbstring": "Replacement for ext-mbstring if missing"
             },
-            "time": "2018-11-30T09:54:22+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "init.php"
@@ -76,11 +80,15 @@
                 "source": "https://github.com/kint-php/kint/tree/3.1"
             },
             "abandoned": "kint-php/kint",
-            "install-path": "../raveren/kint"
+            "time": "2018-11-30T09:54:22+00:00"
         }
     ],
-    "dev": true,
-    "dev-package-names": [
-        "raveren/kint"
-    ]
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
