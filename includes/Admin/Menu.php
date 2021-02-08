@@ -123,9 +123,24 @@ class Menu
     public function active_modules($req_addon)
     {
         $modules = get_option("sdevs_wea_modules");
-        $active_modules = get_option("sdevs_wea_activated_modules");
+        $active_modules = get_option("sdevs_wea_activated_modules", []);
         foreach ($modules as $key => $value) {
             if ($key == $req_addon) {
+                if (isset($value['required'])) {
+                    $require = false;
+                    foreach ($active_modules as $active_key => $active_module) {
+                        if ($active_key === $value['required']) $require = true;
+                    }
+                    if (!$require) {
+                        $notices = get_option("sdevs_notices", []);
+                        array_push($notices, [
+                            "type" => "error",
+                            "msg" => "You need to activate <code>" . sdevs_get_module_name_by_key($value['required']) . "</code> module at first !!"
+                        ]);
+                        update_option("sdevs_notices", $notices);
+                        return;
+                    }
+                }
                 $module_path = SDEVS_WEA_ASSETS_PATH . "/modules/" . $key;
                 $filter_module_path = apply_filters('sdevs_wma_module_path', $module_path, $key, $value);
                 if (file_exists($filter_module_path)) {
