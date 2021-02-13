@@ -3,6 +3,7 @@
 namespace SpringDevs\WcEssentialAddons;
 
 use SpringDevs\WcEssentialAddons\Admin\Menu;
+use SpringDevs\WcEssentialAddons\Admin\Notices;
 use SpringDevs\WcEssentialAddons\Admin\Settings;
 
 /**
@@ -19,6 +20,7 @@ class Admin
         $this->dispatch_actions();
         new Menu;
         new Settings;
+        new Notices;
     }
 
     /**

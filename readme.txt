@@ -3,7 +3,7 @@ Contributors: naminbd, istiaqnirab
 Donate link: 
 Tags: Subscription, Booking, Coupon, Google Map, Bulk Itme, PDF Invoice, Product FAQ. 
 Requires at least: 4.0
-Tested up to: 5.5.6
+Tested up to: 5.6.1
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -27,15 +27,15 @@ Our dedicated research and development team is always studying to develop the be
 Whether you're selling digital or physical products through WooCommerce or you're using the portal as a service booking system; our WooCommerce add-on package can help you accomplish everything without needing any additional tool! Can't find what you're looking for? 💌 [Send us an email](https://springdevs.com/contact/) and we will make it happen 😃
 
 **Currently available modules**
-1. [WooCommerce Product and Service Booking](https://springdevs.com/features/woocommerce-booking/)
-2. [WooCommerce Product and Service Subscription](https://springdevs.com/features/woocommerce-subscription/)
-3. [PDF Invoices & Packing Slips](https://springdevs.com/features/pdf-invoice-packing-slips/)
-4. [Bulk Products Selling ](https://springdevs.com/features/bulk-product-selling/)
-5. [Tutor LMS Subscription](https://springdevs.com/features/tutor-lms-subscription/)
-6. [Advanced Coupon Codes for WooCommerce](https://springdevs.com/features/woocommerce-advanced-coupon/)
-7. [Google Map for WooCommerce](https://springdevs.com/features/woocommerce-google-map/)
-8. [Product FAQ for WooCommerce](https://springdevs.com/features/woocommerce-product-faq/)
-
+1. WooCommerce Product and Service Booking
+2. WooCommerce Product and Service Subscription
+3. PDF Invoices & Packing Slips
+4. Bulk Products Selling
+5. Tutor LMS Subscription 
+6. Advanced Coupon Codes for WooCommerce 
+7. Google Map for WooCommerce
+8. Product FAQ for WooCommerce
+For Module details, please [check her](https://springdevs.com)
 **Roadmap**
 You can have a look at the existing feature requests and plans in [our Trello board](https://trello.com/invite/b/dMZfJo7u/51c0fd916cb5afa81e6ff365afadc3db/roadmap-missing-addons-for-woocommerce). You can react to the existing plans and requests or create a new one.
 
@@ -57,14 +57,14 @@ You can have a look at the existing feature requests and plans in [our Trello bo
 == Screenshots ==
 
     1. Module List.   
-    2. Product Discount Coupon
-    3. Discount Coupon Setting 
-    4. Google Map Location add
-    5. Google Map Location Shortcode generator 
+    2. Product Subscription option 
+    3. Booking option
+    4. Bulk Product option
+    5. Product FAQ  
     6. Google Map Setting 
-    7. Product FAQ Tab for admin entry
-    8. Product Tab frontend. 
-    9. Woo Simple Booking input fields in product
+    7. Seeting for PDF Invoice
+    8. Setting for Packing Slips
+    9. Setting for Coupon 
 
 
 == Frequently Asked Questions ==
@@ -79,9 +79,13 @@ Yes, all the plugin features are based on the backend. So, there is no chance of
 
 == Changelog ==
 
+    = 1.0.7 =
+        * [new] Add Bulk product selling module!
+        * [m] Fix some major bugs
+        * [m] Improve UI
+
     = 1.0.6 =
         * [new] Add PDF Invoices & Packing Slips module!
-        * [new] Add Bulk Products Selling module
         * [new] Add Tutor LMS Subscription module
         * [m] Fix some major bugs
         * [m] Improve UI
