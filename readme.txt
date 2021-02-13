@@ -1,9 +1,9 @@
 === Missing Addons for WooCommerce ===
 Contributors: naminbd, istiaqnirab
 Donate link: 
-Tags: Subscription, Booking, Coupon, Google Map, Product FAQ. 
+Tags: Subscription, Booking, Coupon, Google Map, Bulk Itme, PDF Invoice, Product FAQ. 
 Requires at least: 4.0
-Tested up to: 5.5.1
+Tested up to: 5.5.6
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -13,9 +13,9 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-  Missing Addons for WooCommerce is the single plugin you will ever need to operate your WooCommerce powered website. It was all the powerful features such as [advanced coupon management](https://springdevs.com/features/woocommerce-advanced-coupon/), [product subscriptions](https://springdevs.com/features/woocommerce-subscription/), [product and service booking](https://springdevs.com/features/woocommerce-booking/), [Google map](https://springdevs.com/features/woocommerce-google-map/), [Product FAQ](https://springdevs.com/features/woocommerce-product-faq/), and many more modules coming by the end of this year!
+  Missing Addons for WooCommerce is the single plugin you will ever need to operate your WooCommerce powered website. It was all the powerful features such as [advanced coupon management](https://springdevs.com/features/woocommerce-advanced-coupon/), [product subscriptions](https://springdevs.com/features/woocommerce-subscription/), [product and service booking](https://springdevs.com/features/woocommerce-booking/), [Google map](https://springdevs.com/features/woocommerce-google-map/), [Product FAQ](https://springdevs.com/features/woocommerce-product-faq/), [PDF Invoices & Packing Slips](https://springdevs.com/features/pdf-invoice-packing-slips/), [Bulk Products Selling ](https://springdevs.com/features/bulk-product-selling/),[Tutor LMS Subscription](https://springdevs.com/features/tutor-lms-subscription/),   and many more modules coming by the end of this year!
 
-= 🚀 Optimized for Speed and Performance =
+= 🚀 Optimized for Speed and Performance = 
 All of the features are developed following PHP, WordPress, and WooCommerce standards to ensure the best performance and give you the best experience.
 
 = 🕵🏽‍♂️ Dedicated Research and Development Team =
@@ -29,9 +29,13 @@ Whether you're selling digital or physical products through WooCommerce or you'r
 **Currently available modules**
 1. [WooCommerce Product and Service Booking](https://springdevs.com/features/woocommerce-booking/)
 2. [WooCommerce Product and Service Subscription](https://springdevs.com/features/woocommerce-subscription/)
-3. [Advanced Coupon Codes for WooCommerce](https://springdevs.com/features/woocommerce-advanced-coupon/)
-4. [Google Map for WooCommerce](https://springdevs.com/features/woocommerce-google-map/)
-5. [Product FAQ for WooCommerce](https://springdevs.com/features/woocommerce-product-faq/)
+3. [PDF Invoices & Packing Slips](https://springdevs.com/features/pdf-invoice-packing-slips/)
+4. [Bulk Products Selling ](https://springdevs.com/features/bulk-product-selling/)
+5. [Tutor LMS Subscription](https://springdevs.com/features/tutor-lms-subscription/)
+6. [Advanced Coupon Codes for WooCommerce](https://springdevs.com/features/woocommerce-advanced-coupon/)
+7. [Google Map for WooCommerce](https://springdevs.com/features/woocommerce-google-map/)
+8. [Product FAQ for WooCommerce](https://springdevs.com/features/woocommerce-product-faq/)
+
 **Roadmap**
 You can have a look at the existing feature requests and plans in [our Trello board](https://trello.com/invite/b/dMZfJo7u/51c0fd916cb5afa81e6ff365afadc3db/roadmap-missing-addons-for-woocommerce). You can react to the existing plans and requests or create a new one.
 
@@ -74,6 +78,13 @@ Yes, you can just install our plugin and start using the features. But if there 
 Yes, all the plugin features are based on the backend. So, there is no chance of conflict with your theme. If you find anything broken, [please contact us](https://springdevs.com/contact/) immediately and we will be happy to help 🙂
 
 == Changelog ==
+
+    = 1.0.6 =
+        * [new] Add PDF Invoices & Packing Slips module!
+        * [new] Add Bulk Products Selling module
+        * [new] Add Tutor LMS Subscription module
+        * [m] Fix some major bugs
+        * [m] Improve UI
 
     = 1.0.5 =
         * [new] Pro Version Avaiable !!
