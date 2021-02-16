@@ -283,6 +283,12 @@ final class sdevs_wea_Main
                 "class" => "Sdevs_pips_main",
                 "file_path" =>  __DIR__ . '/modules/pdf-invoices-and-packing-slips/pdf-invoices-and-packing-slips.php'
             ],
+            "sms" => [
+                "name" => "SMS",
+                "desc" => __("Fully replace woocommerce email", "sdevs_wea"),
+                "class" => "Sdevs_sms_main",
+                "file_path" =>  __DIR__ . '/modules/sms/sms.php'
+            ],
             "bulk-products-selling" => [
                 "name" => "Bulk Products Selling",
                 "desc" => __("Sell many products in one Like Group Product. But you can use single price here.", "sdevs_wea"),
