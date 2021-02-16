@@ -9,6 +9,9 @@
     text-align: left;
     padding-top: 25px;
     margin: 10px;
+    border: none;
+    box-shadow: 1px 1px 12px 0px #b0b9c19e;
+    position: relative;
 }
 
 .sdwma-pricing {
@@ -171,4 +174,123 @@ button.sdwma-pricing-action.feature {
 
 .sdwma-pricing-palden .sdwma-pricing-item--featured .sdwma-pricing-deco {
     padding: 5em 0 8.885em 0;
+}
+
+#bookable_order_meta_fields,
+#gmap_setting_info,
+#gmap_post_info,
+#gmap_location_settings,
+#gmap_locations_info,
+#sdwac_coupon_discount_box,
+#sdwac_coupon_rules_box {
+    box-shadow: rgba(0, 0, 0, 0.08) 1px -1px 10px 1px !important;
+    /* border: none; */
+}
+
+.sdevs-form label {
+    color: gray;
+}
+
+.sdevs-form label>strong {
+    color: #484747;
+}
+
+.sdevs-form select,
+.sdevs-form input {
+    border-color: #e0d6d6;
+    color: #72727d;
+    border-radius: 5px;
+}
+
+.sdevs-form textarea {
+    border-color: #e0d6d6;
+    color: #72727d;
+}
+
+.sdevs_th {
+    text-align: end !important;
+}
+
+.sdevs_panel {
+    padding: 15px 10px 10px 10px !important;
+}
+
+.sdevs_panel strong {
+    display: grid;
+    color: #23282d;
+    margin-left: 12px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.sdevs_panel label {
+    font-weight: 500 !important;
+}
+
+.sdevs-pro-badge {
+    background: #007cba;
+    color: white;
+    padding: 2px 7px;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.sdevs-pro-badge>span {
+    position: relative;
+    top: -2px;
+}
+
+.sdevs_sidebar_form>.form-field {
+    display: inline-grid;
+    width: 100%;
+    line-height: 3;
+}
+
+.sdevs-button {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.sdevs-primary-button {
+    color: white;
+    box-shadow: rgb(0, 103, 153) 0px 1px 0px;
+    text-shadow: rgb(0, 103, 153) 0px -1px 1px,
+    rgb(0, 103, 153) 1px 0px 1px,
+    rgb(0, 103, 153) 0px 1px 1px,
+    rgb(0, 103, 153) -1px 0px 1px;
+    background: rgb(0, 133, 186);
+    border-color: rgb(0, 115, 170) rgb(0, 103, 153) rgb(0, 103, 153);
+}
+
+.sdevs-primary-button:hover,
+.sdevs-primary-button:focus,
+.sdevs-primary-button:active {
+    color: white;
+}
+
+.sdevs-secondary-button {
+    background: #f7f7f7;
+    border-color: #cccccc;
+    -webkit-box-shadow: 0 1px 0 #cccccc;
+    box-shadow: 0 1px 0 #cccccc;
+    color: #555;
+}
+
+.sdevs-button:focus {
+    box-shadow: none;
 }

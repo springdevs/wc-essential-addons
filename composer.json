@@ -5,7 +5,7 @@
     "license": "GPLv2",
     "authors": [{
         "name": "SpringDevs",
-        "email": "contact@spingdevs.net"
+        "email": "contact@spingdevs.com"
     }],
     "minimum-stability": "dev",
     "require": {},
@@ -16,5 +16,8 @@
         "files": [
             "includes/functions.php"
         ]
+    },
+    "require-dev": {
+        "raveren/kint": "^3.1"
     }
 }

@@ -3,6 +3,8 @@
 namespace SpringDevs\WcEssentialAddons;
 
 use SpringDevs\WcEssentialAddons\Admin\Menu;
+use SpringDevs\WcEssentialAddons\Admin\Notices;
+use SpringDevs\WcEssentialAddons\Admin\Settings;
 
 /**
  * The admin class
@@ -17,6 +19,8 @@ class Admin
     {
         $this->dispatch_actions();
         new Menu;
+        new Settings;
+        new Notices;
     }
 
     /**
@@ -26,8 +30,9 @@ class Admin
      */
     public function dispatch_actions()
     {
-        add_action("admin_enqueue_scripts", function () {
-            wp_enqueue_style('sdwac_app_css');
+        add_filter('woocommerce_get_settings_pages', function ($settings) {
+            $settings[] = require_once __DIR__ . '/Utils/Settings.php';
+            return $settings;
         });
     }
 }

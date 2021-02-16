@@ -3,7 +3,7 @@
 Plugin Name: Missing Addons for WooCommerce
 Plugin URI: https://wordpress.org/plugins/wc-essential-addons/
 Description: Supercharge your WooCommerce powered store!
-Version: 1.0.5
+Version: 1.0.7
 Author: SpringDevs
 Author URI: https://springdevs.com/
 License: GPLv2
@@ -58,7 +58,7 @@ final class sdevs_wea_Main
      *
      * @var string
      */
-    const version = '1.0.5';
+    const version = '1.0.7';
 
     /**
      * Holds various class instances
@@ -273,9 +273,27 @@ final class sdevs_wea_Main
             ],
             "Woo-Advanced-Coupon" => [
                 "name" => "Coupons",
-                "desc" => __(" Create gift vouchers, store credits, special discounts based on the amount spent, etc.", "sdevs_wea"),
+                "desc" => __("Create gift vouchers, store credits, special discounts based on the amount spent, etc.", "sdevs_wea"),
                 "class" => "sdwac_coupon_main",
                 "file_path" =>  __DIR__ . '/modules/Woo-Advanced-Coupon/woo-advance-coupon.php'
+            ],
+            "pdf-invoices-and-packing-slips" => [
+                "name" => "PDF Invoices & Packing Slips",
+                "desc" => __("Create, print & email PDF invoices & packing slips for WooCommerce orders.", "sdevs_wea"),
+                "class" => "Sdevs_pips_main",
+                "file_path" =>  __DIR__ . '/modules/pdf-invoices-and-packing-slips/pdf-invoices-and-packing-slips.php'
+            ],
+            "bulk-products-selling" => [
+                "name" => "Bulk Products Selling",
+                "desc" => __("Sell many products in one Like Group Product. But you can use single price here.", "sdevs_wea"),
+                "class" => "Sdevs_bpselling",
+                "file_path" =>  __DIR__ . '/modules/bulk-products-selling/bulk-products-selling.php'
+            ],
+            "tutor-lms-subscription" => [
+                "name" => "Tutor LMS Subscription",
+                "desc" => __("Tutor LMS support to our subscription module", "sdevs_wea"),
+                "class" => "Sdevs_bpselling",
+                "file_path" =>  __DIR__ . '/modules/tutor-lms-subscription/tutor-lms-subscription.php'
             ],
             "easy-gmap" => [
                 "name" => "Google Map",

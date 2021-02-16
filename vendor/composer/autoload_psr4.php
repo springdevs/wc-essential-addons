@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'SpringDevs\\WcEssentialAddons\\' => array($baseDir . '/includes'),
+    'Kint\\' => array($vendorDir . '/raveren/kint/src'),
 );

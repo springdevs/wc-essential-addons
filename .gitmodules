@@ -1,0 +1,24 @@
+[submodule "modules/pdf-invoices-and-packing-slips"]
+	path = modules/pdf-invoices-and-packing-slips
+	url = https://github.com/springdevs/pdf-invoices-and-packing-slips.git
+[submodule "modules/easy-gmap"]
+	path = modules/easy-gmap
+	url = https://github.com/springdevs/Google-Map.git
+[submodule "modules/product-faq-tab"]
+	path = modules/product-faq-tab
+	url = https://github.com/springdevs/FAQ-Tabs.git
+[submodule "modules/Woo-Advanced-Coupon"]
+	path = modules/Woo-Advanced-Coupon
+	url = https://github.com/springdevs/Coupons.git
+[submodule "modules/simple-booking"]
+	path = modules/simple-booking
+	url = https://github.com/springdevs/Booking.git
+[submodule "modules/simple-subscription"]
+	path = modules/simple-subscription
+	url = https://github.com/springdevs/Subscription.git
+[submodule "modules/bulk-products-selling"]
+	path = modules/bulk-products-selling
+	url = https://github.com/springdevs/bulk-products-selling
+[submodule "modules/tutor-lms-subscription"]
+	path = modules/tutor-lms-subscription
+	url = https://github.com/springdevs/Tutor-LMS-Subscription
