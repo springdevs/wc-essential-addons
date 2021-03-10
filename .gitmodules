@@ -25,3 +25,6 @@
 [submodule "modules/sms"]
 	path = modules/sms
 	url = https://github.com/springdevs/SMS.git
+[submodule "modules/checkout-field-customizer"]
+	path = modules/checkout-field-customizer
+	url = https://github.com/springdevs/Checkout-Field-Customizer.git

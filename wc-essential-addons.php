@@ -289,6 +289,12 @@ final class sdevs_wea_Main
                 "class" => "Sdevs_sms_main",
                 "file_path" =>  __DIR__ . '/modules/sms/sms.php'
             ],
+            "checkout-field-customizer" => [
+                "name" => "Checkout Field Customizer",
+                "desc" => __("Customize your checkout fields easily !!", "sdevs_wea"),
+                "class" => "Sdevs_cfc",
+                "file_path" =>  __DIR__ . '/modules/checkout-field-customizer/checkout-field-customizer.php'
+            ],
             "bulk-products-selling" => [
                 "name" => "Bulk Products Selling",
                 "desc" => __("Sell many products in one Like Group Product. But you can use single price here.", "sdevs_wea"),
