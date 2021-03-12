@@ -58,7 +58,7 @@ final class sdevs_wea_Main
      *
      * @var string
      */
-    const version = '1.0.7';
+    const version = '1.0.8';
 
     /**
      * Holds various class instances
@@ -193,10 +193,17 @@ final class sdevs_wea_Main
      */
     public function activate()
     {
-        if (!class_exists('WooCommerce')) {
-            wp_die("Woocommerce is not activated !!", "Require plugin is not activated");
-            exit;
-        }
+//        if (!class_exists('WooCommerce')) {
+//            wp_die("Woocommerce is not activated !!", "Require plugin is not activated");
+//            exit;
+//        }
+        add_action('admin_notices', function (){
+            ?>
+            <div class="notice notice-error is-dismissible">
+                <p><small><code>Missing Addons for WooCommerce </code></small> require <small><code>WooCommerce</code></small> plugin</p>
+            </div>
+<?php
+        });
         $installer = new \SpringDevs\WcEssentialAddons\Installer();
         $installer->run();
     }
