@@ -182,7 +182,7 @@ final class sdevs_wea_Main
     public function deactivation_notice()
     {
         echo '<div class="notice notice-error is-dismissible">
-             <p><small><code>Missing Addons for WooCommerce </code></small> plugin is <b>Deactivated !!</b> It\'s require <small><code>WooCommerce</code></small> plugin</p>
+             <p><small><code>Missing Addons for WooCommerce</code></small> plugin is <b>Deactivated !!</b> It\'s require <small><code>WooCommerce</code></small> plugin</p>
          </div>';
     }
 
@@ -193,17 +193,10 @@ final class sdevs_wea_Main
      */
     public function activate()
     {
-//        if (!class_exists('WooCommerce')) {
-//            wp_die("Woocommerce is not activated !!", "Require plugin is not activated");
-//            exit;
-//        }
-        add_action('admin_notices', function (){
-            ?>
-            <div class="notice notice-error is-dismissible">
-                <p><small><code>Missing Addons for WooCommerce </code></small> require <small><code>WooCommerce</code></small> plugin</p>
-            </div>
-<?php
-        });
+        if (!class_exists('WooCommerce')) {
+            wp_die('Woocommerce is not activated !! <a href="'.admin_url('plugins.php').'">Go Back</a>', 'Require plugin is not activated');
+            exit;
+        }
         $installer = new \SpringDevs\WcEssentialAddons\Installer();
         $installer->run();
     }
