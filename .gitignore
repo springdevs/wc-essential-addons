@@ -2,7 +2,6 @@ plugin-deploy.sh
 export.sh
 nbproject
 node_modules
-build
 secret.json
 log.txt
 
@@ -10,7 +9,6 @@ log.txt
 ###################
 /dist
 /tmp
-/build
 
 # Dependencies #
 ###################

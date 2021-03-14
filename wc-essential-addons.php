@@ -3,7 +3,7 @@
 Plugin Name: Missing Addons for WooCommerce
 Plugin URI: https://wordpress.org/plugins/wc-essential-addons/
 Description: Supercharge your WooCommerce powered store!
-Version: 1.0.7
+Version: 1.0.8
 Author: SpringDevs
 Author URI: https://springdevs.com/
 License: GPLv2
@@ -58,7 +58,7 @@ final class sdevs_wea_Main
      *
      * @var string
      */
-    const version = '1.0.7';
+    const version = '1.0.8';
 
     /**
      * Holds various class instances
@@ -182,7 +182,7 @@ final class sdevs_wea_Main
     public function deactivation_notice()
     {
         echo '<div class="notice notice-error is-dismissible">
-             <p><small><code>Missing Addons for WooCommerce </code></small> plugin is <b>Deactivated !!</b> It\'s require <small><code>WooCommerce</code></small> plugin</p>
+             <p><small><code>Missing Addons for WooCommerce</code></small> plugin is <b>Deactivated !!</b> It\'s require <small><code>WooCommerce</code></small> plugin</p>
          </div>';
     }
 
@@ -194,7 +194,7 @@ final class sdevs_wea_Main
     public function activate()
     {
         if (!class_exists('WooCommerce')) {
-            wp_die("Woocommerce is not activated !!", "Require plugin is not activated");
+            wp_die('Woocommerce is not activated !! <a href="'.admin_url('plugins.php').'">Go Back</a>', 'Require plugin is not activated');
             exit;
         }
         $installer = new \SpringDevs\WcEssentialAddons\Installer();
@@ -282,6 +282,18 @@ final class sdevs_wea_Main
                 "desc" => __("Create, print & email PDF invoices & packing slips for WooCommerce orders.", "sdevs_wea"),
                 "class" => "Sdevs_pips_main",
                 "file_path" =>  __DIR__ . '/modules/pdf-invoices-and-packing-slips/pdf-invoices-and-packing-slips.php'
+            ],
+            "sms" => [
+                "name" => "SMS",
+                "desc" => __("Fully replace woocommerce email", "sdevs_wea"),
+                "class" => "Sdevs_sms_main",
+                "file_path" =>  __DIR__ . '/modules/sms/sms.php'
+            ],
+            "checkout-field-customizer" => [
+                "name" => "Checkout Field Customizer",
+                "desc" => __("Customize your checkout fields easily !!", "sdevs_wea"),
+                "class" => "Sdevs_cfc",
+                "file_path" =>  __DIR__ . '/modules/checkout-field-customizer/checkout-field-customizer.php'
             ],
             "bulk-products-selling" => [
                 "name" => "Bulk Products Selling",
