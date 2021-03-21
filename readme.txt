@@ -79,6 +79,27 @@ Yes, all the plugin features are based on the backend. So, there is no chance of
 
 == Changelog ==
 
+    = 1.0.8 = 
+        * [new] add SMS module
+        * [new] add checkout field customizer module
+        * [fix] No way to go back plugins page when plugin display die message due to WooCommerce not activate !!
+        * [fix] When deactivate `woocommerce` plugin , Class "WC_Payment_Gateway" not found in booking module !!
+        * [fix] When deactivate `woocommerce` plugin , Class "WC_Product_Simple” not found in bulk product selling module !!
+        * [fix] Default Coupon Fixed cart / Product discount not working (coupon module)!!
+        * [fix] Booking Non-confirmation product add to cart wrong notice message (booking module).
+        * [fix] Subscription renew button not showing after manually expired (subscription module)!!
+        * [fix] Settings page problem , not display fields without activate coupon modules.
+        * [fix] Booking Fields issue . It’s broken in product add or edit page first time (booking module) .
+        * [fix] Subscription price not showing when coupon module is activate (coupon module).
+        * [fix] Invoice module composer errors . Cannot generate or preview invoice (invoice module).
+        * [fix] Cannot checkout for Invoice module composer bug (invoice module).
+        * [fix] Hide related subscription meta box when order has not contain any subscription products (subscription module).
+        * [fix] Coupon price not working in checkout (coupon module).
+        * [m] Combine Order & Booking Status changing (booking module).
+        * [m] Need to display a renewal order notice (subscription module).
+        * [m] Booking Product request only one time (booking module).
+
+
     = 1.0.7 =
         * [new] Add Bulk product selling module!
         * [m] Fix some major bugs
@@ -92,8 +113,8 @@ Yes, all the plugin features are based on the backend. So, there is no chance of
 
     = 1.0.5 =
         * [new] Pro Version Avaiable !!
-        * [m] Renew Features improved [ subscription ]
         * [new] ADD subscription settings.
+        * [m] Renew Features improved [ subscription ]
         * [m] Merge WooCommerce coupon with ours.
         * [m] Fix some major bugs   
 
