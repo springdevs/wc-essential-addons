@@ -1,9 +1,9 @@
 === Missing Addons for WooCommerce ===
 Contributors: naminbd, istiaqnirab
-Donate link: 
-Tags: Subscription, Booking, Coupon, Google Map, Bulk Itme, PDF Invoice, Product FAQ. 
+Donate link:
+Tags: Subscription, Booking, Coupon, Google Map, Bulk Itme, PDF Invoice, Product FAQ.
 Requires at least: 4.0
-Tested up to: 5.6.1
+Tested up to: 5.7
 Stable tag: trunk
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -15,7 +15,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
   Missing Addons for WooCommerce is the single plugin you will ever need to operate your WooCommerce powered website. It was all the powerful features such as [advanced coupon management](https://springdevs.com/features/woocommerce-advanced-coupon/), [product subscriptions](https://springdevs.com/features/woocommerce-subscription/), [product and service booking](https://springdevs.com/features/woocommerce-booking/), [Google map](https://springdevs.com/features/woocommerce-google-map/), [Product FAQ](https://springdevs.com/features/woocommerce-product-faq/), [PDF Invoices & Packing Slips](https://springdevs.com/features/pdf-invoice-packing-slips/), [Bulk Products Selling ](https://springdevs.com/features/bulk-product-selling/),[Tutor LMS Subscription](https://springdevs.com/features/tutor-lms-subscription/),   and many more modules coming by the end of this year!
 
-= 🚀 Optimized for Speed and Performance = 
+= 🚀 Optimized for Speed and Performance =
 All of the features are developed following PHP, WordPress, and WooCommerce standards to ensure the best performance and give you the best experience.
 
 = 🕵🏽‍♂️ Dedicated Research and Development Team =
@@ -30,12 +30,14 @@ Whether you're selling digital or physical products through WooCommerce or you'r
 1. WooCommerce Product and Service Booking
 2. WooCommerce Product and Service Subscription
 3. PDF Invoices & Packing Slips
-4. Bulk Products Selling
-5. Tutor LMS Subscription 
-6. Advanced Coupon Codes for WooCommerce 
-7. Google Map for WooCommerce
-8. Product FAQ for WooCommerce
-For Module details, please [check her](https://springdevs.com)
+4. Checkout Fields Customizer
+5. Bulk Products Selling
+6. Tutor LMS Subscription
+7. Advanced Coupon Codes for WooCommerce
+8. Google Map for WooCommerce
+9. Product FAQ for WooCommerce
+For Module details, please [check here](https://springdevs.com/woocommerce-addons/)
+
 **Roadmap**
 You can have a look at the existing feature requests and plans in [our Trello board](https://trello.com/invite/b/dMZfJo7u/51c0fd916cb5afa81e6ff365afadc3db/roadmap-missing-addons-for-woocommerce). You can react to the existing plans and requests or create a new one.
 
@@ -52,19 +54,19 @@ You can have a look at the existing feature requests and plans in [our Trello bo
         1. Upload the entire `Missing Addons for WooCommerce` folder to the `/wp-content/plugins/` directory.
         2. Visit 'Plugins'.
         3. Activate the `Missing Addons for WooCommerce` plugin.
-	
+
 
 == Screenshots ==
 
-    1. Module List.   
-    2. Product Subscription option 
+    1. Module List.
+    2. Product Subscription option
     3. Booking option
     4. Bulk Product option
-    5. Product FAQ  
-    6. Google Map Setting 
+    5. Product FAQ
+    6. Google Map Setting
     7. Seeting for PDF Invoice
     8. Setting for Packing Slips
-    9. Setting for Coupon 
+    9. Setting for Coupon
 
 
 == Frequently Asked Questions ==
@@ -79,7 +81,7 @@ Yes, all the plugin features are based on the backend. So, there is no chance of
 
 == Changelog ==
 
-    = 1.0.8 = 
+    = 1.0.8 =
         * [new] add SMS module
         * [new] add checkout field customizer module
         * [fix] No way to go back plugins page when plugin display die message due to WooCommerce not activate !!
@@ -116,14 +118,14 @@ Yes, all the plugin features are based on the backend. So, there is no chance of
         * [new] ADD subscription settings.
         * [m] Renew Features improved [ subscription ]
         * [m] Merge WooCommerce coupon with ours.
-        * [m] Fix some major bugs   
+        * [m] Fix some major bugs
 
     = 1.0.4 =
-        * [new] Add some hooks and filter for extend plugin  
+        * [new] Add some hooks and filter for extend plugin
         * [m]  Fixed some bugs
 
     = 1.0.3 =
-        * [m] Update Module list style 
+        * [m] Update Module list style
         * [m] Added new hooks in modules
 
      = 1.0.2 =
