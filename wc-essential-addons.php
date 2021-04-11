@@ -3,7 +3,7 @@
 Plugin Name: Missing Addons for WooCommerce
 Plugin URI: https://wordpress.org/plugins/wc-essential-addons/
 Description: Supercharge your WooCommerce powered store!
-Version: 1.0.8
+Version: 1.0.9
 Author: SpringDevs
 Author URI: https://springdevs.com/
 License: GPLv2
@@ -58,7 +58,7 @@ final class sdevs_wea_Main
      *
      * @var string
      */
-    const version = '1.0.8';
+    const version = '1.0.9';
 
     /**
      * Holds various class instances
@@ -194,7 +194,7 @@ final class sdevs_wea_Main
     public function activate()
     {
         if (!class_exists('WooCommerce')) {
-            wp_die('Woocommerce is not activated !! <a href="'.admin_url('plugins.php').'">Go Back</a>', 'Require plugin is not activated');
+            wp_die('Woocommerce is not activated !! <a href="' . admin_url('plugins.php') . '">Go Back</a>', 'Require plugin is not activated');
             exit;
         }
         $installer = new \SpringDevs\WcEssentialAddons\Installer();
@@ -300,6 +300,12 @@ final class sdevs_wea_Main
                 "desc" => __("Sell many products in one Like Group Product. But you can use single price here.", "sdevs_wea"),
                 "class" => "Sdevs_bpselling",
                 "file_path" =>  __DIR__ . '/modules/bulk-products-selling/bulk-products-selling.php'
+            ],
+            "product-sharing-buttons" => [
+                "name" => "Product Sharing Buttons",
+                "desc" => __("Social Share buttons on woocommerce products.", "sdevs_wea"),
+                "class" => "Sdevs_social_share",
+                "file_path" =>  __DIR__ . '/modules/product-sharing-buttons/product-sharing-buttons.php'
             ],
             "tutor-lms-subscription" => [
                 "name" => "Tutor LMS Subscription",

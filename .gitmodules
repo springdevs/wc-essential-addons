@@ -28,3 +28,6 @@
 [submodule "modules/checkout-field-customizer"]
 	path = modules/checkout-field-customizer
 	url = https://github.com/springdevs/Checkout-Field-Customizer.git
+[submodule "modules/product-sharing-buttons"]
+	path = modules/product-sharing-buttons
+	url = https://github.com/springdevs/Product-Sharing-Buttons.git
