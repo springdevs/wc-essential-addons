@@ -80,7 +80,7 @@ final class sdevs_wea_Main
         register_activation_hook(__FILE__, [$this, 'activate']);
         register_deactivation_hook(__FILE__, [$this, 'deactivate']);
 
-        if (is_plugin_active('wooocommerce/wooocommerce.php')) $this->getModules();
+        $this->getModules();
 
         add_action('plugins_loaded', [$this, 'init_plugin']);
     }
