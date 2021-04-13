@@ -1,179 +1,179 @@
 .sdwac_addon_lists {
-    display: flex;
-    min-height: 400px;
-    flex-wrap: wrap;
+  display: flex;
+  min-height: 400px;
+  flex-wrap: wrap;
 }
 
 .card.sdwac_addon_item {
-    width: 45%;
-    text-align: left;
-    padding-top: 25px;
-    margin: 10px;
-    border: none;
-    box-shadow: 1px 1px 12px 0px #b0b9c19e;
-    position: relative;
+  width: 45%;
+  text-align: left;
+  padding-top: 25px;
+  margin: 10px;
+  border: none;
+  box-shadow: 1px 1px 12px 0px #b0b9c19e;
+  position: relative;
 }
 
 .sdwma-pricing {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-justify-content: center;
-    justify-content: center;
-    width: 100%;
-    margin: 0 auto 3em;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-justify-content: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto 3em;
 }
 
 .sdwma-pricing-item {
-    position: relative;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-align-items: stretch;
-    align-items: stretch;
-    text-align: center;
-    -webkit-flex: 0 1 330px;
-    flex: 0 1 330px;
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  text-align: center;
+  -webkit-flex: 0 1 330px;
+  flex: 0 1 330px;
 }
 
 .sdwma-pricing-action {
-    color: inherit;
-    border: none;
-    background: none;
-    cursor: pointer;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .sdwma-pricing-action:focus {
-    outline: none;
+  outline: none;
 }
 
 .sdwma-pricing-feature-list {
-    text-align: left;
+  text-align: left;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-item {
-    cursor: default;
-    color: #84697c;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(46, 59, 125, 0.23);
-    border-radius: 20px 20px 10px 10px;
-    margin: 1em;
+  cursor: default;
+  color: #84697c;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(46, 59, 125, 0.23);
+  border-radius: 20px 20px 10px 10px;
+  margin: 1em;
 }
 
 @media screen and (min-width: 66.25em) {
-    .sdwma-pricing-palden .sdwma-pricing-item {
-        margin: 1em -0.5em;
-    }
+  .sdwma-pricing-palden .sdwma-pricing-item {
+    margin: 1em -0.5em;
+  }
 
-    .sdwma-pricing-palden .sdwma-pricing__item--featured {
-        margin: 0;
-        z-index: 10;
-        box-shadow: 0 0 20px rgba(46, 59, 125, 0.23);
-    }
+  .sdwma-pricing-palden .sdwma-pricing__item--featured {
+    margin: 0;
+    z-index: 10;
+    box-shadow: 0 0 20px rgba(46, 59, 125, 0.23);
+  }
 }
 
 .sdwma-pricing-palden .sdwma-pricing-deco {
-    border-radius: 10px 10px 0 0;
-    background: linear-gradient(135deg, #4097f9, #0af0c7);
-    padding: 4em 0 9em;
-    position: relative;
+  border-radius: 10px 10px 0 0;
+  background: linear-gradient(135deg, #4097f9, #0af0c7);
+  padding: 4em 0 9em;
+  position: relative;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-deco-img {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 160px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 160px;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-title {
-    font-size: 20px;
-    margin: 0;
-    text-transform: uppercase;
-    color: #fff;
-    padding: 29px 0px;
+  font-size: 20px;
+  margin: 0;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 29px 0px;
 }
 
 button.sdwma-pricing-action.feature {
-    background: linear-gradient(135deg, #a23cfe8c, #7e45fe);
+  background: linear-gradient(135deg, #a23cfe8c, #7e45fe);
 }
 
 .sdwma-pricing-palden .deco-layer {
-    -webkit-transition: -webkit-transform 0.5s;
-    transition: transform 0.5s;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-item:hover .deco-layer--1 {
-    -webkit-transform: translate3d(15px, 0, 0);
-    transform: translate3d(15px, 0, 0);
+  -webkit-transform: translate3d(15px, 0, 0);
+  transform: translate3d(15px, 0, 0);
 }
 
 .sdwma-pricing-palden .sdwma-pricing-item:hover .deco-layer--2 {
-    -webkit-transform: translate3d(-15px, 0, 0);
-    transform: translate3d(-15px, 0, 0);
+  -webkit-transform: translate3d(-15px, 0, 0);
+  transform: translate3d(-15px, 0, 0);
 }
 
 .sdwma-pricing-palden .icon {
-    font-size: 2.5em;
+  font-size: 2.5em;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-price {
-    font-size: 5em;
-    font-weight: bold;
-    padding: 0;
-    color: #fff;
-    margin: 0 0 0.25em 0;
-    line-height: 0.75;
+  font-size: 5em;
+  font-weight: bold;
+  padding: 0;
+  color: #fff;
+  margin: 0 0 0.25em 0;
+  line-height: 0.75;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-currency {
-    vertical-align: top;
+  vertical-align: top;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-period {
-    font-size: 14px;
-    font-weight: normal;
-    -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  font-weight: normal;
+  -webkit-font-smoothing: antialiased;
 }
 
 .sdwma-pricing-palden .sdwma-pricing__sentence {
-    font-weight: bold;
-    margin: 0 0 1em 0;
-    padding: 0 0 0.5em;
+  font-weight: bold;
+  margin: 0 0 1em 0;
+  padding: 0 0 0.5em;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-feature-list {
-    margin: 0;
-    padding: 0.25em 0 2.5em;
-    list-style: none;
-    text-align: center;
+  margin: 0;
+  padding: 0.25em 0 2.5em;
+  list-style: none;
+  text-align: center;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-feature {
-    padding: 1em 0;
+  padding: 1em 0;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-action {
-    font-weight: bold;
-    margin: auto 3em 2em 3em;
-    padding: 1em 2em;
-    color: #fff;
-    border-radius: 30px;
-    background: linear-gradient(135deg, #3be9ff, #2fb5e9);
-    -webkit-transition: background-color 0.3s;
-    transition: background-color 0.3s;
+  font-weight: bold;
+  margin: auto 3em 2em 3em;
+  padding: 1em 2em;
+  color: #fff;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #3be9ff, #2fb5e9);
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
 }
 
 .sdwma-pricing-palden .sdwma-pricing-action:hover,
 .sdwma-pricing-palden .sdwma-pricing-action:focus {
-    background: linear-gradient(135deg, #fd7d57, #f55d59);
+  background: linear-gradient(135deg, #fd7d57, #f55d59);
 }
 
 .sdwma-pricing-palden .sdwma-pricing-item--featured .sdwma-pricing-deco {
-    padding: 5em 0 8.885em 0;
+  padding: 5em 0 8.885em 0;
 }
 
 #bookable_order_meta_fields,
@@ -183,114 +183,164 @@ button.sdwma-pricing-action.feature {
 #gmap_locations_info,
 #sdwac_coupon_discount_box,
 #sdwac_coupon_rules_box {
-    box-shadow: rgba(0, 0, 0, 0.08) 1px -1px 10px 1px !important;
-    /* border: none; */
+  box-shadow: rgba(0, 0, 0, 0.08) 1px -1px 10px 1px !important;
+  /* border: none; */
 }
 
 .sdevs-form label {
-    color: gray;
+  color: gray;
 }
 
-.sdevs-form label>strong {
-    color: #484747;
+.sdevs-form label > strong {
+  color: #484747;
 }
 
 .sdevs-form select,
 .sdevs-form input {
-    border-color: #e0d6d6;
-    color: #72727d;
-    border-radius: 5px;
+  border-color: #e0d6d6;
+  color: #72727d;
+  border-radius: 5px;
 }
 
 .sdevs-form textarea {
-    border-color: #e0d6d6;
-    color: #72727d;
+  border-color: #e0d6d6;
+  color: #72727d;
 }
 
 .sdevs_th {
-    text-align: end !important;
+  text-align: end !important;
 }
 
 .sdevs_panel {
-    padding: 15px 10px 10px 10px !important;
+  padding: 15px 10px 10px 10px !important;
 }
 
 .sdevs_panel strong {
-    display: grid;
-    color: #23282d;
-    margin-left: 12px;
-    margin-bottom: 15px;
-    font-weight: 600;
-    font-size: 14px;
+  display: grid;
+  color: #23282d;
+  margin-left: 12px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .sdevs_panel label {
-    font-weight: 500 !important;
+  font-weight: 500 !important;
 }
 
 .sdevs-pro-badge {
-    background: #007cba;
-    color: white;
-    padding: 2px 7px;
-    font-size: 12px;
-    position: absolute;
-    top: 0;
-    right: 0;
+  background: #007cba;
+  color: white;
+  padding: 2px 7px;
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
-.sdevs-pro-badge>span {
-    position: relative;
-    top: -2px;
+.sdevs-pro-badge > span {
+  position: relative;
+  top: -2px;
 }
 
-.sdevs_sidebar_form>.form-field {
-    display: inline-grid;
-    width: 100%;
-    line-height: 3;
+.sdevs_sidebar_form > .form-field {
+  display: inline-grid;
+  width: 100%;
+  line-height: 3;
 }
 
 .sdevs-button {
-    display: inline-block;
-    text-decoration: none;
-    font-size: 13px;
-    line-height: 2.15384615;
-    min-height: 30px;
-    margin: 0;
-    padding: 0 10px;
-    cursor: pointer;
-    border-width: 1px;
-    border-style: solid;
-    -webkit-appearance: none;
-    border-radius: 3px;
-    white-space: nowrap;
-    box-sizing: border-box;
+  display: inline-block;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 2.15384615;
+  min-height: 30px;
+  margin: 0;
+  padding: 0 10px;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  -webkit-appearance: none;
+  border-radius: 3px;
+  white-space: nowrap;
+  box-sizing: border-box;
 }
 
 .sdevs-primary-button {
-    color: white;
-    box-shadow: rgb(0, 103, 153) 0px 1px 0px;
-    text-shadow: rgb(0, 103, 153) 0px -1px 1px,
-    rgb(0, 103, 153) 1px 0px 1px,
-    rgb(0, 103, 153) 0px 1px 1px,
-    rgb(0, 103, 153) -1px 0px 1px;
-    background: rgb(0, 133, 186);
-    border-color: rgb(0, 115, 170) rgb(0, 103, 153) rgb(0, 103, 153);
+  color: white;
+  box-shadow: rgb(0, 103, 153) 0px 1px 0px;
+  text-shadow: rgb(0, 103, 153) 0px -1px 1px, rgb(0, 103, 153) 1px 0px 1px,
+    rgb(0, 103, 153) 0px 1px 1px, rgb(0, 103, 153) -1px 0px 1px;
+  background: rgb(0, 133, 186);
+  border-color: rgb(0, 115, 170) rgb(0, 103, 153) rgb(0, 103, 153);
 }
 
 .sdevs-primary-button:hover,
 .sdevs-primary-button:focus,
 .sdevs-primary-button:active {
-    color: white;
+  color: white;
 }
 
 .sdevs-secondary-button {
-    background: #f7f7f7;
-    border-color: #cccccc;
-    -webkit-box-shadow: 0 1px 0 #cccccc;
-    box-shadow: 0 1px 0 #cccccc;
-    color: #555;
+  background: #f7f7f7;
+  border-color: #cccccc;
+  -webkit-box-shadow: 0 1px 0 #cccccc;
+  box-shadow: 0 1px 0 #cccccc;
+  color: #555;
 }
 
 .sdevs-button:focus {
-    box-shadow: none;
+  box-shadow: none;
+}
+
+.sdevs-install-plugin {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 20px;
+}
+
+.sdevs-install-plugin > .sdevs-notice-icon {
+  margin-right: 25px;
+}
+
+.sdevs-install-plugin > .sdevs-notice-icon > img {
+  max-width: 64px;
+}
+
+.sdevs-notice-content {
+  flex-grow: 1;
+  padding: 20px 0px 20px 0px;
+}
+
+.sdevs-notice-content > h2 {
+  margin-bottom: 5px;
+  margin-top: 0;
+}
+
+.sdevs-notice-content > p {
+  margin: 0;
+}
+
+.sdevs-install-notice-button > a {
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.sdevs-loading-icon {
+  width: 17px;
+  height: 17px;
+  margin-right: 5px;
+  -webkit-animation: rotation 2s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
 }

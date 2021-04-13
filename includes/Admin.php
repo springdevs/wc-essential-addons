@@ -4,6 +4,7 @@ namespace SpringDevs\WcEssentialAddons;
 
 use SpringDevs\WcEssentialAddons\Admin\Menu;
 use SpringDevs\WcEssentialAddons\Admin\Notices;
+use SpringDevs\WcEssentialAddons\Admin\Required;
 use SpringDevs\WcEssentialAddons\Admin\Settings;
 
 /**
@@ -21,6 +22,7 @@ class Admin
         new Menu;
         new Settings;
         new Notices;
+        new Required;
     }
 
     /**

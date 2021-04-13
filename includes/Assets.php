@@ -94,7 +94,7 @@ class Assets
 
         $styles = [
             "sdwac_app_css" => [
-                "src" => $plugin_css_assets_path . "style.min.css"
+                "src" => $plugin_css_assets_path . "style.css"
             ]
         ];
 
