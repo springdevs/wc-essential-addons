@@ -9,8 +9,6 @@ $active_modules = get_option("sdevs_wea_activated_modules", []);
         <div class="sdwac_addon_lists">
             <?php
             foreach ($modules as $key => $value) :
-                $module_path = SDEVS_WEA_ASSETS_URL . "/modules/" . $key;
-                $filter_module_path = apply_filters('sdevs_wma_module_asset_path', $module_path, $key, $value);
             ?>
                 <div class="card sdwac_addon_item">
                     <h3><?php echo $value['name']; ?></h3>
