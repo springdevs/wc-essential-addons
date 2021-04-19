@@ -36,6 +36,8 @@ Whether you're selling digital or physical products through WooCommerce or you'r
 7. Advanced Coupon Codes for WooCommerce
 8. Google Map for WooCommerce
 9. Product FAQ for WooCommerce
+10. Product Sharing Buttons
+
 For Module details, please [check here](https://springdevs.com/woocommerce-addons/)
 
 **Roadmap**
