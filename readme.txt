@@ -81,6 +81,16 @@ Yes, all the plugin features are based on the backend. So, there is no chance of
 
 == Changelog ==
 
+    = 1.0.9 =
+       * [new] add Product Sharing Buttons module
+       * [fix] Default coupon types not working !!
+       * [fix] Wrong coupon discount value on admin order view !!
+       * [fix] Wrong order item price currency (invoice module) !!
+       * [fix] svn file upload issue
+       * [new] Allow to plugin activated even woo-commerce is not activated !
+       * [m] Optimized sms module
+
+
     = 1.0.8 =
         * [new] add SMS module
         * [new] add checkout field customizer module
