@@ -31,3 +31,6 @@
 [submodule "modules/product-sharing-buttons"]
 	path = modules/product-sharing-buttons
 	url = https://github.com/springdevs/Product-Sharing-Buttons.git
+[submodule "modules/advance-payment"]
+	path = modules/advance-payment
+	url = https://github.com/springdevs/advance-payment.git

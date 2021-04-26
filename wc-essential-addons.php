@@ -269,6 +269,12 @@ final class sdevs_wea_Main
                 "class" => "Sdevs_bpselling",
                 "file_path" =>  __DIR__ . '/modules/bulk-products-selling/bulk-products-selling.php'
             ],
+            "advance-payment" => [
+                "name" => "Advance Payment",
+                "desc" => __("charge a basic amount before shipping.", "sdevs_wea"),
+                "class" => "Sdevs_adv_payment",
+                "file_path" =>  __DIR__ . '/modules/advance-payment/advance-payment.php'
+            ],
             "product-sharing-buttons" => [
                 "name" => "Product Sharing Buttons",
                 "desc" => __("Social Share buttons on woocommerce products.", "sdevs_wea"),
