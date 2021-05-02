@@ -76,6 +76,7 @@ class Assets
         $scripts = [
             "sdmaw_custom" => [
                 "src" => $plugin_js_assets_path . "custom.js",
+                "deps" => ['jquery'],
                 "in_footer" => true
             ]
         ];
