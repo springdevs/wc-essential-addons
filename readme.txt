@@ -36,6 +36,8 @@ Whether you're selling digital or physical products through WooCommerce or you'r
 7. Advanced Coupon Codes for WooCommerce
 8. Google Map for WooCommerce
 9. Product FAQ for WooCommerce
+10. Product Sharing Buttons
+
 For Module details, please [check here](https://springdevs.com/woocommerce-addons/)
 
 **Roadmap**
@@ -80,6 +82,16 @@ Yes, you can just install our plugin and start using the features. But if there 
 Yes, all the plugin features are based on the backend. So, there is no chance of conflict with your theme. If you find anything broken, [please contact us](https://springdevs.com/contact/) immediately and we will be happy to help 🙂
 
 == Changelog ==
+
+    = 1.0.9 =
+       * [new] add Product Sharing Buttons module
+       * [fix] Default coupon types not working !!
+       * [fix] Wrong coupon discount value on admin order view !!
+       * [fix] Wrong order item price currency (invoice module) !!
+       * [fix] svn file upload issue
+       * [new] Allow to plugin activated even woo-commerce is not activated !
+       * [m] Optimized sms module
+
 
     = 1.0.8 =
         * [new] add SMS module

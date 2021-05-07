@@ -76,6 +76,7 @@ class Assets
         $scripts = [
             "sdmaw_custom" => [
                 "src" => $plugin_js_assets_path . "custom.js",
+                "deps" => ['jquery'],
                 "in_footer" => true
             ]
         ];
@@ -94,7 +95,7 @@ class Assets
 
         $styles = [
             "sdwac_app_css" => [
-                "src" => $plugin_css_assets_path . "style.min.css"
+                "src" => $plugin_css_assets_path . "style.css"
             ]
         ];
 

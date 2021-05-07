@@ -3,7 +3,7 @@
 Plugin Name: Missing Addons for WooCommerce
 Plugin URI: https://wordpress.org/plugins/wc-essential-addons/
 Description: Supercharge your WooCommerce powered store!
-Version: 1.0.8
+Version: 1.1.0
 Author: SpringDevs
 Author URI: https://springdevs.com/
 License: GPLv2
@@ -58,7 +58,7 @@ final class sdevs_wea_Main
      *
      * @var string
      */
-    const version = '1.0.8';
+    const version = '1.0.9';
 
     /**
      * Holds various class instances
@@ -76,9 +76,12 @@ final class sdevs_wea_Main
     private function __construct()
     {
         $this->define_constants();
+
         register_activation_hook(__FILE__, [$this, 'activate']);
         register_deactivation_hook(__FILE__, [$this, 'deactivate']);
-        $this->run_first();
+
+        $this->getModules();
+
         add_action('plugins_loaded', [$this, 'init_plugin']);
     }
 
@@ -151,39 +154,8 @@ final class sdevs_wea_Main
      */
     public function init_plugin()
     {
-        $this->checkPlugin();
         $this->includes();
         $this->init_hooks();
-    }
-
-    /**
-     * run these code always first
-     */
-    public function run_first()
-    {
-        new \SpringDevs\WcEssentialAddons\Update();
-        $this->getModules();
-    }
-
-    /**
-     * Check if WooCommerce Exixts
-     */
-    public function checkPlugin()
-    {
-        if (!class_exists('WooCommerce')) {
-            deactivate_plugins(plugin_basename(__FILE__));
-            add_action('admin_notices', [$this, 'deactivation_notice']);
-        }
-    }
-
-    /**
-     * Display Deactivation Notices
-     **/
-    public function deactivation_notice()
-    {
-        echo '<div class="notice notice-error is-dismissible">
-             <p><small><code>Missing Addons for WooCommerce</code></small> plugin is <b>Deactivated !!</b> It\'s require <small><code>WooCommerce</code></small> plugin</p>
-         </div>';
     }
 
     /**
@@ -193,10 +165,6 @@ final class sdevs_wea_Main
      */
     public function activate()
     {
-        if (!class_exists('WooCommerce')) {
-            wp_die('Woocommerce is not activated !! <a href="'.admin_url('plugins.php').'">Go Back</a>', 'Require plugin is not activated');
-            exit;
-        }
         $installer = new \SpringDevs\WcEssentialAddons\Installer();
         $installer->run();
     }
@@ -301,6 +269,18 @@ final class sdevs_wea_Main
                 "class" => "Sdevs_bpselling",
                 "file_path" =>  __DIR__ . '/modules/bulk-products-selling/bulk-products-selling.php'
             ],
+            "advance-payment" => [
+                "name" => "Advance Payment",
+                "desc" => __("charge a basic amount before shipping.", "sdevs_wea"),
+                "class" => "Sdevs_adv_payment",
+                "file_path" =>  __DIR__ . '/modules/advance-payment/advance-payment.php'
+            ],
+            "product-sharing-buttons" => [
+                "name" => "Product Sharing Buttons",
+                "desc" => __("Social Share buttons on woocommerce products.", "sdevs_wea"),
+                "class" => "Sdevs_social_share",
+                "file_path" =>  __DIR__ . '/modules/product-sharing-buttons/product-sharing-buttons.php'
+            ],
             "tutor-lms-subscription" => [
                 "name" => "Tutor LMS Subscription",
                 "desc" => __("Tutor LMS support to our subscription module", "sdevs_wea"),
@@ -345,7 +325,7 @@ final class sdevs_wea_Main
     public function init_classes()
     {
         if ($this->is_request('ajax')) {
-            // $this->container['ajax'] =  new WpAdroit\springdevs_wma\Ajax();
+            $this->container['ajax'] =  new \SpringDevs\WcEssentialAddons\Ajax();
         }
 
         $this->container['api']    = new \SpringDevs\WcEssentialAddons\Api();

@@ -21,6 +21,11 @@ class Menu
         add_action('admin_enqueue_scripts', function () {
             wp_enqueue_script('sdmaw_custom');
             wp_enqueue_style('sdwac_app_css');
+            wp_localize_script(
+                'sdmaw_custom',
+                'sdmaw_helper_obj',
+                array('ajax_url' => admin_url('admin-ajax.php'))
+            );
         });
     }
 
