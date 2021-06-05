@@ -10,11 +10,11 @@
 [submodule "modules/Woo-Advanced-Coupon"]
 	path = modules/Woo-Advanced-Coupon
 	url = https://github.com/springdevs/Coupons.git
-[submodule "modules/simple-booking"]
-	path = modules/simple-booking
+[submodule "modules/booking"]
+	path = modules/booking
 	url = https://github.com/springdevs/Booking.git
-[submodule "modules/simple-subscription"]
-	path = modules/simple-subscription
+[submodule "modules/subscription"]
+	path = modules/subscription
 	url = https://github.com/springdevs/Subscription.git
 [submodule "modules/bulk-products-selling"]
 	path = modules/bulk-products-selling
@@ -34,3 +34,6 @@
 [submodule "modules/advance-payment"]
 	path = modules/advance-payment
 	url = https://github.com/springdevs/advance-payment.git
+[submodule "modules/pre-order"]
+	path = modules/pre-order
+	url = https://github.com/springdevs/pre-order.git

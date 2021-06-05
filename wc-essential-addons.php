@@ -227,17 +227,23 @@ final class sdevs_wea_Main
     public function setModules()
     {
         $modules = [
-            "simple-subscription" => [
+            "subscription" => [
                 "name" => "Subscription",
                 "desc" => __("Allow your customers to order once and get their products and services every month/week.", "sdevs_wea"),
                 "class" => "Sdevs_Wc_Subscription",
-                "file_path" => __DIR__ . '/modules/simple-subscription/simple-subscription.php'
+                "file_path" => __DIR__ . '/modules/subscription/subscription.php'
             ],
-            "simple-booking" => [
+            "booking" => [
                 "name" => "Booking",
                 "desc" => __("Show available dates, time in a simple dropdown, take booking for products and services.", "sdevs_wea"),
                 "class" => "Sdevs_Wc_Booking",
-                "file_path" => __DIR__ . '/modules/simple-booking/simple-booking.php'
+                "file_path" => __DIR__ . '/modules/booking/booking.php'
+            ],
+            "pre-order" => [
+                "name" => "Pre-Order",
+                "desc" => __("Allow customers to pre-order from your store.", "sdevs_wea"),
+                "class" => "Sdevs_preorder",
+                "file_path" => __DIR__ . '/modules/pre-order/pre-order.php'
             ],
             "Woo-Advanced-Coupon" => [
                 "name" => "Coupons",
