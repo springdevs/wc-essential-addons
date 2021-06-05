@@ -7,8 +7,8 @@
 [submodule "modules/product-faq-tab"]
 	path = modules/product-faq-tab
 	url = https://github.com/springdevs/FAQ-Tabs.git
-[submodule "modules/Woo-Advanced-Coupon"]
-	path = modules/Woo-Advanced-Coupon
+[submodule "modules/coupons"]
+	path = modules/coupons
 	url = https://github.com/springdevs/Coupons.git
 [submodule "modules/booking"]
 	path = modules/booking

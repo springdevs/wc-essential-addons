@@ -245,11 +245,11 @@ final class sdevs_wea_Main
                 "class" => "Sdevs_preorder",
                 "file_path" => __DIR__ . '/modules/pre-order/pre-order.php'
             ],
-            "Woo-Advanced-Coupon" => [
+            "coupons" => [
                 "name" => "Coupons",
                 "desc" => __("Create gift vouchers, store credits, special discounts based on the amount spent, etc.", "sdevs_wea"),
                 "class" => "sdwac_coupon_main",
-                "file_path" =>  __DIR__ . '/modules/Woo-Advanced-Coupon/woo-advance-coupon.php'
+                "file_path" =>  __DIR__ . '/modules/coupons/coupons.php'
             ],
             "pdf-invoices-and-packing-slips" => [
                 "name" => "PDF Invoices & Packing Slips",
